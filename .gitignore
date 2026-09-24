@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.so
+exploit-*.avif
+result*.json
+lab/node_modules/
+lab/.next/
+lab/uploads/
