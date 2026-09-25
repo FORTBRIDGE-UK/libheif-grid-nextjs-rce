@@ -11,8 +11,7 @@ included lab or another system you are explicitly authorised to test.
 
 The exploit uses only the target's HTTP upload and image-optimization routes:
 
-1. It uploads a tokenised callback shared object under the image-looking name
-   `x.jpg`.
+1. It uploads a callback shared object under the image-looking name `x.jpg`.
 2. It repeatedly submits a donor AVIF until pixels returned by the optimizer
    disclose one unambiguous three-pointer libvips signature.
 3. It derives the randomized libvips base from those returned pixels.
@@ -20,8 +19,10 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
    plane to `memcpy@GOT - 16`.
 5. The first chosen-address row replaces `memcpy@GOT` with Node's fixed
    `unixDlOpen`; the next row supplies `uploads/x.jpg` in RSI.
-6. Loading the staged shared object sends a unique TCP callback to the
-   attacker. A crash or dropped HTTP request alone is never counted as RCE.
+6. Loading the staged shared object runs the fixed command `/usr/bin/id` and
+   returns its output over TCP. An internal per-attempt identifier prevents a
+   stale or unrelated callback from being counted as success; it is not the
+   command-execution proof.
 
 The final validation cohort succeeded in 10/10 fresh processes with ten
 different ASLR bases. See
@@ -110,9 +111,17 @@ A successful result contains:
 {
   "success": true,
   "callback": {
-    "data": "KAN2151_RCE_CALLBACK <per-run-token>\n"
+    "token_matched": true,
+    "proof_command": "/usr/bin/id",
+    "command_output": "uid=1000(research) gid=1000(research) groups=1000(research)"
   }
 }
+```
+
+The terminal also prints the result directly:
+
+```text
+[RCE] /usr/bin/id -> uid=1000(research) gid=1000(research) groups=1000(research)
 ```
 
 The optimizer request will usually end with a connection drop and the target
@@ -132,6 +141,7 @@ for context but are not success conditions.
 --library-name NAME       Staged filename (default: x.jpg)
 --remote-upload-dir DIR   Target-relative upload directory (default: uploads)
 --json-output FILE        Save the complete result
+--concise                 Omit the full JSON result from the terminal
 ```
 
 The complete target-relative library path, including its terminating NUL,
@@ -143,7 +153,7 @@ must fit in 16 bytes. The default `uploads/x.jpg` satisfies that constraint.
 exploit.py                         remote orchestrator and callback verifier
 rce_payload.py                     proven memcpy-GOT AVIF payload
 avif_grid.py                       lossless AV1 grid/ISO-BMFF generator
-callback/callback.c                tokenised, non-shell constructor proof
+callback/callback.c                fixed /usr/bin/id constructor proof
 payloads/leak-crop-donor-*.avif    returned-pixel information disclosure
 lab/                               version-pinned Next.js target
 evidence/                          debugger-free validation results
@@ -162,8 +172,9 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
 - The fixed Node and libvips offsets apply only to the tested binaries.
 - The low-16-bit plane-map redirection depends on the measured pinned sharp
   worker layout.
-- The PoC proves native execution with a network callback; it does not attempt
-  to keep the corrupted target process alive.
+- The PoC proves native execution by returning `/usr/bin/id` output; it does
+  not provide an arbitrary command interface or attempt to keep the corrupted
+  target process alive.
 
 ## Defensive guidance
 
