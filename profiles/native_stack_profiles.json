@@ -1,5 +1,5 @@
 {
-  "schema": 3,
+  "schema": 4,
   "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
   "profiles": {
     "node-25.8.1-sharp-0.34.4-linux-x64": {
@@ -19,20 +19,16 @@
         "upload_endpoint": "/api/upload",
         "optimize_endpoint": "/api/optimize",
         "upload_directory": "uploads",
-        "library_name": "x.jpg",
-        "max_library_path_bytes": 16
+        "script_name": "x",
+        "command_executable": "node",
+        "max_command_bytes": 16
       },
       "node": {
         "version": "25.8.1",
         "elf_type": "ET_EXEC",
         "filename": "node",
         "build_id": "36ff9f2b52694e1c5c56eb13a1acd5281a08edae",
-        "sha256": "b1d316a8ae095c4f4c159bb906bdd3e6a0ed6f7026a7a75dd00898f2cef24e41",
-        "unix_dl_open": {
-          "symbol": "unixDlOpen",
-          "address": "0x1fb95b0",
-          "bytes": "554889e54889f7be020100005de98ee97bfe"
-        }
+        "sha256": "b1d316a8ae095c4f4c159bb906bdd3e6a0ed6f7026a7a75dd00898f2cef24e41"
       },
       "libvips": {
         "version": "8.17.2",
@@ -47,6 +43,13 @@
           "symbol": "memcpy@GLIBC_2.14",
           "offset": "0xf83098",
           "relocation": "R_X86_64_JUMP_SLOT"
+        },
+        "control_target": {
+          "module": "libvips",
+          "symbol": "g_spawn_command_line_async",
+          "offset": "0x349a13",
+          "abi": "command_rdi_error_rsi",
+          "bytes": "534889f14889f331f64883ec2048c744241800000000488d"
         },
         "leak": {
           "anchors": [
@@ -123,7 +126,7 @@
         "grid_columns": 1,
         "canvas_stride": 64,
         "fake_node_local_row": 1,
-        "path_field_bytes": 16,
+        "command_field_bytes": 16,
         "write_target_backoff": 16,
         "preserved_prefix_bytes": 16,
         "chunk_header_offset": 16,

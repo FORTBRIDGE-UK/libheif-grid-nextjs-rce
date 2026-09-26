@@ -128,13 +128,6 @@ def verify_node(profile: NativeStackProfile, path: Path) -> None:
         command(str(path), "--version").strip().removeprefix("v"),
         node.version,
     )
-    require_equal(
-        f"Node {node.unix_dl_open_symbol} bytes",
-        elf_bytes_at_virtual_address(
-            path, node.unix_dl_open_address, len(node.unix_dl_open_bytes),
-        ),
-        node.unix_dl_open_bytes,
-    )
 
 
 def verify_libvips(profile: NativeStackProfile, path: Path) -> None:
@@ -155,6 +148,31 @@ def verify_libvips(profile: NativeStackProfile, path: Path) -> None:
     fields = matching[0]
     require_equal("libvips memcpy relocation", fields[2], libvips.memcpy_relocation)
     require_equal("libvips memcpy symbol", fields[4], libvips.memcpy_symbol)
+    target = libvips.control_target
+    symbols = command("readelf", "-Ws", str(path))
+    target_symbols = []
+    for line in symbols.splitlines():
+        fields = line.split()
+        if len(fields) < 8 or fields[-1].split("@", 1)[0] != target.symbol:
+            continue
+        if fields[3] == "FUNC" and fields[6] != "UND":
+            target_symbols.append(fields)
+    if len(target_symbols) != 1:
+        raise VerificationError(
+            "libvips control target did not identify exactly one function symbol",
+        )
+    require_equal(
+        "libvips control-target symbol offset",
+        int(target_symbols[0][1], 16),
+        target.offset,
+    )
+    require_equal(
+        f"libvips {target.symbol} bytes",
+        elf_bytes_at_virtual_address(
+            path, target.offset, len(target.bytes),
+        ),
+        target.bytes,
+    )
 
 
 def verify_package(path: Path, label: str, expected_name: str,

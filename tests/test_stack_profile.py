@@ -121,20 +121,36 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "must be 16"):
             load_manifest(path)
 
-    def test_unsafe_library_component_is_rejected(self) -> None:
+    def test_unsafe_script_component_is_rejected(self) -> None:
         path = self.mutate(
-            ("profiles", self.profile_id, "application", "library_name"),
-            "nested/x.jpg",
+            ("profiles", self.profile_id, "application", "script_name"),
+            "nested/x",
         )
         with self.assertRaisesRegex(ProfileError, "safe path component"):
             load_manifest(path)
 
     def test_header_injection_filename_is_rejected(self) -> None:
         path = self.mutate(
-            ("profiles", self.profile_id, "application", "library_name"),
-            'x.jpg"\r\nX-Evil: yes',
+            ("profiles", self.profile_id, "application", "script_name"),
+            'x"\r\nX-Evil: yes',
         )
         with self.assertRaisesRegex(ProfileError, "safe path component"):
+            load_manifest(path)
+
+    def test_unsafe_upload_directory_is_rejected(self) -> None:
+        path = self.mutate(
+            ("profiles", self.profile_id, "application", "upload_directory"),
+            "uploads/../tmp",
+        )
+        with self.assertRaisesRegex(ProfileError, "safe relative path"):
+            load_manifest(path)
+
+    def test_absolute_upload_directory_is_rejected(self) -> None:
+        path = self.mutate(
+            ("profiles", self.profile_id, "application", "upload_directory"),
+            "/tmp",
+        )
+        with self.assertRaisesRegex(ProfileError, "safe relative path"):
             load_manifest(path)
 
     def test_network_path_endpoint_is_rejected(self) -> None:
@@ -145,11 +161,63 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "absolute URL path"):
             load_manifest(path)
 
-    def test_pie_node_without_base_primitive_is_rejected(self) -> None:
+    def test_pie_node_is_allowed_when_control_target_is_in_libvips(self) -> None:
         path = self.mutate(
             ("profiles", self.profile_id, "node", "elf_type"), "ET_DYN",
         )
-        with self.assertRaisesRegex(ProfileError, "no Node PIE base-disclosure"):
+        self.assertEqual(
+            load_manifest(path).profiles[self.profile_id].node.elf_type,
+            "ET_DYN",
+        )
+
+    def test_unsupported_node_elf_type_is_rejected(self) -> None:
+        path = self.mutate(
+            ("profiles", self.profile_id, "node", "elf_type"), "ET_CORE",
+        )
+        with self.assertRaisesRegex(ProfileError, "ET_EXEC or ET_DYN"):
+            load_manifest(path)
+
+    def test_legacy_absolute_node_loader_is_rejected(self) -> None:
+        document = copy.deepcopy(self.document)
+        document["profiles"][self.profile_id]["node"]["unix_dl_open"] = {
+            "symbol": "unixDlOpen",
+            "address": "0x1fb95b0",
+            "bytes": "554889e54889f7be020100005de98ee97bfe",
+        }
+        with self.assertRaisesRegex(ProfileError, "unknown keys: unix_dl_open"):
+            load_manifest(self.write_manifest(document))
+
+    def test_control_target_must_be_in_libvips(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "control_target",
+                "module",
+            ),
+            "node",
+        )
+        with self.assertRaisesRegex(ProfileError, "must be libvips"):
+            load_manifest(path)
+
+    def test_control_target_requires_declared_calling_convention(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "control_target",
+                "abi",
+            ),
+            "unknown",
+        )
+        with self.assertRaisesRegex(ProfileError, "command_rdi_error_rsi"):
+            load_manifest(path)
+
+    def test_control_target_requires_validating_bytes(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "control_target",
+                "bytes",
+            ),
+            "0011",
+        )
+        with self.assertRaisesRegex(ProfileError, "at least eight bytes"):
             load_manifest(path)
 
     def test_unknown_profile_is_rejected(self) -> None:

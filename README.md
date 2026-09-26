@@ -2,7 +2,7 @@
 
 Working remote proof of concept that turns CVE-2026-32740 in the
 version-pinned Next.js/sharp image stack into a chosen-address write and a
-native-code callback.
+validated `/usr/bin/id` callback.
 
 This is a private Fortbridge research repository. Use it only against the
 included lab or another system you are explicitly authorised to test.
@@ -18,20 +18,21 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
 3. It scans those same pixels for a complete heap record tied to the recovered
    libvips base. The record must contain repeated peer pointers, an arena
    sentinel, three libvips references and a bounded related-pointer delta.
-4. It then uploads a callback shared object under the image-looking name
-   `x.jpg`.
-5. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
+4. It calculates a control target as the recovered libvips base plus the
+   profile-verified `g_spawn_command_line_async` offset.
+5. It uploads a short Node callback script as `uploads/x`.
+6. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
    plane to `memcpy@GOT - 16`.
-6. The first chosen-address row replaces `memcpy@GOT` with Node's fixed
-   `unixDlOpen`; the next row supplies `uploads/x.jpg` in RSI.
-7. Loading the staged shared object runs the fixed command `/usr/bin/id` and
-   returns its output over TCP. An internal per-attempt identifier prevents a
+7. The first chosen-address row stores `node uploads/x` immediately before the
+   GOT slot and replaces `memcpy@GOT` with the derived libvips helper. The next
+   row calls that helper with the command already in RDI.
+8. The staged script runs the fixed command `/usr/bin/id` and returns its
+   output over TCP. An internal per-attempt identifier prevents a
    stale or unrelated callback from being counted as success; it is not the
    command-execution proof.
 
-The heap-calibrated validation cohort succeeded in 10/10 fresh processes with
-ten different ASLR bases. See
-[`evidence/heap-calibrated-rce-10x.json`](evidence/heap-calibrated-rce-10x.json).
+The libvips-relative validation cohort is recorded in
+[`evidence/libvips-control-target-rce-10x.json`](evidence/libvips-control-target-rce-10x.json).
 
 ## Tested stack
 
@@ -42,19 +43,27 @@ ten different ASLR bases. See
 - bundled libheif 1.20.2
 - Linux x86-64 with ASLR and NX enabled
 
-The Node helper address, libvips relocation offset and heap relationships are
-build-specific. They live in a strict, versioned native-stack profile rather
-than in the exploit source. The profile no longer contains a fixed fake-node
-low word. This repository fails closed when a profile is malformed, returned
-pixels do not select exactly one supported profile/base pair, or heap evidence
-does not produce one structurally supported selector.
+The published cohort uses the exact Node 25.8.1 artifact above. The new control
+target was also exercised successfully with a PIE Node 22 process through the
+same HTTP routes after isolating the control-target variable. That proof
+recovered the randomized libvips base from returned pixels and used the same
+`0x349a13` helper offset; no Node address was part of either payload. It does
+not declare the different Node 22 heap layout supported by the delivered heap
+calibrator.
+
+The control target no longer depends on the Node executable type or address.
+The profile contains a libvips-relative helper offset, validating bytes, ABI,
+the `memcpy` relocation and heap relationships. It contains neither a fixed
+Node loader address nor a fixed fake-node low word. The exploit fails closed
+when a profile is malformed, returned pixels do not select exactly one
+supported profile/base pair, or heap evidence does not produce one
+structurally supported selector.
 
 ## Requirements
 
 - Linux x86-64
 - Python 3.11 or later
 - `ffmpeg` with the `libaom-av1` encoder
-- a C compiler available as `cc`
 - an IPv4 callback address reachable from the target
 - Node.js 25.8.1 and npm to run the included lab
 
@@ -130,6 +139,17 @@ A successful result contains:
   "success": true,
   "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
   "libvips_base": "0x7f1234400000",
+  "control_target": {
+    "module": "libvips",
+    "module_base": "0x7f1234400000",
+    "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+    "symbol": "g_spawn_command_line_async",
+    "offset": "0x349a13",
+    "address": "0x7f1234749a13",
+    "derivation": "0x7f1234400000 + 0x349a13 = 0x7f1234749a13",
+    "abi": "command_rdi_error_rsi",
+    "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d"
+  },
   "heap_calibration": {
     "derived_selector": "0x5970",
     "minimum_observations": 1,
@@ -181,7 +201,7 @@ for context but are not success conditions.
 
 ```text
 --target URL              Target base URL (required)
---callback-host IPV4      Address embedded in the uploaded library (required)
+--callback-host IPV4      Address embedded in the uploaded script (required)
 --callback-port PORT      Callback and listener port (default: 31337)
 --listen-host IPV4        Local bind address (default: 0.0.0.0)
 --leak-attempts N         Maximum donor requests (default: 64)
@@ -189,24 +209,24 @@ for context but are not success conditions.
 --trigger-timeout SEC     Optimizer request timeout (default: 20)
 --profile-manifest FILE   Profile manifest (default: repository manifest)
 --profile ID              Restrict classification to one exact profile
---library-name NAME       Override the profile's staged filename
+--script-name NAME        Override the profile's staged callback filename
 --remote-upload-dir DIR   Override the profile's upload directory
 --json-output FILE        Save the complete result
 --concise                 Omit the full JSON result from the terminal
 ```
 
-The complete target-relative library path, including its terminating NUL,
-must fit the selected profile's path field. The default `uploads/x.jpg`
-satisfies the pinned profile's 16-byte constraint.
+The complete command, including its terminating NUL, must fit the selected
+profile's command field. The default `node uploads/x` satisfies the pinned
+profile's 16-byte constraint.
 
 ## Native-stack profiles
 
 [`profiles/native_stack_profiles.json`](profiles/native_stack_profiles.json)
 binds one exploit layout to exact artifacts and ABI measurements. The pinned
 profile identifies Node, Next.js, sharp, libvips, libheif, glibc and
-libstdc++, then records the loader helper, GOT relocation, returned-pointer
-anchors, forged red-black-tree/ImagePlane layout, heap-record relation, tile
-geometry and application paths.
+libstdc++, then records the libvips control helper, GOT relocation,
+returned-pointer anchors, forged red-black-tree/ImagePlane layout, heap-record
+relation, tile geometry and application paths.
 
 The runtime loader rejects unknown or missing fields, malformed numbers and
 digests, unsafe paths, and inconsistent geometry before making an HTTP request.
@@ -223,7 +243,7 @@ Server, framework, image-geometry, OS, and glibc hints are supporting metadata
 only. They are recorded in the result but never identify a binary and never
 resolve an ambiguous pointer signature. If evidence is missing, incomplete,
 mismatched, unknown, or supports more than one pair, the exploit stops before
-compiling or uploading the callback library and before generating, uploading,
+rendering or uploading the callback script and before generating, uploading,
 or triggering the final AVIF.
 
 The regression suite includes an exact second-build response fixture from
@@ -247,7 +267,7 @@ signed page-to-fake-node relation. This removes harmless sub-page allocator
 shifts from the calculation. The record itself supplies repeated heap-pointer
 observations and three independent libvips-relative checks. If no complete
 record exists, or multiple derived values independently reach the configured
-threshold, the exploit stops before it uploads either the callback library or
+threshold, the exploit stops before it uploads either the callback script or
 the destructive AVIF.
 
 Verify a local stack against every declared identity before using its profile:
@@ -264,10 +284,10 @@ python3 tools/verify_profile_artifacts.py \
   --versions-json lab/node_modules/@img/sharp-libvips-linux-x64/versions.json
 ```
 
-This offline verifier checks hashes, ELF build IDs and type, Node version and
-loader bytes, the libvips `memcpy` jump slot, npm package versions, and bundled
-libvips/libheif versions. It is deliberately not imported or run by the remote
-exploit.
+This offline verifier checks hashes, ELF build IDs and type, Node version, the
+libvips `memcpy` jump slot, the control-target symbol and bytes, npm package
+versions, and bundled libvips/libheif versions. It is deliberately not
+imported or run by the remote exploit.
 
 Run the regression suite and fresh-process cohort with:
 
@@ -280,6 +300,7 @@ python3 scripts/fresh_process_cohort.py --lifetimes 10
 
 ```text
 exploit.py                         remote orchestrator and callback verifier
+control_target.py                  libvips base-plus-offset target derivation
 profile_classifier.py              pure returned-pixel profile/base classifier
 heap_calibrator.py                  repeated returned-pixel heap calibration
 rce_payload.py                     proven memcpy-GOT AVIF payload
@@ -290,7 +311,7 @@ scripts/fresh_process_cohort.py    stock fresh-process validation harness
 tests/                             strict-loader and exploit regressions
 tests/fixtures/                    exact cross-build returned-pixel evidence
 avif_grid.py                       lossless AV1 grid/ISO-BMFF generator
-callback/callback.c                fixed /usr/bin/id constructor proof
+callback/callback.js               fixed /usr/bin/id callback template
 payloads/leak-crop-donor-*.avif    returned-pixel information disclosure
 lab/                               version-pinned Next.js target
 evidence/                          debugger-free validation results
@@ -301,12 +322,13 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
 
 ## Scope and limitations
 
-- The target needs an upload path that preserves an attacker-chosen file in a
-  location reachable by `dlopen`, plus a sharp optimization path for AVIF.
-- The included lab accepts an ELF shared object named `x.jpg`. Strong magic
-  validation, generated storage names, or an upload directory outside the
-  application working directory can break the staging step.
-- The fixed Node and libvips offsets apply only to the tested binaries.
+- The target needs an upload path that preserves an attacker-chosen script in
+  a location reachable from the application working directory, plus a sharp
+  optimization path for AVIF.
+- The included lab accepts the staged script as `uploads/x`. Strong magic
+  validation or generated storage names can break the staging step.
+- The libvips offset applies only to the exact verified libvips artifact. The
+  runtime address is always calculated from remotely returned pointers.
 - The low-16-bit plane-map redirection depends on a profile-specific returned
   heap-record shape and anchor-page-to-fake-node relation.
 - The PoC proves native execution by returning `/usr/bin/id` output; it does
@@ -323,8 +345,8 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
   the application working directory on a `noexec` mount.
 - Run image decoding in a disposable, least-privileged worker without secrets
   or unrestricted outbound network access.
-- Monitor native image workers for crashes and unexpected `dlopen` or file
-  access against upload directories.
+- Monitor native image workers for crashes, unexpected process creation, or
+  file access against upload directories.
 
 ## Reproducibility rules
 

