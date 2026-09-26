@@ -142,7 +142,7 @@ def main() -> int:
     parser.add_argument("--leak-attempts", type=int, default=64)
     parser.add_argument(
         "--output", type=Path,
-        default=HERE / "evidence/libvips-control-target-rce-10x.json",
+        default=HERE / "evidence/libvips-gmodule-rce-10x.json",
     )
     args = parser.parse_args()
     if args.lifetimes < 1:

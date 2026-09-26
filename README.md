@@ -19,20 +19,27 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
    libvips base. The record must contain repeated peer pointers, an arena
    sentinel, three libvips references and a bounded related-pointer delta.
 4. It calculates a control target as the recovered libvips base plus the
-   profile-verified `g_spawn_command_line_async` offset.
-5. It uploads a short Node callback script as `uploads/x`.
+   profile-verified internal `g_module_open_full` offset.
+5. On the attacker machine, it compiles a small shared object whose constructor
+   runs the fixed command `/usr/bin/id`. It sends that ELF through the public
+   upload route under the image name `x.jpg` and media type `image/jpeg`.
 6. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
    plane to `memcpy@GOT - 16`.
-7. The first chosen-address row stores `node uploads/x` immediately before the
-   GOT slot and replaces `memcpy@GOT` with the derived libvips helper. The next
-   row calls that helper with the command already in RDI.
-8. The staged script runs the fixed command `/usr/bin/id` and returns its
-   output over TCP. An internal per-attempt identifier prevents a
-   stale or unrelated callback from being counted as success; it is not the
-   command-execution proof.
+7. The first chosen-address row stores `uploads/x.jpg` immediately before the
+   GOT slot and replaces `memcpy@GOT` with the derived GModule loader. The next
+   row calls that loader with the library path already in RDI.
+8. Loading the shared object invokes its constructor, which returns the
+   `/usr/bin/id` output over TCP. A per-attempt token prevents a stale callback
+   from being counted as success; the returned `uid=...` line is the proof.
+
+No JavaScript or shell script is uploaded. The only non-AVIF upload is the
+permitted native library, delivered through the same public image-upload route
+under an image filename.
 
 The libvips-relative validation cohort is recorded in
-[`evidence/libvips-control-target-rce-10x.json`](evidence/libvips-control-target-rce-10x.json).
+[`evidence/libvips-gmodule-rce-10x.json`](evidence/libvips-gmodule-rce-10x.json).
+All ten fresh processes returned valid `/usr/bin/id` output with ten distinct
+randomized libvips bases and ten independently derived loader addresses.
 
 ## Tested stack
 
@@ -43,36 +50,27 @@ The libvips-relative validation cohort is recorded in
 - bundled libheif 1.20.2
 - Linux x86-64 with ASLR and NX enabled
 
-The published end-to-end cohort uses the exact non-PIE Node 25.8.1 artifact
-above. A second diagnostic cohort used an upstream Node 25.8.1 `ET_DYN` build
-with build ID `c52fa8d905d7eab79d16c17215f1618f1b8a4429` and SHA-256
-`4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c`.
-Across ten fresh PIE processes, all ten runs recovered a different randomized
-libvips base, calculated a different `g_spawn_command_line_async` address, and
-returned valid `/usr/bin/id` output. The independently measured selector
-`0x5970` was held constant solely to isolate the control-target variable.
+The end-to-end cohort uses the exact non-PIE Node 25.8.1 artifact above because
+the current heap relationship is profile-specific. The final control target,
+however, contains no fixed Node address. The profile pins the hidden GModule
+loader's libvips-relative offset and bytes, the `memcpy` relocation, and the
+heap relationships. It contains neither a fixed absolute loader address nor a
+fixed fake-node low word. The exploit fails closed when a profile is malformed,
+returned pixels do not select exactly one supported profile/base pair, or heap
+evidence does not produce one structurally supported selector.
 
-That 10/10 isolation cohort proves the old fixed Node address is no longer
-needed. It does not claim that the delivered heap calibrator supports this PIE
-heap layout. Safe donor sampling exposed the complete heap record
-inconsistently, so an unsupported PIE layout still fails before the payload
-upload rather than guessing a selector. The reviewable diagnostic evidence is
-in
-[`evidence/libvips-control-target-pie-isolation-10x.json`](evidence/libvips-control-target-pie-isolation-10x.json).
-
-The control target no longer depends on the Node executable type or address.
-The profile contains a libvips-relative helper offset, validating bytes, ABI,
-the `memcpy` relocation and heap relationships. It contains neither a fixed
-Node loader address nor a fixed fake-node low word. The exploit fails closed
-when a profile is malformed, returned pixels do not select exactly one
-supported profile/base pair, or heap evidence does not produce one
-structurally supported selector.
+The loader ABI is important. The overwritten call supplies the library path in
+RDI, an image-row pointer in RSI, and the 58-byte copy length in RDX. The pinned
+GModule routine uses only supported flag bits from ESI and does not dereference
+RDX on the successful load path. An offline harness validated that exact entry
+point and instruction signature before it was used in the remote cohort.
 
 ## Requirements
 
 - Linux x86-64
 - Python 3.11 or later
 - `ffmpeg` with the `libaom-av1` encoder
+- a C compiler available as `cc` on the attacker machine
 - an IPv4 callback address reachable from the target
 - Node.js 25.8.1 and npm to run the included lab
 
@@ -152,12 +150,13 @@ A successful result contains:
     "module": "libvips",
     "module_base": "0x7f1234400000",
     "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
-    "symbol": "g_spawn_command_line_async",
-    "offset": "0x349a13",
-    "address": "0x7f1234749a13",
-    "derivation": "0x7f1234400000 + 0x349a13 = 0x7f1234749a13",
-    "abi": "command_rdi_error_rsi",
-    "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d"
+    "symbol": "g_module_open_full",
+    "exported": false,
+    "offset": "0x3e995e",
+    "address": "0x7f12347e995e",
+    "derivation": "0x7f1234400000 + 0x3e995e = 0x7f12347e995e",
+    "abi": "path_rdi_flags_esi_error_rdx",
+    "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff"
   },
   "heap_calibration": {
     "derived_selector": "0x5970",
@@ -210,7 +209,7 @@ for context but are not success conditions.
 
 ```text
 --target URL              Target base URL (required)
---callback-host IPV4      Address embedded in the uploaded script (required)
+--callback-host IPV4      Address embedded in the uploaded library (required)
 --callback-port PORT      Callback and listener port (default: 31337)
 --listen-host IPV4        Local bind address (default: 0.0.0.0)
 --leak-attempts N         Maximum donor requests (default: 64)
@@ -218,15 +217,15 @@ for context but are not success conditions.
 --trigger-timeout SEC     Optimizer request timeout (default: 20)
 --profile-manifest FILE   Profile manifest (default: repository manifest)
 --profile ID              Restrict classification to one exact profile
---script-name NAME        Override the profile's staged callback filename
+--library-name NAME       Override the image-looking library filename
 --remote-upload-dir DIR   Override the profile's upload directory
 --json-output FILE        Save the complete result
 --concise                 Omit the full JSON result from the terminal
 ```
 
-The complete command, including its terminating NUL, must fit the selected
-profile's command field. The default `node uploads/x` satisfies the pinned
-profile's 16-byte constraint.
+The complete library path, including its terminating NUL, must fit the selected
+profile's path field. The default `uploads/x.jpg` satisfies the pinned profile's
+16-byte constraint. Overrides must retain an image suffix.
 
 ## Native-stack profiles
 
@@ -252,7 +251,7 @@ Server, framework, image-geometry, OS, and glibc hints are supporting metadata
 only. They are recorded in the result but never identify a binary and never
 resolve an ambiguous pointer signature. If evidence is missing, incomplete,
 mismatched, unknown, or supports more than one pair, the exploit stops before
-rendering or uploading the callback script and before generating, uploading,
+compiling or uploading the callback library and before generating, uploading,
 or triggering the final AVIF.
 
 The regression suite includes an exact second-build response fixture from
@@ -276,7 +275,7 @@ signed page-to-fake-node relation. This removes harmless sub-page allocator
 shifts from the calculation. The record itself supplies repeated heap-pointer
 observations and three independent libvips-relative checks. If no complete
 record exists, or multiple derived values independently reach the configured
-threshold, the exploit stops before it uploads either the callback script or
+threshold, the exploit stops before it uploads either the callback library or
 the destructive AVIF.
 
 Verify a local stack against every declared identity before using its profile:
@@ -294,7 +293,7 @@ python3 tools/verify_profile_artifacts.py \
 ```
 
 This offline verifier checks hashes, ELF build IDs and type, Node version, the
-libvips `memcpy` jump slot, the control-target symbol and bytes, npm package
+libvips `memcpy` jump slot, the control-target bytes, npm package
 versions, and bundled libvips/libheif versions. It is deliberately not
 imported or run by the remote exploit.
 
@@ -320,7 +319,7 @@ scripts/fresh_process_cohort.py    stock fresh-process validation harness
 tests/                             strict-loader and exploit regressions
 tests/fixtures/                    exact cross-build returned-pixel evidence
 avif_grid.py                       lossless AV1 grid/ISO-BMFF generator
-callback/callback.js               fixed /usr/bin/id callback template
+callback/callback.c                fixed /usr/bin/id library constructor
 payloads/leak-crop-donor-*.avif    returned-pixel information disclosure
 lab/                               version-pinned Next.js target
 evidence/                          debugger-free validation results
@@ -331,11 +330,12 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
 
 ## Scope and limitations
 
-- The target needs an upload path that preserves an attacker-chosen script in
-  a location reachable from the application working directory, plus a sharp
-  optimization path for AVIF.
-- The included lab accepts the staged script as `uploads/x`. Strong magic
-  validation or generated storage names can break the staging step.
+- The target needs an upload path that preserves an image-named shared object
+  in a location reachable by the native loader, plus a sharp optimization path
+  for AVIF.
+- The included lab accepts the ELF as `uploads/x.jpg` with `image/jpeg`. Strong
+  magic validation, generated storage names, or storage outside the working
+  directory can break the staging step.
 - The libvips offset applies only to the exact verified libvips artifact. The
   runtime address is always calculated from remotely returned pointers.
 - The low-16-bit plane-map redirection depends on a profile-specific returned
@@ -354,8 +354,8 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
   the application working directory on a `noexec` mount.
 - Run image decoding in a disposable, least-privileged worker without secrets
   or unrestricted outbound network access.
-- Monitor native image workers for crashes, unexpected process creation, or
-  file access against upload directories.
+- Monitor native image workers for crashes, unexpected module loads, or file
+  access against upload directories.
 
 ## Reproducibility rules
 

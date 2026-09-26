@@ -1,5 +1,5 @@
 {
-  "schema": 4,
+  "schema": 5,
   "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
   "profiles": {
     "node-25.8.1-sharp-0.34.4-linux-x64": {
@@ -19,9 +19,9 @@
         "upload_endpoint": "/api/upload",
         "optimize_endpoint": "/api/optimize",
         "upload_directory": "uploads",
-        "script_name": "x",
-        "command_executable": "node",
-        "max_command_bytes": 16
+        "library_name": "x.jpg",
+        "library_content_type": "image/jpeg",
+        "max_library_path_bytes": 16
       },
       "node": {
         "version": "25.8.1",
@@ -46,10 +46,11 @@
         },
         "control_target": {
           "module": "libvips",
-          "symbol": "g_spawn_command_line_async",
-          "offset": "0x349a13",
-          "abi": "command_rdi_error_rsi",
-          "bytes": "534889f14889f331f64883ec2048c744241800000000488d"
+          "symbol": "g_module_open_full",
+          "exported": false,
+          "offset": "0x3e995e",
+          "abi": "path_rdi_flags_esi_error_rdx",
+          "bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff"
         },
         "leak": {
           "anchors": [
@@ -126,7 +127,7 @@
         "grid_columns": 1,
         "canvas_stride": 64,
         "fake_node_local_row": 1,
-        "command_field_bytes": 16,
+        "path_field_bytes": 16,
         "write_target_backoff": 16,
         "preserved_prefix_bytes": 16,
         "chunk_header_offset": 16,

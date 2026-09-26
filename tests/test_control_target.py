@@ -14,12 +14,13 @@ class ControlTargetTests(unittest.TestCase):
     def test_libvips_target_is_base_plus_profile_offset(self) -> None:
         target = derive_control_target(self.base, self.profile)
         self.assertEqual(target.module, "libvips")
-        self.assertEqual(target.symbol, "g_spawn_command_line_async")
-        self.assertEqual(target.offset, 0x349A13)
-        self.assertEqual(target.address, self.base + 0x349A13)
+        self.assertEqual(target.symbol, "g_module_open_full")
+        self.assertFalse(target.exported)
+        self.assertEqual(target.offset, 0x3E995E)
+        self.assertEqual(target.address, self.base + 0x3E995E)
         self.assertEqual(
             target.evidence()["derivation"],
-            "0x700000000000 + 0x349a13 = 0x700000349a13",
+            "0x700000000000 + 0x3e995e = 0x7000003e995e",
         )
 
     def test_unaligned_module_base_is_rejected(self) -> None:

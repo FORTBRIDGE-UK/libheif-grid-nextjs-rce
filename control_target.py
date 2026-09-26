@@ -14,6 +14,7 @@ class RuntimeControlTarget:
     module_base: int
     module_build_id: str
     symbol: str
+    exported: bool
     offset: int
     address: int
     abi: str
@@ -26,6 +27,7 @@ class RuntimeControlTarget:
             "module_base": hex(self.module_base),
             "module_build_id": self.module_build_id,
             "symbol": self.symbol,
+            "exported": self.exported,
             "offset": hex(self.offset),
             "address": hex(self.address),
             "derivation": (
@@ -59,6 +61,7 @@ def derive_control_target(
         module_base=libvips_base,
         module_build_id=profile.libvips.build_id,
         symbol=declared.symbol,
+        exported=declared.exported,
         offset=declared.offset,
         address=address,
         abi=declared.abi,

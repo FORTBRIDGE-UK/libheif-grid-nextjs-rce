@@ -121,9 +121,9 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "must be 16"):
             load_manifest(path)
 
-    def test_unsafe_script_component_is_rejected(self) -> None:
+    def test_unsafe_library_component_is_rejected(self) -> None:
         path = self.mutate(
-            ("profiles", self.profile_id, "application", "script_name"),
+            ("profiles", self.profile_id, "application", "library_name"),
             "nested/x",
         )
         with self.assertRaisesRegex(ProfileError, "safe path component"):
@@ -131,7 +131,7 @@ class ProfileLoaderTests(unittest.TestCase):
 
     def test_header_injection_filename_is_rejected(self) -> None:
         path = self.mutate(
-            ("profiles", self.profile_id, "application", "script_name"),
+            ("profiles", self.profile_id, "application", "library_name"),
             'x"\r\nX-Evil: yes',
         )
         with self.assertRaisesRegex(ProfileError, "safe path component"):
@@ -206,7 +206,9 @@ class ProfileLoaderTests(unittest.TestCase):
             ),
             "unknown",
         )
-        with self.assertRaisesRegex(ProfileError, "command_rdi_error_rsi"):
+        with self.assertRaisesRegex(
+            ProfileError, "path_rdi_flags_esi_error_rdx",
+        ):
             load_manifest(path)
 
     def test_control_target_requires_validating_bytes(self) -> None:
