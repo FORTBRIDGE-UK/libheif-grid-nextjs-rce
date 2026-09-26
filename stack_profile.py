@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = HERE / "profiles" / "native_stack_profiles.json"
-SUPPORTED_SCHEMA = 5
+SUPPORTED_SCHEMA = 6
 MAX_LEAK_SCAN_BYTES = 16 * 1024 * 1024
 _HEX_RE = re.compile(r"^[0-9a-f]+$")
 _FILENAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
@@ -155,9 +155,16 @@ class AbiProfile:
 
 @dataclass(frozen=True)
 class HeapCalibrationProfile:
+    record_variant: str
+    selector_strategy: str
     minimum_observations: int
     anchor_rank: int
+    scan_start: int
+    scan_end: int
     anchor_alignment: int
+    anchor_page_offset_min: int
+    anchor_page_offset_max: int
+    anchor_page_low16: int
     arena_alignment: int
     arena_sentinel_offset: int
     record_chunk_size_and_flags: int
@@ -166,6 +173,7 @@ class HeapCalibrationProfile:
     related_pointer_delta_max: int
     libvips_record_offsets: tuple[int, int, int]
     record_marker: int
+    record_prefix_qwords: tuple[int, ...]
     fake_node_delta_from_anchor_page: int
 
 
@@ -639,15 +647,44 @@ def _abi(value: Any, path: str) -> AbiProfile:
 def _heap_calibration(value: Any, path: str) -> HeapCalibrationProfile:
     data = _mapping(value, path)
     keys = {
-        "minimum_observations", "anchor_rank", "anchor_alignment",
+        "record_variant", "selector_strategy", "minimum_observations",
+        "anchor_rank",
+        "scan_start", "scan_end", "anchor_alignment",
+        "anchor_page_offset_min", "anchor_page_offset_max",
+        "anchor_page_low16",
         "arena_alignment",
         "arena_sentinel_offset",
         "record_chunk_size_and_flags", "anchor_peer_delta",
         "related_pointer_delta_min", "related_pointer_delta_max",
-        "libvips_record_offsets", "record_marker",
+        "libvips_record_offsets", "record_marker", "record_prefix_qwords",
         "fake_node_delta_from_anchor_page",
     }
     _exact_keys(data, path, keys)
+    record_variant = _string(data["record_variant"], f"{path}.record_variant")
+    if record_variant not in {"marked_arena", "pie_tail"}:
+        raise ProfileError(
+            f"{path}.record_variant must be marked_arena or pie_tail",
+        )
+    selector_strategy = _string(
+        data["selector_strategy"], f"{path}.selector_strategy",
+    )
+    if selector_strategy not in {"response_record", "profile_page_lane"}:
+        raise ProfileError(
+            f"{path}.selector_strategy must be response_record or "
+            "profile_page_lane",
+        )
+    scan_start = _integer(data["scan_start"], f"{path}.scan_start")
+    scan_end = _integer(
+        data["scan_end"], f"{path}.scan_end", positive=True,
+    )
+    if scan_start % 8 or scan_end % 8:
+        raise ProfileError(f"{path} scan values must be eight-byte aligned")
+    if scan_start >= scan_end:
+        raise ProfileError(f"{path} scan range is empty")
+    if scan_end - scan_start > MAX_LEAK_SCAN_BYTES:
+        raise ProfileError(
+            f"{path} scan range exceeds {MAX_LEAK_SCAN_BYTES} bytes",
+        )
     raw_offsets = data["libvips_record_offsets"]
     if not isinstance(raw_offsets, list) or len(raw_offsets) != 3:
         raise ProfileError(
@@ -693,6 +730,54 @@ def _heap_calibration(value: Any, path: str) -> HeapCalibrationProfile:
         raise ProfileError(f"{path}.anchor_alignment must be a power of two")
     if anchor_alignment >= alignment:
         raise ProfileError(f"{path}.anchor_alignment must be smaller than arena")
+    page_offset_min = _integer(
+        data["anchor_page_offset_min"],
+        f"{path}.anchor_page_offset_min",
+    )
+    page_offset_max = _integer(
+        data["anchor_page_offset_max"],
+        f"{path}.anchor_page_offset_max",
+        positive=True,
+    )
+    if not 0 <= page_offset_min < page_offset_max <= anchor_alignment:
+        raise ProfileError(f"{path} anchor-page offset range is invalid")
+    page_low16 = _integer(
+        data["anchor_page_low16"], f"{path}.anchor_page_low16",
+    )
+    if page_low16 > 0xFFFF or page_low16 % anchor_alignment:
+        raise ProfileError(
+            f"{path}.anchor_page_low16 must be a page-aligned two-byte value",
+        )
+    raw_prefix = data["record_prefix_qwords"]
+    if not isinstance(raw_prefix, list):
+        raise ProfileError(f"{path}.record_prefix_qwords must be an array")
+    prefix = tuple(
+        _integer(item, f"{path}.record_prefix_qwords[{index}]")
+        for index, item in enumerate(raw_prefix)
+    )
+    if any(item > 0xFFFFFFFFFFFFFFFF for item in prefix):
+        raise ProfileError(f"{path}.record_prefix_qwords entries exceed eight bytes")
+    if record_variant == "marked_arena":
+        if prefix:
+            raise ProfileError(
+                f"{path}.record_prefix_qwords must be empty for marked_arena",
+            )
+        if page_low16 != 0:
+            raise ProfileError(
+                f"{path}.anchor_page_low16 must be zero for marked_arena",
+            )
+        if selector_strategy != "response_record":
+            raise ProfileError(
+                f"{path}.marked_arena requires response_record selection",
+            )
+    elif len(prefix) != 6:
+        raise ProfileError(
+            f"{path}.record_prefix_qwords must contain six entries for pie_tail",
+        )
+    if selector_strategy == "profile_page_lane" and page_low16 == 0:
+        raise ProfileError(
+            f"{path}.profile_page_lane requires a non-zero page lane",
+        )
     fake_node_delta = _signed_integer(
         data["fake_node_delta_from_anchor_page"],
         f"{path}.fake_node_delta_from_anchor_page",
@@ -703,13 +788,20 @@ def _heap_calibration(value: Any, path: str) -> HeapCalibrationProfile:
             "in-arena relation",
         )
     return HeapCalibrationProfile(
+        record_variant=record_variant,
+        selector_strategy=selector_strategy,
         minimum_observations=_integer(
             data["minimum_observations"],
             f"{path}.minimum_observations",
             positive=True,
         ),
         anchor_rank=_integer(data["anchor_rank"], f"{path}.anchor_rank"),
+        scan_start=scan_start,
+        scan_end=scan_end,
         anchor_alignment=anchor_alignment,
+        anchor_page_offset_min=page_offset_min,
+        anchor_page_offset_max=page_offset_max,
+        anchor_page_low16=page_low16,
         arena_alignment=alignment,
         arena_sentinel_offset=sentinel_offset,
         record_chunk_size_and_flags=_integer(
@@ -724,6 +816,7 @@ def _heap_calibration(value: Any, path: str) -> HeapCalibrationProfile:
         record_marker=_integer(
             data["record_marker"], f"{path}.record_marker", positive=True,
         ),
+        record_prefix_qwords=prefix,
         fake_node_delta_from_anchor_page=fake_node_delta,
     )
 
@@ -803,6 +896,14 @@ def _profile(profile_id: str, value: Any) -> NativeStackProfile:
         raise ProfileError(f"{path} application path exceeds payload capacity")
     if result.glibc.root_chunk_size_and_flags > 0xFFFFFFFFFFFFFFFF:
         raise ProfileError(f"{path}.glibc root chunk field exceeds eight bytes")
+    if (
+        result.heap_calibration.record_variant == "pie_tail"
+        and result.heap_calibration.record_prefix_qwords[1]
+        != result.glibc.root_chunk_size_and_flags
+    ):
+        raise ProfileError(
+            f"{path} PIE record prefix disagrees with glibc root chunk field",
+        )
     return result
 
 

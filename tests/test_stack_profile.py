@@ -302,6 +302,60 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "non-empty string"):
             load_manifest(path)
 
+    def test_pie_manifest_is_strict_and_exact(self) -> None:
+        path = DEFAULT_MANIFEST.with_name("native_stack_profiles_pie.json")
+        profile = load_profile(manifest_path=path)
+        self.assertEqual(profile.node.elf_type, "ET_DYN")
+        self.assertEqual(profile.heap_calibration.record_variant, "pie_tail")
+        self.assertEqual(
+            profile.heap_calibration.selector_strategy,
+            "profile_page_lane",
+        )
+        self.assertEqual(profile.heap_calibration.anchor_page_low16, 0x6000)
+        self.assertEqual(profile.heap_calibration.scan_start, 0xE0000)
+
+    def test_unknown_heap_record_variant_is_rejected(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "record_variant",
+            ),
+            "guess",
+        )
+        with self.assertRaisesRegex(ProfileError, "marked_arena or pie_tail"):
+            load_manifest(path)
+
+    def test_unknown_heap_selector_strategy_is_rejected(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "selector_strategy",
+            ),
+            "forced",
+        )
+        with self.assertRaisesRegex(
+            ProfileError, "response_record or profile_page_lane",
+        ):
+            load_manifest(path)
+
+    def test_invalid_heap_scan_range_is_rejected(self) -> None:
+        document = copy.deepcopy(self.document)
+        calibration = document["profiles"][self.profile_id]["heap_calibration"]
+        calibration["scan_start"] = calibration["scan_end"]
+        with self.assertRaisesRegex(ProfileError, "scan range is empty"):
+            load_manifest(self.write_manifest(document))
+
+    def test_marked_record_rejects_pie_page_lane(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "anchor_page_low16",
+            ),
+            "0x6000",
+        )
+        with self.assertRaisesRegex(ProfileError, "must be zero"):
+            load_manifest(path)
+
 
 if __name__ == "__main__":
     unittest.main()

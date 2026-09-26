@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -17,6 +18,17 @@ import urllib.request
 HERE = Path(__file__).resolve().parents[1]
 LAB = HERE / "lab"
 DEFAULT_NODE = Path.home() / ".nvm/versions/node/v25.8.1/bin/node"
+sys.path.insert(0, str(HERE))
+
+from stack_profile import ProfileError, load_manifest  # noqa: E402
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def wait_for_server(url: str, process: subprocess.Popen[str],
@@ -149,6 +161,24 @@ def main() -> int:
         parser.error("--lifetimes must be positive")
     if args.leak_attempts < 1:
         parser.error("--leak-attempts must be positive")
+    try:
+        manifest = load_manifest(args.manifest)
+    except ProfileError as error:
+        parser.error(str(error))
+    actual_node_sha256 = sha256(args.node)
+    candidate_profiles = (
+        [manifest.profiles[args.profile]]
+        if args.profile in manifest.profiles else []
+    ) if args.profile else list(manifest.profiles.values())
+    matching_nodes = [
+        profile for profile in candidate_profiles
+        if profile.node.sha256 == actual_node_sha256
+    ]
+    if len(matching_nodes) != 1:
+        parser.error(
+            "--node SHA-256 must match exactly one selected manifest profile",
+        )
+    args.profile = matching_nodes[0].profile_id
 
     results: list[dict[str, object]] = []
     with tempfile.TemporaryDirectory(prefix="kan2159-cohort-") as directory:
@@ -168,9 +198,17 @@ def main() -> int:
 
     successes = sum(result.get("success") is True for result in results)
     report = {
-        "profile_manifest": "profiles/native_stack_profiles.json",
+        "profile_manifest": str(args.manifest.resolve()),
         "profile_id": results[0].get("profile_id") if results else None,
-        "stock_environment": True,
+        "node_binary": str(args.node.resolve()),
+        "node_sha256": actual_node_sha256,
+        "node_identity_verified": True,
+        "profile_manifest_sha256": sha256(args.manifest),
+        "node_profile": results[0].get("node_profile") if results else None,
+        "stock_environment": (
+            results[0].get("node_profile", {}).get("elf_type") == "ET_EXEC"
+            if results else None
+        ),
         "lifetimes": args.lifetimes,
         "successes": successes,
         "success_rate": successes / args.lifetimes,

