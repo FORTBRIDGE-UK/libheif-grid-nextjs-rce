@@ -11,10 +11,12 @@ included lab or another system you are explicitly authorised to test.
 
 The exploit uses only the target's HTTP upload and image-optimization routes:
 
-1. It uploads a callback shared object under the image-looking name `x.jpg`.
-2. It repeatedly submits a donor AVIF until pixels returned by the optimizer
-   disclose one unambiguous three-pointer libvips signature.
-3. It derives the randomized libvips base from those returned pixels.
+1. It repeatedly submits a donor AVIF and compares pointers in the returned
+   pixels with every exact libvips profile in the manifest.
+2. It proceeds only when one profile and one randomized libvips base are
+   supported by all required independent anchors.
+3. It then uploads a callback shared object under the image-looking name
+   `x.jpg`.
 4. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
    plane to `memcpy@GOT - 16`.
 5. The first chosen-address row replaces `memcpy@GOT` with Node's fixed
@@ -26,7 +28,7 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
 
 The final validation cohort succeeded in 10/10 fresh processes with ten
 different ASLR bases. See
-[`evidence/profile-manifest-rce-10x.json`](evidence/profile-manifest-rce-10x.json).
+[`evidence/profile-classifier-rce-10x.json`](evidence/profile-classifier-rce-10x.json).
 
 ## Tested stack
 
@@ -40,8 +42,8 @@ different ASLR bases. See
 The Node helper address, libvips relocation offset and partial-pointer layout
 are build-specific. They now live in a strict, versioned native-stack profile
 rather than in the exploit source. This repository fails closed when a profile
-is malformed or when the remote pixel leak does not produce exactly one
-complete three-pointer signature.
+is malformed or when returned pixels do not select exactly one supported
+profile/base pair.
 
 ## Requirements
 
@@ -95,8 +97,8 @@ python3 exploit.py \
   --json-output result.json
 ```
 
-The exploit automatically selects the manifest's default profile. To select a
-specific supported stack, provide its ID explicitly:
+The exploit evaluates every profile in the manifest by default. To restrict
+classification to one exact supported stack, provide its ID explicitly:
 
 ```bash
 python3 exploit.py \
@@ -122,6 +124,19 @@ A successful result contains:
 ```json
 {
   "success": true,
+  "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "libvips_base": "0x7f1234400000",
+  "classification": {
+    "selected_attempt": 4,
+    "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+    "selected_base": "0x7f1234400000",
+    "selected_anchors": [
+      {"offset": "0x1be1b0", "value": "0x7f12345be1b0", "repetitions": 1},
+      {"offset": "0x1c3120", "value": "0x7f12345c3120", "repetitions": 3},
+      {"offset": "0x1c3130", "value": "0x7f12345c3130", "repetitions": 3}
+    ],
+    "rejected_candidates": []
+  },
   "callback": {
     "token_matched": true,
     "proof_command": "/usr/bin/id",
@@ -151,7 +166,7 @@ for context but are not success conditions.
 --callback-timeout SEC    Listener timeout (default: 12)
 --trigger-timeout SEC     Optimizer request timeout (default: 20)
 --profile-manifest FILE   Profile manifest (default: repository manifest)
---profile ID              Profile ID (default: manifest default_profile)
+--profile ID              Restrict classification to one exact profile
 --library-name NAME       Override the profile's staged filename
 --remote-upload-dir DIR   Override the profile's upload directory
 --json-output FILE        Save the complete result
@@ -168,13 +183,36 @@ satisfies the pinned profile's 16-byte constraint.
 binds one exploit layout to exact artifacts and ABI measurements. The pinned
 profile identifies Node, Next.js, sharp, libvips, libheif, glibc and
 libstdc++, then records the loader helper, GOT relocation, returned-pointer
-signatures, forged red-black-tree/ImagePlane layout, heap selector, tile
-geometry and application paths.
+anchors, forged red-black-tree/ImagePlane layout, heap selector, tile geometry
+and application paths.
 
 The runtime loader rejects unknown or missing fields, malformed numbers and
-digests, unsafe paths, and inconsistent geometry before opening its callback
-listener or making an HTTP request. A profile is a verified compatibility
-record, not an automatic OS guess.
+digests, unsafe paths, and inconsistent geometry before making an HTTP request.
+A profile is a verified compatibility record, not an automatic OS guess.
+
+Each libvips classifier entry declares independent module-relative anchors,
+the minimum number of times each anchor must appear, how many distinct anchors
+are required, the alpha-channel byte window to scan, the qword stride, and the
+expected page alignment. For every returned image, the classifier subtracts
+each candidate profile's anchor offsets from the returned qwords. It accepts a
+result only when exactly one profile/base pair reaches the declared consensus.
+
+Server, framework, image-geometry, OS, and glibc hints are supporting metadata
+only. They are recorded in the result but never identify a binary and never
+resolve an ambiguous pointer signature. If evidence is missing, incomplete,
+mismatched, unknown, or supports more than one pair, the exploit stops before
+compiling or uploading the callback library and before generating, uploading,
+or triggering the final AVIF.
+
+The regression suite includes an exact second-build response fixture from
+libvips 8.18.4. Its two independent anchors do not cross-match the pinned
+libvips 8.17.2 profile; one anchor also has a ten-occurrence threshold to test
+that repeated values cannot replace independent anchors.
+
+Successful JSON output records the selecting response attempt, selected
+profile and base, each anchor value and repetition count, and every rejected
+candidate. Earlier no-match attempts remain in the `classification.attempts`
+array for auditability.
 
 Verify a local stack against every declared identity before using its profile:
 
@@ -206,12 +244,14 @@ python3 scripts/fresh_process_cohort.py --lifetimes 10
 
 ```text
 exploit.py                         remote orchestrator and callback verifier
+profile_classifier.py              pure returned-pixel profile/base classifier
 rce_payload.py                     proven memcpy-GOT AVIF payload
 stack_profile.py                   strict native-stack profile loader
 profiles/native_stack_profiles.json exact supported artifact and ABI identity
 tools/verify_profile_artifacts.py  offline exact-artifact verifier
 scripts/fresh_process_cohort.py    stock fresh-process validation harness
 tests/                             strict-loader and exploit regressions
+tests/fixtures/                    exact cross-build returned-pixel evidence
 avif_grid.py                       lossless AV1 grid/ISO-BMFF generator
 callback/callback.c                fixed /usr/bin/id constructor proof
 payloads/leak-crop-donor-*.avif    returned-pixel information disclosure

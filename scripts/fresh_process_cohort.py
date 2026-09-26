@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the profile-driven exploit against distinct stock Next.js lifetimes."""
+"""Run classified profile-driven RCE against distinct stock lifetimes."""
 
 from __future__ import annotations
 
@@ -122,7 +122,10 @@ def run_lifetime(args: argparse.Namespace, lifetime: int,
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Validate the exploit across fresh stock server processes",
+        description=(
+            "Validate profile classification and RCE across fresh stock "
+            "server processes"
+        ),
     )
     parser.add_argument("--lifetimes", type=int, default=10)
     parser.add_argument("--port", type=int, default=3215)
@@ -136,14 +139,14 @@ def main() -> int:
     parser.add_argument("--exploit-timeout", type=float, default=90)
     parser.add_argument(
         "--output", type=Path,
-        default=HERE / "evidence/profile-manifest-rce-10x.json",
+        default=HERE / "evidence/profile-classifier-rce-10x.json",
     )
     args = parser.parse_args()
     if args.lifetimes < 1:
         parser.error("--lifetimes must be positive")
 
     results: list[dict[str, object]] = []
-    with tempfile.TemporaryDirectory(prefix="kan2156-cohort-") as directory:
+    with tempfile.TemporaryDirectory(prefix="kan2157-cohort-") as directory:
         temporary = Path(directory)
         for lifetime in range(1, args.lifetimes + 1):
             print(f"[cohort {lifetime}/{args.lifetimes}] starting fresh server")
@@ -152,7 +155,9 @@ def main() -> int:
             print(
                 f"[cohort {lifetime}/{args.lifetimes}] "
                 f"success={result.get('success')} "
-                f"base={result.get('libvips_base')}",
+                f"base={result.get('libvips_base')} "
+                f"selected_attempt="
+                f"{result.get('classification', {}).get('selected_attempt')}",
                 flush=True,
             )
 
@@ -164,6 +169,11 @@ def main() -> int:
         "lifetimes": args.lifetimes,
         "successes": successes,
         "success_rate": successes / args.lifetimes,
+        "unique_profile_selections": sum(
+            result.get("classification", {}).get("selected_profile_id")
+            == result.get("profile_id")
+            for result in results
+        ),
         "distinct_libvips_bases": len({
             result.get("libvips_base") for result in results
             if result.get("libvips_base")
@@ -173,8 +183,8 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({key: report[key] for key in (
-        "profile_id", "lifetimes", "successes", "success_rate",
-        "distinct_libvips_bases",
+            "profile_id", "lifetimes", "successes", "success_rate",
+            "unique_profile_selections", "distinct_libvips_bases",
     )}, indent=2))
     return 0 if successes == args.lifetimes else 1
 

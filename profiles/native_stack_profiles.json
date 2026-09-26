@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
   "profiles": {
     "node-25.8.1-sharp-0.34.4-linux-x64": {
@@ -49,10 +49,21 @@
           "relocation": "R_X86_64_JUMP_SLOT"
         },
         "leak": {
-          "signature_offsets": ["0x1be1b0", "0x1c3120", "0x1c3130"],
+          "anchors": [
+            {"offset": "0x1be1b0", "minimum_repetitions": 1},
+            {"offset": "0x1c3120", "minimum_repetitions": 1},
+            {"offset": "0x1c3130", "minimum_repetitions": 1}
+          ],
+          "required_anchors": 3,
+          "scan_start": 0,
+          "scan_end": 1048576,
+          "scan_step": 8,
           "pointer_min": "0x0000500000000000",
           "pointer_max": "0x0000800000000000",
-          "base_alignment": "0x1000"
+          "base_alignment": "0x1000",
+          "supporting_hints": {
+            "image_geometry": "128x8192"
+          }
         }
       },
       "libheif": {

@@ -115,6 +115,82 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "unknown native-stack profile"):
             load_profile("does-not-exist")
 
+    def test_old_schema_is_rejected(self) -> None:
+        document = copy.deepcopy(self.document)
+        document["schema"] = 1
+        with self.assertRaisesRegex(ProfileError, "unsupported profile schema"):
+            load_manifest(self.write_manifest(document))
+
+    def test_leak_requires_two_distinct_anchors(self) -> None:
+        anchors = [{"offset": "0x1000", "minimum_repetitions": 1}]
+        path = self.mutate(
+            ("profiles", self.profile_id, "libvips", "leak", "anchors"),
+            anchors,
+        )
+        with self.assertRaisesRegex(ProfileError, "at least two entries"):
+            load_manifest(path)
+
+    def test_duplicate_anchor_offsets_are_rejected(self) -> None:
+        anchors = [
+            {"offset": "0x1000", "minimum_repetitions": 1},
+            {"offset": "0x1000", "minimum_repetitions": 2},
+        ]
+        path = self.mutate(
+            ("profiles", self.profile_id, "libvips", "leak", "anchors"),
+            anchors,
+        )
+        with self.assertRaisesRegex(ProfileError, "offsets must be distinct"):
+            load_manifest(path)
+
+    def test_required_anchor_count_must_fit_declared_anchors(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "leak",
+                "required_anchors",
+            ),
+            4,
+        )
+        with self.assertRaisesRegex(ProfileError, "between two and the anchor count"):
+            load_manifest(path)
+
+    def test_anchor_repetition_must_be_positive(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "leak", "anchors",
+                0, "minimum_repetitions",
+            ),
+            0,
+        )
+        with self.assertRaisesRegex(ProfileError, "positive integer"):
+            load_manifest(path)
+
+    def test_scan_values_must_be_qword_aligned(self) -> None:
+        path = self.mutate(
+            ("profiles", self.profile_id, "libvips", "leak", "scan_end"),
+            1025,
+        )
+        with self.assertRaisesRegex(ProfileError, "eight-byte aligned"):
+            load_manifest(path)
+
+    def test_scan_range_must_be_nonempty(self) -> None:
+        document = copy.deepcopy(self.document)
+        leak = document["profiles"][self.profile_id]["libvips"]["leak"]
+        leak["scan_start"] = 1024
+        leak["scan_end"] = 1024
+        with self.assertRaisesRegex(ProfileError, "scan range is empty"):
+            load_manifest(self.write_manifest(document))
+
+    def test_supporting_hints_must_contain_strings(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "libvips", "leak",
+                "supporting_hints",
+            ),
+            {"os": 13},
+        )
+        with self.assertRaisesRegex(ProfileError, "non-empty string"):
+            load_manifest(path)
+
 
 if __name__ == "__main__":
     unittest.main()

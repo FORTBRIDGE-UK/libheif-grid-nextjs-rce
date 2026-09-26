@@ -13,7 +13,8 @@ from urllib.parse import urlsplit
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = HERE / "profiles" / "native_stack_profiles.json"
-SUPPORTED_SCHEMA = 1
+SUPPORTED_SCHEMA = 2
+MAX_LEAK_SCAN_BYTES = 16 * 1024 * 1024
 _HEX_RE = re.compile(r"^[0-9a-f]+$")
 _FILENAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 
@@ -54,11 +55,27 @@ class NodeProfile:
 
 
 @dataclass(frozen=True)
+class LeakAnchorProfile:
+    offset: int
+    minimum_repetitions: int
+
+
+@dataclass(frozen=True)
 class LeakProfile:
-    signature_offsets: tuple[int, ...]
+    anchors: tuple[LeakAnchorProfile, ...]
+    required_anchors: int
+    scan_start: int
+    scan_end: int
+    scan_step: int
     pointer_min: int
     pointer_max: int
     base_alignment: int
+    supporting_hints: dict[str, str]
+
+    @property
+    def signature_offsets(self) -> tuple[int, ...]:
+        """Compatibility view used by the payload regression tests."""
+        return tuple(anchor.offset for anchor in self.anchors)
 
 
 @dataclass(frozen=True)
@@ -353,17 +370,55 @@ def _libvips(value: Any, path: str) -> LibvipsProfile:
     })
     leak = _mapping(data["leak"], f"{path}.leak")
     _exact_keys(leak, f"{path}.leak", {
-        "signature_offsets", "pointer_min", "pointer_max", "base_alignment",
+        "anchors", "required_anchors", "scan_start", "scan_end",
+        "scan_step", "pointer_min", "pointer_max", "base_alignment",
+        "supporting_hints",
     })
-    raw_offsets = leak["signature_offsets"]
-    if not isinstance(raw_offsets, list) or len(raw_offsets) != 3:
-        raise ProfileError(f"{path}.leak.signature_offsets must have three entries")
-    offsets = tuple(
-        _integer(item, f"{path}.leak.signature_offsets[{index}]", positive=True)
-        for index, item in enumerate(raw_offsets)
+    raw_anchors = leak["anchors"]
+    if not isinstance(raw_anchors, list) or len(raw_anchors) < 2:
+        raise ProfileError(f"{path}.leak.anchors must have at least two entries")
+    anchors = []
+    for index, value in enumerate(raw_anchors):
+        anchor_path = f"{path}.leak.anchors[{index}]"
+        anchor = _mapping(value, anchor_path)
+        _exact_keys(anchor, anchor_path, {"offset", "minimum_repetitions"})
+        anchors.append(LeakAnchorProfile(
+            offset=_integer(
+                anchor["offset"], f"{anchor_path}.offset", positive=True,
+            ),
+            minimum_repetitions=_integer(
+                anchor["minimum_repetitions"],
+                f"{anchor_path}.minimum_repetitions",
+                positive=True,
+            ),
+        ))
+    if len({anchor.offset for anchor in anchors}) != len(anchors):
+        raise ProfileError(f"{path}.leak anchor offsets must be distinct")
+    required_anchors = _integer(
+        leak["required_anchors"],
+        f"{path}.leak.required_anchors",
+        positive=True,
     )
-    if len(set(offsets)) != len(offsets):
-        raise ProfileError(f"{path}.leak.signature_offsets must be distinct")
+    if required_anchors < 2 or required_anchors > len(anchors):
+        raise ProfileError(
+            f"{path}.leak.required_anchors must be between two and the "
+            "anchor count",
+        )
+    scan_start = _integer(leak["scan_start"], f"{path}.leak.scan_start")
+    scan_end = _integer(
+        leak["scan_end"], f"{path}.leak.scan_end", positive=True,
+    )
+    scan_step = _integer(
+        leak["scan_step"], f"{path}.leak.scan_step", positive=True,
+    )
+    if any(value % 8 for value in (scan_start, scan_end, scan_step)):
+        raise ProfileError(f"{path}.leak scan values must be eight-byte aligned")
+    if scan_start >= scan_end:
+        raise ProfileError(f"{path}.leak scan range is empty")
+    if scan_end - scan_start > MAX_LEAK_SCAN_BYTES:
+        raise ProfileError(
+            f"{path}.leak scan range exceeds {MAX_LEAK_SCAN_BYTES} bytes",
+        )
     pointer_min = _integer(leak["pointer_min"], f"{path}.leak.pointer_min")
     pointer_max = _integer(leak["pointer_max"], f"{path}.leak.pointer_max")
     if pointer_min >= pointer_max:
@@ -373,6 +428,17 @@ def _libvips(value: Any, path: str) -> LibvipsProfile:
     )
     if alignment & (alignment - 1):
         raise ProfileError(f"{path}.leak.base_alignment must be a power of two")
+    raw_hints = _mapping(
+        leak["supporting_hints"], f"{path}.leak.supporting_hints",
+    )
+    supporting_hints = {}
+    for key, value in raw_hints.items():
+        hint_path = f"{path}.leak.supporting_hints.{key}"
+        if not isinstance(key, str) or not key:
+            raise ProfileError(
+                f"{path}.leak.supporting_hints keys must be non-empty strings",
+            )
+        supporting_hints[key] = _string(value, hint_path)
     return LibvipsProfile(
         version=_string(data["version"], f"{path}.version"),
         package=_string(data["package"], f"{path}.package"),
@@ -398,10 +464,15 @@ def _libvips(value: Any, path: str) -> LibvipsProfile:
             got["relocation"], f"{path}.memcpy_got.relocation",
         ),
         leak=LeakProfile(
-            signature_offsets=offsets,
+            anchors=tuple(anchors),
+            required_anchors=required_anchors,
+            scan_start=scan_start,
+            scan_end=scan_end,
+            scan_step=scan_step,
             pointer_min=pointer_min,
             pointer_max=pointer_max,
             base_alignment=alignment,
+            supporting_hints=supporting_hints,
         ),
     )
 

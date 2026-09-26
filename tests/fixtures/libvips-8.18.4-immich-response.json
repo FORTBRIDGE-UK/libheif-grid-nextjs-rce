@@ -1,0 +1,29 @@
+{
+  "description": "Lossless PNG conversion of an image response returned by the authorised Immich v3.1.0 research lab",
+  "source_response": {
+    "filename": "immich-vips-leak-12.webp",
+    "sha256": "5c4cbbd1af2f0ede89cfbe7d2c2b1063f7f4b021dcb43d97646a6d58bbfb0695"
+  },
+  "fixture": {
+    "filename": "libvips-8.18.4-immich-response.png",
+    "sha256": "f122f36ba97be79999812bae9c96a6242e9b19091b91468669a61289efefc2a5",
+    "width": 128,
+    "height": 2048,
+    "alpha_bytes": 262144
+  },
+  "libvips": {
+    "version": "8.18.4",
+    "filename": "libvips.so.42.20.4",
+    "build_id": "1fe26e1f68950305fcebf57a5458f78f4fe33051",
+    "sha256": "26e94cd91102943e989a748b396bcf091b9c12f8439c119a971945a08f52a090"
+  },
+  "expected_base": "0x7f39964a7000",
+  "anchors": [
+    {"offset": "0x230ca0", "minimum_repetitions": 10, "observed": 17},
+    {"offset": "0x22b9d0", "minimum_repetitions": 1, "observed": 1}
+  ],
+  "required_anchors": 2,
+  "scan_start": 0,
+  "scan_end": 262144,
+  "scan_step": 8
+}
