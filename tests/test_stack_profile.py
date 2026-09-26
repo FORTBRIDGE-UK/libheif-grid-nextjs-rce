@@ -73,6 +73,47 @@ class ProfileLoaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ProfileError, "shorter than a chroma row"):
             load_manifest(path)
 
+    def test_legacy_static_heap_selector_is_rejected(self) -> None:
+        document = copy.deepcopy(self.document)
+        document["profiles"][self.profile_id]["payload"][
+            "fake_node_low16"
+        ] = "0x5970"
+        with self.assertRaisesRegex(ProfileError, "unknown keys: fake_node_low16"):
+            load_manifest(self.write_manifest(document))
+
+    def test_heap_calibration_requires_positive_observation_count(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "minimum_observations",
+            ),
+            0,
+        )
+        with self.assertRaisesRegex(ProfileError, "positive integer"):
+            load_manifest(path)
+
+    def test_heap_delta_must_be_signed_integer(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "fake_node_delta_from_anchor_page",
+            ),
+            "not-an-integer",
+        )
+        with self.assertRaisesRegex(ProfileError, "invalid integer"):
+            load_manifest(path)
+
+    def test_heap_anchor_rank_must_be_nonnegative(self) -> None:
+        path = self.mutate(
+            (
+                "profiles", self.profile_id, "heap_calibration",
+                "anchor_rank",
+            ),
+            -1,
+        )
+        with self.assertRaisesRegex(ProfileError, "non-negative integer"):
+            load_manifest(path)
+
     def test_unsupported_chunk_header_size_is_rejected(self) -> None:
         path = self.mutate(
             ("profiles", self.profile_id, "payload", "chunk_header_size"), 8,

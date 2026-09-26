@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = HERE / "profiles" / "native_stack_profiles.json"
-SUPPORTED_SCHEMA = 2
+SUPPORTED_SCHEMA = 3
 MAX_LEAK_SCAN_BYTES = 16 * 1024 * 1024
 _HEX_RE = re.compile(r"^[0-9a-f]+$")
 _FILENAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
@@ -145,13 +145,28 @@ class AbiProfile:
 
 
 @dataclass(frozen=True)
+class HeapCalibrationProfile:
+    minimum_observations: int
+    anchor_rank: int
+    anchor_alignment: int
+    arena_alignment: int
+    arena_sentinel_offset: int
+    record_chunk_size_and_flags: int
+    anchor_peer_delta: int
+    related_pointer_delta_min: int
+    related_pointer_delta_max: int
+    libvips_record_offsets: tuple[int, int, int]
+    record_marker: int
+    fake_node_delta_from_anchor_page: int
+
+
+@dataclass(frozen=True)
 class PayloadProfile:
     tile_width: int
     tile_height: int
     grid_rows: int
     grid_columns: int
     canvas_stride: int
-    fake_node_low16: int
     fake_node_local_row: int
     path_field_bytes: int
     write_target_backoff: int
@@ -188,6 +203,7 @@ class NativeStackProfile:
     glibc: GlibcProfile
     libstdcxx: LibstdcxxProfile
     abi: AbiProfile
+    heap_calibration: HeapCalibrationProfile
     payload: PayloadProfile
 
 
@@ -235,6 +251,19 @@ def _integer(value: Any, path: str, *, positive: bool = False) -> int:
         qualifier = "positive " if positive else "non-negative "
         raise ProfileError(f"{path} must be a {qualifier}integer")
     return result
+
+
+def _signed_integer(value: Any, path: str) -> int:
+    if isinstance(value, bool):
+        raise ProfileError(f"{path} must be an integer")
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str):
+        try:
+            return int(value, 0)
+        except ValueError as error:
+            raise ProfileError(f"{path} contains an invalid integer") from error
+    raise ProfileError(f"{path} must be an integer or integer string")
 
 
 def _hex_digest(value: Any, path: str, length: int | None = None) -> str:
@@ -557,24 +586,114 @@ def _abi(value: Any, path: str) -> AbiProfile:
     return AbiProfile(tree_layout, plane_layout)
 
 
+def _heap_calibration(value: Any, path: str) -> HeapCalibrationProfile:
+    data = _mapping(value, path)
+    keys = {
+        "minimum_observations", "anchor_rank", "anchor_alignment",
+        "arena_alignment",
+        "arena_sentinel_offset",
+        "record_chunk_size_and_flags", "anchor_peer_delta",
+        "related_pointer_delta_min", "related_pointer_delta_max",
+        "libvips_record_offsets", "record_marker",
+        "fake_node_delta_from_anchor_page",
+    }
+    _exact_keys(data, path, keys)
+    raw_offsets = data["libvips_record_offsets"]
+    if not isinstance(raw_offsets, list) or len(raw_offsets) != 3:
+        raise ProfileError(
+            f"{path}.libvips_record_offsets must contain exactly three entries",
+        )
+    offsets = tuple(
+        _integer(item, f"{path}.libvips_record_offsets[{index}]", positive=True)
+        for index, item in enumerate(raw_offsets)
+    )
+    if len(set(offsets)) != len(offsets):
+        raise ProfileError(f"{path}.libvips_record_offsets must be distinct")
+    alignment = _integer(
+        data["arena_alignment"], f"{path}.arena_alignment", positive=True,
+    )
+    if alignment & (alignment - 1):
+        raise ProfileError(f"{path}.arena_alignment must be a power of two")
+    sentinel_offset = _integer(
+        data["arena_sentinel_offset"],
+        f"{path}.arena_sentinel_offset",
+        positive=True,
+    )
+    if sentinel_offset >= alignment:
+        raise ProfileError(f"{path}.arena_sentinel_offset exceeds the arena")
+    peer_delta = _integer(
+        data["anchor_peer_delta"], f"{path}.anchor_peer_delta", positive=True,
+    )
+    related_delta_min = _integer(
+        data["related_pointer_delta_min"],
+        f"{path}.related_pointer_delta_min",
+        positive=True,
+    )
+    related_delta_max = _integer(
+        data["related_pointer_delta_max"],
+        f"{path}.related_pointer_delta_max",
+        positive=True,
+    )
+    if related_delta_min >= related_delta_max:
+        raise ProfileError(f"{path} related-pointer delta range is empty")
+    anchor_alignment = _integer(
+        data["anchor_alignment"], f"{path}.anchor_alignment", positive=True,
+    )
+    if anchor_alignment & (anchor_alignment - 1):
+        raise ProfileError(f"{path}.anchor_alignment must be a power of two")
+    if anchor_alignment >= alignment:
+        raise ProfileError(f"{path}.anchor_alignment must be smaller than arena")
+    fake_node_delta = _signed_integer(
+        data["fake_node_delta_from_anchor_page"],
+        f"{path}.fake_node_delta_from_anchor_page",
+    )
+    if fake_node_delta == 0 or abs(fake_node_delta) >= alignment:
+        raise ProfileError(
+            f"{path}.fake_node_delta_from_anchor_page must be a non-zero "
+            "in-arena relation",
+        )
+    return HeapCalibrationProfile(
+        minimum_observations=_integer(
+            data["minimum_observations"],
+            f"{path}.minimum_observations",
+            positive=True,
+        ),
+        anchor_rank=_integer(data["anchor_rank"], f"{path}.anchor_rank"),
+        anchor_alignment=anchor_alignment,
+        arena_alignment=alignment,
+        arena_sentinel_offset=sentinel_offset,
+        record_chunk_size_and_flags=_integer(
+            data["record_chunk_size_and_flags"],
+            f"{path}.record_chunk_size_and_flags",
+            positive=True,
+        ),
+        anchor_peer_delta=peer_delta,
+        related_pointer_delta_min=related_delta_min,
+        related_pointer_delta_max=related_delta_max,
+        libvips_record_offsets=offsets,
+        record_marker=_integer(
+            data["record_marker"], f"{path}.record_marker", positive=True,
+        ),
+        fake_node_delta_from_anchor_page=fake_node_delta,
+    )
+
+
 def _payload(value: Any, path: str) -> PayloadProfile:
     data = _mapping(value, path)
     keys = {
         "tile_width", "tile_height", "grid_rows", "grid_columns",
-        "canvas_stride", "fake_node_low16", "fake_node_local_row",
+        "canvas_stride", "fake_node_local_row",
         "path_field_bytes", "write_target_backoff", "preserved_prefix_bytes",
         "chunk_header_offset", "chunk_header_size", "redirect_pointer_offset",
         "redirect_pointer_size",
     }
     _exact_keys(data, path, keys)
-    positive = keys - {"fake_node_low16", "fake_node_local_row"}
+    positive = keys - {"fake_node_local_row"}
     values = {
         key: _integer(data[key], f"{path}.{key}", positive=key in positive)
         for key in keys
     }
     result = PayloadProfile(**values)
-    if result.fake_node_low16 > 0xFFFF:
-        raise ProfileError(f"{path}.fake_node_low16 exceeds two bytes")
     if result.chunk_header_size != 16:
         raise ProfileError(f"{path}.chunk_header_size must be 16")
     if result.redirect_pointer_size != 2:
@@ -601,7 +720,8 @@ def _profile(profile_id: str, value: Any) -> NativeStackProfile:
     data = _mapping(value, path)
     _exact_keys(data, path, {
         "description", "architecture", "packages", "application", "node",
-        "libvips", "libheif", "glibc", "libstdcxx", "abi", "payload",
+        "libvips", "libheif", "glibc", "libstdcxx", "abi",
+        "heap_calibration", "payload",
     })
     architecture = _string(data["architecture"], f"{path}.architecture")
     if architecture != "x86_64":
@@ -621,6 +741,9 @@ def _profile(profile_id: str, value: Any) -> NativeStackProfile:
         glibc=_glibc(data["glibc"], f"{path}.glibc"),
         libstdcxx=_libstdcxx(data["libstdcxx"], f"{path}.libstdcxx"),
         abi=_abi(data["abi"], f"{path}.abi"),
+        heap_calibration=_heap_calibration(
+            data["heap_calibration"], f"{path}.heap_calibration",
+        ),
         payload=_payload(data["payload"], f"{path}.payload"),
     )
     if result.application.max_library_path_bytes > result.payload.path_field_bytes:

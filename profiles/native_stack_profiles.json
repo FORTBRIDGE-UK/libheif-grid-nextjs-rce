@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
   "profiles": {
     "node-25.8.1-sharp-0.34.4-linux-x64": {
@@ -102,13 +102,26 @@
           "cr_channel": 2
         }
       },
+      "heap_calibration": {
+        "minimum_observations": 1,
+        "anchor_rank": 0,
+        "anchor_alignment": "0x1000",
+        "arena_alignment": "0x4000000",
+        "arena_sentinel_offset": "0x98",
+        "record_chunk_size_and_flags": "0x71",
+        "anchor_peer_delta": "0x4c0",
+        "related_pointer_delta_min": "0x60000",
+        "related_pointer_delta_max": "0x70000",
+        "libvips_record_offsets": ["0x33cd0f", "0x33de99", "0x1b8480"],
+        "record_marker": "0x5b5b5b5b00000000",
+        "fake_node_delta_from_anchor_page": "-0x690"
+      },
       "payload": {
         "tile_width": 116,
         "tile_height": 33,
         "grid_rows": 4,
         "grid_columns": 1,
         "canvas_stride": 64,
-        "fake_node_low16": "0x5970",
         "fake_node_local_row": 1,
         "path_field_bytes": 16,
         "write_target_backoff": 16,

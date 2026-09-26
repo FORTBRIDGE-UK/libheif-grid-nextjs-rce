@@ -84,6 +84,8 @@ def run_lifetime(args: argparse.Namespace, lifetime: int,
             str(args.manifest),
             "--json-output",
             str(result_path),
+            "--leak-attempts",
+            str(args.leak_attempts),
             "--concise",
         ]
         if args.profile:
@@ -129,7 +131,7 @@ def main() -> int:
     )
     parser.add_argument("--lifetimes", type=int, default=10)
     parser.add_argument("--port", type=int, default=3215)
-    parser.add_argument("--callback-port", type=int, default=34000)
+    parser.add_argument("--callback-port", type=int, default=30000)
     parser.add_argument("--node", type=Path, default=DEFAULT_NODE)
     parser.add_argument(
         "--manifest", type=Path,
@@ -137,16 +139,19 @@ def main() -> int:
     )
     parser.add_argument("--profile")
     parser.add_argument("--exploit-timeout", type=float, default=90)
+    parser.add_argument("--leak-attempts", type=int, default=64)
     parser.add_argument(
         "--output", type=Path,
-        default=HERE / "evidence/profile-classifier-rce-10x.json",
+        default=HERE / "evidence/heap-calibrated-rce-10x.json",
     )
     args = parser.parse_args()
     if args.lifetimes < 1:
         parser.error("--lifetimes must be positive")
+    if args.leak_attempts < 1:
+        parser.error("--leak-attempts must be positive")
 
     results: list[dict[str, object]] = []
-    with tempfile.TemporaryDirectory(prefix="kan2157-cohort-") as directory:
+    with tempfile.TemporaryDirectory(prefix="kan2158-cohort-") as directory:
         temporary = Path(directory)
         for lifetime in range(1, args.lifetimes + 1):
             print(f"[cohort {lifetime}/{args.lifetimes}] starting fresh server")
