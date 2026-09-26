@@ -203,6 +203,65 @@ class ProfileClassifierTests(unittest.TestCase):
         self.assertEqual(result["status"], "ambiguous")
         self.assertEqual(result["supported_pair_count"], 2)
 
+    def test_stack_discriminator_selects_one_shared_libvips_build(self) -> None:
+        core = self.current.libvips.leak.anchors
+        ubuntu_marker = LeakAnchorProfile(0x3100000, 1)
+        debian_marker = LeakAnchorProfile(0x3200000, 1)
+        ubuntu = replace(
+            self.current,
+            profile_id="ubuntu-stack",
+            libvips=replace(
+                self.current.libvips,
+                leak=replace(
+                    self.current.libvips.leak,
+                    anchors=core + (ubuntu_marker,),
+                    required_anchors=len(core) + 1,
+                ),
+            ),
+        )
+        debian = replace(
+            ubuntu,
+            profile_id="debian-stack",
+            libvips=replace(
+                ubuntu.libvips,
+                leak=replace(
+                    ubuntu.libvips.leak,
+                    anchors=core + (debian_marker,),
+                ),
+            ),
+        )
+        response = alpha_response([
+            (index * 8, self.base + anchor.offset)
+            for index, anchor in enumerate(core + (debian_marker,))
+        ])
+        result = classify_libvips_profiles(response, [ubuntu, debian])
+        self.assertEqual(result["status"], "selected")
+        self.assertEqual(result["selected_profile_id"], "debian-stack")
+        self.assertEqual(result["selected_base"], hex(self.base))
+
+    def test_shared_build_without_stack_discriminator_fails_closed(self) -> None:
+        core = self.current.libvips.leak.anchors
+        profiles = []
+        for profile_id, marker in (
+            ("ubuntu-stack", 0x3100000),
+            ("debian-stack", 0x3200000),
+        ):
+            profiles.append(replace(
+                self.current,
+                profile_id=profile_id,
+                libvips=replace(
+                    self.current.libvips,
+                    leak=replace(
+                        self.current.libvips.leak,
+                        anchors=core + (LeakAnchorProfile(marker, 1),),
+                        required_anchors=len(core) + 1,
+                    ),
+                ),
+            ))
+        result = classify_libvips_profiles(self.current_response(), profiles)
+        self.assertEqual(result["status"], "no_match")
+        self.assertIsNone(result["selected_profile_id"])
+
     def test_unknown_build_data_returns_no_match(self) -> None:
         response = alpha_response([
             (0, self.base + 0x111110),

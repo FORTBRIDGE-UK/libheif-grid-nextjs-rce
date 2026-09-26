@@ -1,0 +1,10 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.so
+evidence
+lab/.next
+lab/node_modules
+lab/uploads
+result*.json

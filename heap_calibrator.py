@@ -159,7 +159,10 @@ def _match_pie_tail_record(
         < calibration.anchor_page_offset_max
     ):
         return None
-    if anchor_page & 0xFFFF != calibration.anchor_page_low16:
+    if (
+        calibration.selector_strategy == "profile_page_lane"
+        and anchor_page & 0xFFFF != calibration.anchor_page_low16
+    ):
         return None
     return _record_result(
         position=position,

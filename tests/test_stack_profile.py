@@ -304,6 +304,7 @@ class ProfileLoaderTests(unittest.TestCase):
 
     def test_pie_manifest_is_strict_and_exact(self) -> None:
         path = DEFAULT_MANIFEST.with_name("native_stack_profiles_pie.json")
+        manifest = load_manifest(path)
         profile = load_profile(manifest_path=path)
         self.assertEqual(profile.node.elf_type, "ET_DYN")
         self.assertEqual(profile.heap_calibration.record_variant, "pie_tail")
@@ -313,6 +314,23 @@ class ProfileLoaderTests(unittest.TestCase):
         )
         self.assertEqual(profile.heap_calibration.anchor_page_low16, 0x6000)
         self.assertEqual(profile.heap_calibration.scan_start, 0xE0000)
+        debian = manifest.profiles[
+            "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64"
+        ]
+        self.assertEqual(debian.node.version, "20.19.2")
+        self.assertEqual(debian.glibc.version, "2.41-12+deb13u4")
+        self.assertEqual(
+            debian.heap_calibration.fake_node_delta_from_anchor_page,
+            -0x3A0,
+        )
+
+    def test_incomplete_debian_pie_profile_is_rejected(self) -> None:
+        path = DEFAULT_MANIFEST.with_name("native_stack_profiles_pie.json")
+        document = json.loads(path.read_text(encoding="utf-8"))
+        profile_id = "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64"
+        del document["profiles"][profile_id]["glibc"]["build_id"]
+        with self.assertRaisesRegex(ProfileError, "missing keys: build_id"):
+            load_manifest(self.write_manifest(document))
 
     def test_unknown_heap_record_variant_is_rejected(self) -> None:
         path = self.mutate(

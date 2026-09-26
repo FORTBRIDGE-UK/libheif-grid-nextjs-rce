@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import hashlib
 import io
 from pathlib import Path
@@ -224,6 +225,25 @@ class PieTailHeapCalibratorTests(unittest.TestCase):
         result = self.analyze(self.anchor, self.anchor + 0x10000)
         self.assertEqual(result["match_count"], 2)
         self.assertEqual(result["candidate_selectors"], ["0x5970"])
+
+    def test_response_record_strategy_accepts_runtime_page_lane(self) -> None:
+        dynamic = replace(
+            self.profile,
+            heap_calibration=replace(
+                self.profile.heap_calibration,
+                selector_strategy="response_record",
+                anchor_page_low16=0,
+            ),
+        )
+        anchor = ARENA_BASE + 0x4FCE20
+        result = analyze_heap_calibration(
+            pie_response_with_records(anchor),
+            dynamic,
+            LIBVIPS_BASE,
+        )
+        self.assertEqual(result["record_candidate_selectors"], ["0xb970"])
+        self.assertEqual(result["candidate_selectors"], ["0xb970"])
+        self.assertEqual(result["selector_source"], "returned_record")
 
 
 if __name__ == "__main__":

