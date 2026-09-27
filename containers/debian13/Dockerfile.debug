@@ -1,0 +1,11 @@
+ARG TARGET_IMAGE=fortbridge/libheif-grid-nextjs-rce:debian13
+FROM ${TARGET_IMAGE}
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends binutils gdb python3-minimal \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY tools/gdb/partial_pointer_profile.py /opt/libheif-grid/partial_pointer_profile.py
+
+ENTRYPOINT ["gdb", "-q", "--batch", "-ex", "set confirm off", "-ex", "set pagination off", "-ex", "set print thread-events off", "-ex", "set disable-randomization off", "-ex", "handle SIGPIPE nostop noprint pass", "-ex", "source /opt/libheif-grid/partial_pointer_profile.py", "-ex", "run", "--args"]
+CMD ["node", "node_modules/next/dist/bin/next", "start", "-p", "3217"]

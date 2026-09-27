@@ -1,0 +1,2114 @@
+{
+  "lifetimes": 10,
+  "successes": 10,
+  "success_rate": 1.0,
+  "results": [
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39385,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7f980c000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7f980c000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7f980eabf020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7f980eabf020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7f980eabf020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 98401,
+          "pointer_qwords": 5653,
+          "dominant_64m_granule": "0x7f9804000000",
+          "dominant_hits": 3154,
+          "arena_base": "0x7f9804000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 138,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7f9804000000",
+              "hits": 138
+            }
+          ],
+          "libvips_base": "0x7f9820c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7f9820c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7f9821865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f9803e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f9803e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2060",
+              "value": "0x7f98040110d0"
+            },
+            {
+              "offset": "0x2070",
+              "value": "0x7f9804010d00"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7f9804011090"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7f98040110b0"
+            },
+            {
+              "offset": "0x20f0",
+              "value": "0x7f9804011070"
+            },
+            {
+              "offset": "0x2110",
+              "value": "0x7f9804010ce0"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7f9820dc3120"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7f9820dbe1b0"
+            },
+            {
+              "offset": "0x2148",
+              "value": "0x7f9820dc3130"
+            },
+            {
+              "offset": "0x2150",
+              "value": "0x7f9804012900"
+            },
+            {
+              "offset": "0x2178",
+              "value": "0x7f98040150b0"
+            },
+            {
+              "offset": "0x2180",
+              "value": "0x7f9804015240"
+            },
+            {
+              "offset": "0x2198",
+              "value": "0x7f9804014fb0"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7f981c0eb750"
+            },
+            {
+              "offset": "0x21b8",
+              "value": "0x7f981c0eb110"
+            },
+            {
+              "offset": "0x2220",
+              "value": "0x7f9804011370"
+            },
+            {
+              "offset": "0x2228",
+              "value": "0x7f98040112e0"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7f9804011400"
+            },
+            {
+              "offset": "0x2238",
+              "value": "0x7f9820f3cd0f"
+            },
+            {
+              "offset": "0x2240",
+              "value": "0x7f9820f3de99"
+            },
+            {
+              "offset": "0x2258",
+              "value": "0x7f9820db8480"
+            },
+            {
+              "offset": "0x2280",
+              "value": "0x7f9804010b50"
+            },
+            {
+              "offset": "0x22b0",
+              "value": "0x7f98040115c0"
+            },
+            {
+              "offset": "0x22b8",
+              "value": "0x7f98040121a0"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7f9820c00000",
+      "memcpy_got": "0x7f9821b83098",
+      "write_target": "0x7f9821b83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 1
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39382,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7f3e54000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7f3e54000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7f3e572c0020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7f3e572c0020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7f3e572c0020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 97524,
+          "pointer_qwords": 5879,
+          "dominant_64m_granule": "0x7f3e50000000",
+          "dominant_hits": 3422,
+          "arena_base": "0x7f3e50000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 121,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7f3e50000000",
+              "hits": 121
+            }
+          ],
+          "libvips_base": "0x7f3e71400000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7f3e71400000",
+              "hits": 3
+            },
+            {
+              "base": "0x7f3e72065000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f3e4fe57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f3e4fe66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7f3e5000e840"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7f3e50507e50"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7f3e50001040"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7f3e60006840"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7f3e5050c4c8"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7f3e500156a0"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7f3e640828f0"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7f3e50129270"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7f3e50012620"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7f3e5055f9b0"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7f3e506ce1f0"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7f3e7173cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7f3e7173de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7f3e715b8480"
+            },
+            {
+              "offset": "0x21b0",
+              "value": "0x7f3e50000b80"
+            },
+            {
+              "offset": "0x21e8",
+              "value": "0x7f3e00000004"
+            },
+            {
+              "offset": "0x21f0",
+              "value": "0x7f3e50011530"
+            },
+            {
+              "offset": "0x21f8",
+              "value": "0x7f3e50011530"
+            },
+            {
+              "offset": "0x2200",
+              "value": "0x7f3e50011530"
+            },
+            {
+              "offset": "0x2228",
+              "value": "0x7f3e5001c2b0"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7f3e50129230"
+            },
+            {
+              "offset": "0x2270",
+              "value": "0x7f3e500010a0"
+            },
+            {
+              "offset": "0x22a0",
+              "value": "0x7f3e50000c20"
+            },
+            {
+              "offset": "0x22a8",
+              "value": "0x7f3e60072130"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7f3e71400000",
+      "memcpy_got": "0x7f3e72383098",
+      "write_target": "0x7f3e72383088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 2
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39383,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7fb820000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7fb820000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7fb823ac1020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7fb823ac1020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7fb823ac1020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 95441,
+          "pointer_qwords": 5358,
+          "dominant_64m_granule": "0x7fb810000000",
+          "dominant_hits": 2996,
+          "arena_base": "0x7fb810000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 87,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7fb810000000",
+              "hits": 87
+            }
+          ],
+          "libvips_base": "0x7fb829c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7fb829c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7fb82a865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fb80fe57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fb80fe66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7fb810005a00"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7fb81001a020"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7fb81001a060"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7fb814012ef0"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7fb810007f48"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7fb810007d10"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7fb824072530"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7fb81000c5e0"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7fb810001410"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7fb810015830"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7fb81000a250"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7fb829f3cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7fb829f3de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7fb829db8480"
+            },
+            {
+              "offset": "0x2180",
+              "value": "0x7fb81055fc90"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7fb810000098"
+            },
+            {
+              "offset": "0x21c0",
+              "value": "0x7fb81055fc90"
+            },
+            {
+              "offset": "0x21f8",
+              "value": "0x7fb810000db0"
+            },
+            {
+              "offset": "0x2238",
+              "value": "0x7fb8100157f0"
+            },
+            {
+              "offset": "0x2240",
+              "value": "0x7fb8101291b0"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7463656a626f"
+            },
+            {
+              "offset": "0x2268",
+              "value": "0x7fb810000048"
+            },
+            {
+              "offset": "0x42d0",
+              "value": "0x7fb810104730"
+            },
+            {
+              "offset": "0x42e0",
+              "value": "0x7fb810007c60"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7fb829c00000",
+      "memcpy_got": "0x7fb82ab83098",
+      "write_target": "0x7fb82ab83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 3
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39383,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7fbe1c000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7fbe1c000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7fbe1fac1020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7fbe1fac1020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7fbe1fac1020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 96219,
+          "pointer_qwords": 5734,
+          "dominant_64m_granule": "0x7fbe18000000",
+          "dominant_hits": 3295,
+          "arena_base": "0x7fbe18000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 117,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7fbe18000000",
+              "hits": 117
+            }
+          ],
+          "libvips_base": "0x7fbe35c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7fbe35c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7fbe36865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fbe17e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fbe17e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2020",
+              "value": "0x7fb9e3e1b5cc"
+            },
+            {
+              "offset": "0x2030",
+              "value": "0x7fbe2c004040"
+            },
+            {
+              "offset": "0x2038",
+              "value": "0x7fbe2c004030"
+            },
+            {
+              "offset": "0x2040",
+              "value": "0x7fbe2c004120"
+            },
+            {
+              "offset": "0x2048",
+              "value": "0x7fbe2c004110"
+            },
+            {
+              "offset": "0x2090",
+              "value": "0x7fbe1800c500"
+            },
+            {
+              "offset": "0x2098",
+              "value": "0x7fbe18119530"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7fbe18119550"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7fbe2c0077f0"
+            },
+            {
+              "offset": "0x20e0",
+              "value": "0x7fbe18507e88"
+            },
+            {
+              "offset": "0x20f0",
+              "value": "0x7fbe1800e790"
+            },
+            {
+              "offset": "0x20f8",
+              "value": "0x7fbe3c166dd0"
+            },
+            {
+              "offset": "0x2108",
+              "value": "0x7fbe1801c320"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7fbe186b29d0"
+            },
+            {
+              "offset": "0x2148",
+              "value": "0x7fbe18012620"
+            },
+            {
+              "offset": "0x2150",
+              "value": "0x7fbe18019f90"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7fbe35f3cd0f"
+            },
+            {
+              "offset": "0x2160",
+              "value": "0x7fbe35f3de99"
+            },
+            {
+              "offset": "0x2178",
+              "value": "0x7fbe35db8480"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7fbe18000c20"
+            },
+            {
+              "offset": "0x2208",
+              "value": "0x7fbe2c012e50"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7fbe18003848"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7fbe18000c20"
+            },
+            {
+              "offset": "0x2290",
+              "value": "0x7fbe18007d10"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7fbe35c00000",
+      "memcpy_got": "0x7fbe36b83098",
+      "write_target": "0x7fbe36b83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 4
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39383,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7ff608000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7ff608000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7ff60bac1020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7ff60bac1020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7ff60bac1020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 96967,
+          "pointer_qwords": 5515,
+          "dominant_64m_granule": "0x7ff60c000000",
+          "dominant_hits": 3008,
+          "arena_base": "0x7ff60c000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 180,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7ff60c000000",
+              "hits": 180
+            }
+          ],
+          "libvips_base": "0x7ff62a865000",
+          "libvips_signature_hits": 2,
+          "libvips_candidates": [
+            {
+              "base": "0x7ff62a865000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7ff60c11bd90"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7ff61c0077d0"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7ff61c0077f0"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7ff60cfe3e30"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7ff60d00e548"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7ff60c019dd0"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7ff614072060"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7ff60c11bee0"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7ff60d1cdaf0"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7ff60c118e70"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7ff60c0f4530"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7ff629f3cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7ff629f3de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7ff629db8480"
+            },
+            {
+              "offset": "0x2190",
+              "value": "0x7ff60c00a1a0"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7ff60c00e710"
+            },
+            {
+              "offset": "0x21c8",
+              "value": "0x7ff614072060"
+            },
+            {
+              "offset": "0x21d0",
+              "value": "0x7ff61c0149d0"
+            },
+            {
+              "offset": "0x21d8",
+              "value": "0x7ff6200076b0"
+            },
+            {
+              "offset": "0x2210",
+              "value": "0x7ff60d05fcb0"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7ff60d05fcb0"
+            },
+            {
+              "offset": "0x2268",
+              "value": "0x7ff600000008"
+            },
+            {
+              "offset": "0x2290",
+              "value": "0x7ff1f3619a67"
+            },
+            {
+              "offset": "0x22c0",
+              "value": "0x7ff60d005c40"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 96732,
+          "pointer_qwords": 5869,
+          "dominant_64m_granule": "0x7ff610000000",
+          "dominant_hits": 3422,
+          "arena_base": "0x7ff610000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 128,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7ff610000000",
+              "hits": 128
+            }
+          ],
+          "libvips_base": "0x7ff629c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7ff629c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7ff62a865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7ff60fe57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7ff60fe66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7ff61000e840"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7ff6106ce210"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7ff610507e50"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7ff6240040c0"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7ff61050c4c8"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7ff6100156a0"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7ff614082910"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7ff610129270"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7ff61055f9b0"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7ff61001c2f0"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7ff6104e5c70"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7ff629f3cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7ff629f3de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7ff629db8480"
+            },
+            {
+              "offset": "0x21b0",
+              "value": "0x7ff6100010a0"
+            },
+            {
+              "offset": "0x21e8",
+              "value": "0x7ff600000004"
+            },
+            {
+              "offset": "0x21f0",
+              "value": "0x7ff610011530"
+            },
+            {
+              "offset": "0x21f8",
+              "value": "0x7ff610011530"
+            },
+            {
+              "offset": "0x2200",
+              "value": "0x7ff610011530"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7ff610129230"
+            },
+            {
+              "offset": "0x2240",
+              "value": "0x7ff61001c370"
+            },
+            {
+              "offset": "0x2270",
+              "value": "0x7ff610000b80"
+            },
+            {
+              "offset": "0x22a0",
+              "value": "0x7ff610000c20"
+            },
+            {
+              "offset": "0x22a8",
+              "value": "0x7ff624156490"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7ff629c00000",
+      "memcpy_got": "0x7ff62ab83098",
+      "write_target": "0x7ff62ab83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 5
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39385,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7ff3e4000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7ff3e4000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7ff3e56bf020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7ff3e56bf020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7ff3e56bf020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 97746,
+          "pointer_qwords": 5883,
+          "dominant_64m_granule": "0x7ff3dc000000",
+          "dominant_hits": 3421,
+          "arena_base": "0x7ff3dc000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 119,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7ff3dc000000",
+              "hits": 119
+            }
+          ],
+          "libvips_base": "0x7ff3e6c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7ff3e6c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7ff3e7865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7ff3dbe57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7ff3dbe66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7ff3dc00e840"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7ff3dc6ce210"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7ff3dc507e50"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7ff3ec006bc0"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7ff3dc50c4c8"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7ff3dc0156a0"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7ff3e8082b10"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7ff3dc129270"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7ff3dc012620"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7ff3dc55f9b0"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7ff3dc4e5c70"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7ff3e6f3cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7ff3e6f3de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7ff3e6db8480"
+            },
+            {
+              "offset": "0x21b0",
+              "value": "0x7ff3dc000b80"
+            },
+            {
+              "offset": "0x21e8",
+              "value": "0x7ff300000004"
+            },
+            {
+              "offset": "0x21f0",
+              "value": "0x7ff3dc011530"
+            },
+            {
+              "offset": "0x21f8",
+              "value": "0x7ff3dc011530"
+            },
+            {
+              "offset": "0x2200",
+              "value": "0x7ff3dc011530"
+            },
+            {
+              "offset": "0x2220",
+              "value": "0x7ff3dc01c2b0"
+            },
+            {
+              "offset": "0x2240",
+              "value": "0x7ff3dc129230"
+            },
+            {
+              "offset": "0x2270",
+              "value": "0x7ff3dc0010a0"
+            },
+            {
+              "offset": "0x22a0",
+              "value": "0x7ff3dc000c20"
+            },
+            {
+              "offset": "0x22a8",
+              "value": "0x7ff3ec071ec0"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7ff3e6c00000",
+      "memcpy_got": "0x7ff3e7b83098",
+      "write_target": "0x7ff3e7b83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 6
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39384,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7f62c4000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7f62c4000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7f62c7ac1020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7f62c7ac1020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7f62c7ac1020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 97219,
+          "pointer_qwords": 5905,
+          "dominant_64m_granule": "0x7f62b4000000",
+          "dominant_hits": 3439,
+          "arena_base": "0x7f62b4000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 127,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7f62b4000000",
+              "hits": 127
+            }
+          ],
+          "libvips_base": "0x7f62cdc00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7f62cdc00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7f62ce865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f62b3e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f62b3e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2020",
+              "value": "0x7f654247782c"
+            },
+            {
+              "offset": "0x2040",
+              "value": "0x7f62b4000058"
+            },
+            {
+              "offset": "0x2048",
+              "value": "0x7f62b4028e80"
+            },
+            {
+              "offset": "0x2090",
+              "value": "0x7f62b400c500"
+            },
+            {
+              "offset": "0x2098",
+              "value": "0x7f62b4005b60"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7f62b4119530"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7f62c80075b0"
+            },
+            {
+              "offset": "0x20e0",
+              "value": "0x7f62b41292c8"
+            },
+            {
+              "offset": "0x20f0",
+              "value": "0x7f62b400e790"
+            },
+            {
+              "offset": "0x20f8",
+              "value": "0x7f62d4166c70"
+            },
+            {
+              "offset": "0x2108",
+              "value": "0x7f62b401c320"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7f62b46b29d0"
+            },
+            {
+              "offset": "0x2148",
+              "value": "0x7f62b4001550"
+            },
+            {
+              "offset": "0x2150",
+              "value": "0x7f62b4019f90"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7f62cdf3cd0f"
+            },
+            {
+              "offset": "0x2160",
+              "value": "0x7f62cdf3de99"
+            },
+            {
+              "offset": "0x2178",
+              "value": "0x7f62cddb8480"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7f62b4000c20"
+            },
+            {
+              "offset": "0x2208",
+              "value": "0x7f62c8012f50"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7f62b4017d48"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7f62b4000c20"
+            },
+            {
+              "offset": "0x2290",
+              "value": "0x7f62b4007d10"
+            },
+            {
+              "offset": "0x22b0",
+              "value": "0x7463656a626f"
+            },
+            {
+              "offset": "0x22e0",
+              "value": "0x7f62b4104730"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7f62cdc00000",
+      "memcpy_got": "0x7f62ceb83098",
+      "write_target": "0x7f62ceb83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 7
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39385,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7fec5c000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7fec5c000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7fec5eabf020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7fec5eabf020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7fec5eabf020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 97851,
+          "pointer_qwords": 5908,
+          "dominant_64m_granule": "0x7fec54000000",
+          "dominant_hits": 3444,
+          "arena_base": "0x7fec54000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 118,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7fec54000000",
+              "hits": 118
+            }
+          ],
+          "libvips_base": "0x7fec70c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7fec70c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7fec71865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fec53e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fec53e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2020",
+              "value": "0x7febaaa977cc"
+            },
+            {
+              "offset": "0x2040",
+              "value": "0x7fec54000058"
+            },
+            {
+              "offset": "0x2048",
+              "value": "0x7fec54028e80"
+            },
+            {
+              "offset": "0x2090",
+              "value": "0x7fec5400c500"
+            },
+            {
+              "offset": "0x2098",
+              "value": "0x7fec54005b60"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7fec54119530"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7fec64007f00"
+            },
+            {
+              "offset": "0x20e0",
+              "value": "0x7fec541292c8"
+            },
+            {
+              "offset": "0x20f0",
+              "value": "0x7fec5400e790"
+            },
+            {
+              "offset": "0x20f8",
+              "value": "0x7fec6c166fd0"
+            },
+            {
+              "offset": "0x2108",
+              "value": "0x7fec5401c320"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7fec546b29d0"
+            },
+            {
+              "offset": "0x2148",
+              "value": "0x7fec54001550"
+            },
+            {
+              "offset": "0x2150",
+              "value": "0x7fec54019f90"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7fec70f3cd0f"
+            },
+            {
+              "offset": "0x2160",
+              "value": "0x7fec70f3de99"
+            },
+            {
+              "offset": "0x2178",
+              "value": "0x7fec70db8480"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7fec54000c20"
+            },
+            {
+              "offset": "0x2208",
+              "value": "0x7fec64012f90"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7fec5400c708"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7fec54000c20"
+            },
+            {
+              "offset": "0x2290",
+              "value": "0x7fec54007d10"
+            },
+            {
+              "offset": "0x22b0",
+              "value": "0x7463656a626f"
+            },
+            {
+              "offset": "0x22f8",
+              "value": "0x7fec70fd4de2"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7fec70c00000",
+      "memcpy_got": "0x7fec71b83098",
+      "write_target": "0x7fec71b83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 8
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39385,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7fdcd0000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7fdcd0000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7fdcd16bf020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7fdcd16bf020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7fdcd16bf020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 97602,
+          "pointer_qwords": 5897,
+          "dominant_64m_granule": "0x7fdcb4000000",
+          "dominant_hits": 3437,
+          "arena_base": "0x7fdcb4000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 117,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7fdcb4000000",
+              "hits": 117
+            }
+          ],
+          "libvips_base": "0x7fdcd2c00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7fdcd2c00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7fdcd3865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fdcb3e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7fdcb3e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2020",
+              "value": "0x7fdb49a7782c"
+            },
+            {
+              "offset": "0x2040",
+              "value": "0x7fdcb4000058"
+            },
+            {
+              "offset": "0x2048",
+              "value": "0x7fdcb4028e80"
+            },
+            {
+              "offset": "0x2090",
+              "value": "0x7fdcb400c500"
+            },
+            {
+              "offset": "0x2098",
+              "value": "0x7fdcb4005b60"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7fdcb4119530"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7fdcc4007f00"
+            },
+            {
+              "offset": "0x20e0",
+              "value": "0x7fdcb41292c8"
+            },
+            {
+              "offset": "0x20f0",
+              "value": "0x7fdcb400e790"
+            },
+            {
+              "offset": "0x20f8",
+              "value": "0x7fdcc80828f0"
+            },
+            {
+              "offset": "0x2108",
+              "value": "0x7fdcb401c320"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7fdcb46b29d0"
+            },
+            {
+              "offset": "0x2148",
+              "value": "0x7fdcb4012620"
+            },
+            {
+              "offset": "0x2150",
+              "value": "0x7fdcb4019f90"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7fdcd2f3cd0f"
+            },
+            {
+              "offset": "0x2160",
+              "value": "0x7fdcd2f3de99"
+            },
+            {
+              "offset": "0x2178",
+              "value": "0x7fdcd2db8480"
+            },
+            {
+              "offset": "0x21a0",
+              "value": "0x7fdcb4000c20"
+            },
+            {
+              "offset": "0x2208",
+              "value": "0x7fdcc4012f50"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7fdcb4003848"
+            },
+            {
+              "offset": "0x2260",
+              "value": "0x7fdcb4000c20"
+            },
+            {
+              "offset": "0x2290",
+              "value": "0x7fdcb4007d10"
+            },
+            {
+              "offset": "0x22b0",
+              "value": "0x7463656a626f"
+            },
+            {
+              "offset": "0x22e0",
+              "value": "0x7fdcb4009fb0"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7fdcd2c00000",
+      "memcpy_got": "0x7fdcd3b83098",
+      "write_target": "0x7fdcd3b83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 9
+    },
+    {
+      "callback": {
+        "peer": "127.0.0.1",
+        "data": "FORTBRIDGE_RCE_CALLBACK\n"
+      },
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39385,
+          "pointer_qwords": 3,
+          "dominant_64m_granule": "0x7f4d44000000",
+          "dominant_hits": 3,
+          "arena_base": "0x7f4d44000000",
+          "arena_base_via": "dominant-64m-granule",
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [
+            {
+              "offset": "0x2000",
+              "value": "0x7f4d46abf020"
+            },
+            {
+              "offset": "0x2008",
+              "value": "0x7f4d46abf020"
+            },
+            {
+              "offset": "0x2010",
+              "value": "0x7f4d46abf020"
+            }
+          ],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 39360,
+          "pointer_qwords": 0,
+          "dominant_64m_granule": null,
+          "dominant_hits": 0,
+          "arena_base": null,
+          "arena_base_via": null,
+          "sentinel_hits": 0,
+          "sentinel_candidates": [],
+          "libvips_base": null,
+          "libvips_signature_hits": 0,
+          "libvips_candidates": [],
+          "first_pointers": [],
+          "http_status": 200
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "png_bytes": 96636,
+          "pointer_qwords": 5879,
+          "dominant_64m_granule": "0x7f4d34000000",
+          "dominant_hits": 3425,
+          "arena_base": "0x7f4d34000000",
+          "arena_base_via": "unsorted-bin-sentinel",
+          "sentinel_hits": 128,
+          "sentinel_candidates": [
+            {
+              "arena": "0x7f4d34000000",
+              "hits": 128
+            }
+          ],
+          "libvips_base": "0x7f4d4cc00000",
+          "libvips_signature_hits": 3,
+          "libvips_candidates": [
+            {
+              "base": "0x7f4d4cc00000",
+              "hits": 3
+            },
+            {
+              "base": "0x7f4d4d865000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f4d33e57000",
+              "hits": 2
+            },
+            {
+              "base": "0x7f4d33e66000",
+              "hits": 2
+            }
+          ],
+          "first_pointers": [
+            {
+              "offset": "0x2070",
+              "value": "0x7f4d3400e840"
+            },
+            {
+              "offset": "0x2078",
+              "value": "0x7f4d34507e50"
+            },
+            {
+              "offset": "0x2080",
+              "value": "0x7f4d34001040"
+            },
+            {
+              "offset": "0x20a0",
+              "value": "0x7f4d540eb110"
+            },
+            {
+              "offset": "0x20c0",
+              "value": "0x7f4d3450c4c8"
+            },
+            {
+              "offset": "0x20d0",
+              "value": "0x7f4d340156a0"
+            },
+            {
+              "offset": "0x20d8",
+              "value": "0x7f4d38082890"
+            },
+            {
+              "offset": "0x20e8",
+              "value": "0x7f4d34129270"
+            },
+            {
+              "offset": "0x2120",
+              "value": "0x7f4d34012620"
+            },
+            {
+              "offset": "0x2128",
+              "value": "0x7f4d3455f9b0"
+            },
+            {
+              "offset": "0x2130",
+              "value": "0x7f4d346ce1f0"
+            },
+            {
+              "offset": "0x2138",
+              "value": "0x7f4d4cf3cd0f"
+            },
+            {
+              "offset": "0x2140",
+              "value": "0x7f4d4cf3de99"
+            },
+            {
+              "offset": "0x2158",
+              "value": "0x7f4d4cdb8480"
+            },
+            {
+              "offset": "0x21b0",
+              "value": "0x7f4d340010a0"
+            },
+            {
+              "offset": "0x21e8",
+              "value": "0x7f4d00000004"
+            },
+            {
+              "offset": "0x21f0",
+              "value": "0x7f4d34011530"
+            },
+            {
+              "offset": "0x21f8",
+              "value": "0x7f4d34011530"
+            },
+            {
+              "offset": "0x2200",
+              "value": "0x7f4d34011530"
+            },
+            {
+              "offset": "0x2210",
+              "value": "0x7f4d34129230"
+            },
+            {
+              "offset": "0x2230",
+              "value": "0x7f4d3401c370"
+            },
+            {
+              "offset": "0x2270",
+              "value": "0x7f4d34000b80"
+            },
+            {
+              "offset": "0x22a0",
+              "value": "0x7f4d34000c20"
+            },
+            {
+              "offset": "0x22a8",
+              "value": "0x7f4d54156510"
+            }
+          ],
+          "http_status": 200
+        }
+      ],
+      "libvips_base": "0x7f4d4cc00000",
+      "memcpy_got": "0x7f4d4db83098",
+      "write_target": "0x7f4d4db83088",
+      "fake_low16": "0x5970",
+      "optimize": {
+        "error": "RemoteDisconnected('Remote end closed connection without response')"
+      },
+      "server_exit": -11,
+      "lifetime": 10
+    }
+  ]
+}

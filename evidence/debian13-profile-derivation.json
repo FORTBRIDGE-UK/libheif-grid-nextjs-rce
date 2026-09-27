@@ -1,0 +1,90 @@
+{
+  "profile_label": "Debian 13 APT profile",
+  "profile_id": "debian13-node-20.19.2-pie-sharp-0.34.4-linux-x64",
+  "target": {
+    "base_image": "debian:13-slim@sha256:a99cfc517144bc59b1978475ec53b46ecabec7e43635402ee5b77cc54cd1b20a",
+    "image": "fortbridge/libheif-grid-nextjs-rce:debian13",
+    "image_id": "sha256:6430df3dc08728b5bbecfebb775acb205a5e4e1484ab0582775ecfbed0cee00e",
+    "node_package": "20.19.2+dfsg-1+deb13u3",
+    "npm_build_only_package": "9.2.0~ds1-3",
+    "glibc_package": "2.41-12+deb13u4",
+    "libstdcxx_package": "14.2.0-19"
+  },
+  "artifacts": {
+    "node": {
+      "path": "/usr/bin/node",
+      "elf_type": "ET_DYN",
+      "build_id": "339440d6f33368ed4fb57f3c214d62163e2201c4",
+      "sha256": "ca0728526aa1cc4e3056decec848ecc6d2c5391cecdd4e21a0ebd221d665c84e"
+    },
+    "libnode": {
+      "path": "/usr/lib/x86_64-linux-gnu/libnode.so.115",
+      "build_id": "06cb0756bc1702237031b96b2073be5a04927aae",
+      "sha256": "39d691d5925c7c3854750b552b10c2a7da0d0bc9b3de10c2a0bb7ce48e68e6d5"
+    },
+    "libc": {
+      "build_id": "5e5b51f4c39af9ac589408c1dc432ba390a273cc",
+      "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92"
+    },
+    "libstdcxx": {
+      "filename": "libstdc++.so.6.0.33",
+      "build_id": "133b71e0013695cc7832680a74edb51008c4fc4c",
+      "sha256": "972bb2a18b71140dab0240f8a1f68ab3fb1d56bcd4c4f824a91b70888faf5a00"
+    },
+    "libvips": {
+      "version": "8.17.2",
+      "build_id": "2c8b33114a735268d2211ca2003bc4a327b81411",
+      "sha256": "633fb29f22eecf615553de6d98b7a9eafa06e6d2a26907cafeb54cfa3deaa943"
+    },
+    "libheif_version": "1.20.2"
+  },
+  "application": {
+    "next_version": "15.5.23",
+    "sharp_version": "0.34.4",
+    "upload_route_smoke_test": "passed",
+    "optimise_route_smoke_test": "passed",
+    "optimise_result": "128x8192 PNG"
+  },
+  "diagnostic_derivation": {
+    "image": "fortbridge/libheif-grid-nextjs-rce:debian13-debug",
+    "acceptance_image_unchanged": true,
+    "aslr_enabled": true,
+    "lifetimes": 5,
+    "fake_node_low16": ["0x5c60", "0x5c60", "0x5c60", "0x5c60", "0x5c60"],
+    "anchor_page_low16": ["0x6000", "0x6000", "0x6000", "0x6000", "0x6000"],
+    "fake_node_delta_from_anchor_page": ["-0x3a0", "-0x3a0", "-0x3a0", "-0x3a0", "-0x3a0"],
+    "successor_size_and_flags": ["0x75", "0x75", "0x75", "0x75", "0x75"],
+    "bad_row_low16": ["0x6020", "0x6020", "0x6020", "0x6020", "0x6020"],
+    "fake_node_from_bad_row": ["-0x3c0", "-0x3c0", "-0x3c0", "-0x3c0", "-0x3c0"],
+    "fake_node_from_plane": ["0xcc0", "0xcc0", "0xcc0", "0xcc0", "0xcc0"]
+  },
+  "offline_verification": {
+    "declared_artifacts_verified": 8,
+    "correct_profile_result": "accepted",
+    "ubuntu_profile_against_debian_node": "rejected: Node build ID mismatch"
+  },
+  "returned_pixel_discriminator_replay": {
+    "ubuntu_samples": 48,
+    "ubuntu_selected_correctly": 6,
+    "ubuntu_no_match": 42,
+    "debian_samples": 64,
+    "debian_selected_correctly": 25,
+    "debian_ambiguous": 1,
+    "debian_no_match": 38,
+    "wrong_selections": 0,
+    "behavior": "no-match and ambiguous responses are retried before payload creation"
+  },
+  "remote_acceptance": {
+    "profile_restriction": null,
+    "runtime_procfs_reads": false,
+    "ld_preload": false,
+    "target_environment_modified": false,
+    "uploaded_non_avif_objects": ["x.jpg (ELF shared library)"],
+    "validation_evidence": "debian13-apt-libvips-gmodule-rce-10x.json",
+    "successes": 10,
+    "lifetimes": 10,
+    "correct_profile_selections": 10,
+    "distinct_libvips_bases": 10,
+    "proof_command": "/usr/bin/id"
+  }
+}

